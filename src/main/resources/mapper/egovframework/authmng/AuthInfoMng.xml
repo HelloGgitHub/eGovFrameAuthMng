@@ -39,7 +39,7 @@
 			)
     </insert>
     
-    <update id="updateGrpInfo" parameterType="hashMap">
+    <update id="updateAuthInfo" parameterType="hashMap">
 			UPDATE COMTNAUTHORINFO
 			   SET CHANGE_DT = DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
 			    <if test='AUTHNM != null'> 	, AUTHOR_NM	= '${AUTHNM}' 	</if>
@@ -47,42 +47,16 @@
 			 WHERE AUTHOR_CODE           = '${AUTHCD}'
     </update>
     
-    <delete id="deleteGrpInfo" parameterType="hashMap">
-			DELETE FROM COMTN_GROUP_INFO
-			 WHERE GROUP_ID           = '${GROUP_ID}'
+    <delete id="deleteAuthInfo" parameterType="hashMap">
+			DELETE FROM COMTNAUTHORINFO
+			 WHERE AUTHOR_CODE           = '${AUTHCD}'
     </delete>
     
-    
-    <select id="selectGrpUsrList" parameterType="Map" resultType="hashMap">
-			SELECT GROUP_ID
-			     , USR_ID
-			     , ADD_DT
-			  FROM COMTN_GROUP_USR
-			 WHERE GROUP_ID = '${GRP_ID}'
-    </select>
-
-    <insert id="insertGrpUsr" parameterType="hashMap">
-			INSERT INTO COMTN_GROUP_USR (
-			  GROUP_ID
-			, USR_ID
-			, ADD_DT
-			) VALUES (
-			  #{GRP_ID}
-			, #{USR_ID}
-			, DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
-			)
-    </insert>
-     <select id="selectGrpUsrCk" parameterType="Map" resultType="int">
-			SELECT COUNT(*) as cnt
-			  FROM COMTN_GROUP_USR
-			 WHERE GROUP_ID = '${GRP_ID}'
-			   AND USR_ID = '${USR_ID}'
+    <select id="selectAuthInfoCnt" parameterType="Map" resultType="int">
+			SELECT COUNT(*) CNT
+			  FROM COMTNAUTHORINFO
+			 WHERE AUTHOR_CODE = '${AUTHCD}'
     </select>
     
-    <delete id="deleteGrpUsr" parameterType="hashMap">
-			DELETE FROM COMTN_GROUP_USR
-			 WHERE GROUP_ID           = '${GRP_ID}'
-			   AND USR_ID           = '${USR_ID}'
-    </delete>
     
 </mapper> 

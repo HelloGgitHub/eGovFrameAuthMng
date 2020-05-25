@@ -20,7 +20,7 @@ public class AuthInfoService {
         return mapper.selectAuthList();
     }
 	//권한상세정보 조회
-	public List<HashMap<Object, Object>> selectAuthDetail(Map<Object, Object> param) {
+	public HashMap<String, Object> selectAuthDetail(Map<Object, Object> param) {
         return mapper.selectAuthDetail(param);
     }
 	//권한 생성
@@ -35,24 +35,11 @@ public class AuthInfoService {
 	public int deleteAuthInfo(Map<Object, Object> param) {
         return mapper.deleteAuthInfo(param);
     }
+
+	//그룹정보 삭제
+	public int selectAuthInfoCnt(Map<Object, Object> param) {
+        return mapper.selectAuthInfoCnt(param);
+    }
 	
-	
-	
-	//그룹 사용자목록 조회
-	public List<HashMap<Object, Object>> selectGrpUsrList(Map<Object, Object> param) {
-        return mapper.selectGrpUsrList(param);
-    }
-	//그룹 사용자 추가
-	public int insertGrpUsr(Map<Object, Object> param) {
-        return mapper.insertGrpUsr(param);
-    }
-	//그룹 사용자 추가
-	public int selectGrpUsrCk(Map<Object, Object> param) {
-        return mapper.selectGrpUsrCk(param);
-    }
-	//그룹 사용자 삭제
-	public int deleteGrpUsr(Map<Object, Object> param) {
-        return mapper.deleteGrpUsr(param);
-    }
 
 }
