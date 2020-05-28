@@ -23,7 +23,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@Api(value = "AuthUserController", description = "권한 정보 관리 REST API")
+@Api(value = "AuthUserController", description = "권한 사용자 정보 관리 REST API")
 @RequestMapping("/auth")
 public class AuthUsrController {
 	
@@ -180,7 +180,7 @@ public class AuthUsrController {
 				rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
 			}else {
 				rtnMap.put("RESULTCD", "1");
-				rtnMap.put("RESULTMSG", "삭제할 권한이 없습니다.");
+				rtnMap.put("RESULTMSG", "삭제할 사용자가 없습니다.");
 			}
 		}catch(Exception e) {
 			e.getStackTrace();

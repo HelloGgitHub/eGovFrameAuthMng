@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.com.auth.dao.AuthGrpInfoDao">
+
+    <select id="selectAuthGrpList" resultType="hashMap">
+			SELECT AUTHOR_GRP_CODE
+				, AUTHOR_GRP_NM
+				, AUTHOR_GRP_DC
+				, AUTHOR_GRP_CREAT_DT
+				, CHANGE_DT
+			  FROM COMTNAUTHORGROUPINFO
+    </select>
+
+    
+    <select id="selectAuthGrpDetail"  parameterType="Map" resultType="hashMap">
+			SELECT AUTHOR_GRP_CODE
+				, AUTHOR_GRP_NM
+				, AUTHOR_GRP_DC
+				, AUTHOR_GRP_CREAT_DT
+				, CHANGE_DT
+			  FROM COMTNAUTHORGROUPINFO
+			 WHERE AUTHOR_GRP_CODE = '${AUTHGRPCD}'
+    </select>
+
+
+    <select id="selectAuthGrpInfoCnt" parameterType="Map" resultType="int">
+			SELECT COUNT(*) CNT
+			  FROM COMTNAUTHORGROUPINFO
+			 WHERE AUTHOR_GRP_CODE = '${AUTHGRPCD}'
+    </select>
+    
+    <insert id="insertAuthGrpInfo" parameterType="hashMap">
+			INSERT INTO COMTNAUTHORGROUPINFO (
+				  AUTHOR_GRP_CODE
+				, AUTHOR_GRP_NM
+				, AUTHOR_GRP_DC
+				, AUTHOR_GRP_CREAT_DT
+				, CHANGE_DT
+			) VALUES (
+				  #{AUTHGRPCD}
+				, #{AUTHGRPNM}
+				, #{AUTHGRPDC}
+				, DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+				, DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+			)
+    </insert>
+
+    
+    <update id="updateAuthGrpInfo" parameterType="hashMap">
+			UPDATE COMTNAUTHORGROUPINFO
+			   SET CHANGE_DT = DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+			    <if test='AUTHGRPNM != null'> 	, AUTHOR_GRP_NM	= '${AUTHGRPNM}' 	</if>
+			    <if test='AUTHGRPDC != null'> 	, AUTHOR_GRP_DC	= '${AUTHGRPDC}' 	</if>
+			 WHERE AUTHOR_GRP_CODE           = '${AUTHGRPCD}'
+    </update>
+
+    
+    <delete id="deleteAuthInfo" parameterType="hashMap">
+			DELETE FROM COMTNAUTHORGROUPINFO
+			 WHERE AUTHOR_GRP_CODE           = '${AUTHGRPCD}'
+    </delete>
+    
+
+
+
+
+
+
+
+
+    <select id="selectGrpAuthList"  parameterType="Map" resultType="hashMap">
+			SELECT AUTHOR_GRP_CODE 
+			     , AUTHOR_CODE 
+			     , ADD_DT 
+			  FROM COMTNAUTHORGROUPAUTH
+			 WHERE AUTHOR_GRP_CODE  = '${AUTHGRPCD}'
+    </select>
+
+
+	<select id="selectGrpAuthCnt" parameterType="Map" resultType="int">
+			SELECT COUNT(*) CNT
+			  FROM COMTNAUTHORGROUPAUTH
+			 WHERE AUTHOR_GRP_CODE  = '${AUTHGRPCD}'
+			     AND AUTHOR_CODE  = '${AUTHCD}'
+    </select>
+    <insert id="insertGrpAuth" parameterType="hashMap">
+			INSERT INTO COMTNAUTHORGROUPAUTH
+				( 	  AUTHOR_GRP_CODE
+					, AUTHOR_CODE 
+					, ADD_DT 
+				) VALUES (
+					 #{AUTHGRPCD}
+					, #{AUTHCD}
+					, DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+				)
+    </insert>
+
+
+    <delete id="deleteGrpAuth" parameterType="hashMap">
+			DELETE FROM COMTNAUTHORGROUPAUTH
+			 WHERE AUTHOR_GRP_CODE           = '${AUTHGRPCD}'
+			   AND AUTHOR_CODE  = '${AUTHCD}'
+    </delete>
+    
+</mapper> 
