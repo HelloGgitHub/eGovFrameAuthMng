@@ -66,8 +66,7 @@
 
 
 
-
-
+<!-- 권한 그룹 관리 -->
     <select id="selectGrpAuthList"  parameterType="Map" resultType="hashMap">
 			SELECT AUTHOR_GRP_CODE 
 			     , AUTHOR_CODE 
@@ -97,6 +96,54 @@
 
 
     <delete id="deleteGrpAuth" parameterType="hashMap">
+			DELETE FROM COMTNAUTHORGROUPAUTH
+			 WHERE AUTHOR_GRP_CODE           = '${AUTHGRPCD}'
+			   AND AUTHOR_CODE  = '${AUTHCD}'
+    </delete>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<!-- 권한 그룹 관리 -->
+    <select id="selectGrpAuthUsrList"  parameterType="Map" resultType="hashMap">
+			 SELECT USR_ID
+			  FROM COMTNAUTHORUSR
+			 WHERE AUTHOR_GRP_CODE =  '${AUTHGRPCD}'
+			 GROUP BY USR_ID
+    </select>
+
+
+	<update id="updateGrpAuthUsr" parameterType="hashMap">
+			UPDATE COMTNAUTHORUSR
+			   SET AUTHOR_GRP_CODE = '${AUTHGRPCD}'
+			     , ADD_DT = DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+			 WHERE USR_ID = '${USRID}'
+			   AND AUTHOR_CODE IN (SELECT AUTHOR_CODE 
+			                         FROM COMTNAUTHORGROUPAUTH
+			                        WHERE AUTHOR_GRP_CODE  = '${AUTHGRPCD}'
+			                      )
+    </update>
+    <insert id="insertGrpAuthUsr" parameterType="hashMap">
+			INSERT INTO COMTNAUTHORUSR
+			SELECT '${AUTHGRPCD}'
+			     , '${USRID}'
+			     , AUTHOR_CODE
+			     , DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+			  FROM COMTNAUTHORGROUPAUTH
+			 WHERE AUTHOR_CODE NOT IN (SELECT AUTHOR_CODE 
+			                             FROM COMTNAUTHORUSR
+			                            WHERE USR_ID  = '${USRID}'
+			                          )
+			   AND AUTHOR_GRP_CODE  = '${AUTHGRPCD}'
+    </insert>
+
+
+    <delete id="deleteGrpAuthUsr" parameterType="hashMap">
 			DELETE FROM COMTNAUTHORGROUPAUTH
 			 WHERE AUTHOR_GRP_CODE           = '${AUTHGRPCD}'
 			   AND AUTHOR_CODE  = '${AUTHCD}'

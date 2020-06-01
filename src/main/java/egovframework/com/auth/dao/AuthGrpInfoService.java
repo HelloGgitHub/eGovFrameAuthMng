@@ -68,4 +68,28 @@ public class AuthGrpInfoService {
         return mapper.deleteGrpAuth(param);
     }
 
+
+
+	
+	
+
+	//권한그룹 권한목록 조회
+	public List<HashMap<Object, Object>> selectGrpAuthUsrList(Map<Object, Object> param) {
+        return mapper.selectGrpAuthUsrList(param);
+    }
+	
+	//그룹권한 그룹 업데이트
+	public int updateGrpAuthUsr(Map<Object, Object> param) {
+        return mapper.updateGrpAuthUsr(param);
+    }
+	//그룹권한 그룹 등록
+	public int insertGrpAuthUsr(Map<Object, Object> param) {
+        return mapper.insertGrpAuthUsr(param);
+    }
+	
+	//그룹정보 삭제
+	public int deleteGrpAuthUsr(Map<Object, Object> param) {
+        return mapper.deleteGrpAuth(param);
+    }
+
 }

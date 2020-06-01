@@ -38,4 +38,18 @@ public interface AuthGrpInfoDao {
 	//그룹정보 삭제
 	int deleteGrpAuth(Map<Object, Object> param);
 	
+
+	
+	
+
+	//권한그룹 권한목록 조회
+	List<HashMap<Object, Object>> selectGrpAuthUsrList(Map<Object, Object> param);
+	
+	//권한그룹 권한 등록
+	int updateGrpAuthUsr(Map<Object, Object> param);
+	int insertGrpAuthUsr(Map<Object, Object> param);
+	
+	//그룹정보 삭제
+	int deleteGrpAuthUsr(Map<Object, Object> param);
+	
 }
