@@ -33,7 +33,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@Api(value = "AuthgrpinfoController", description = "권한그룹 정보 관리 RdddEST APddfffdddddddddddddddddI")
+@Api(value = "AuthgrpinfoController", description = "권한그룹 정보 관리 RdddEST APddfffdddddddddd   dddddddI")
 @RequestMapping("/authgrp")
 public class AuthGrpInfoController {
 	
