@@ -7,49 +7,41 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @title : 권한그룹 관리 Dao
+ * @package : egovframework.com.auth.dao
+ * @filename : AuthGrpInfoDao.java
+ * @author : "egov"
+ * @since : 2020. 6. 15.
+ * @version : 1.0
+ * @desc : 그룹권한을 관리 하는데 필요한 CRUD
+ * 
+ *  ======= 변경이력 =======
+ * 
+ * 날자                       변경자                  설명
+ * ----------         -------           ------------------------------------
+ * 2020. 6. 15.         "egov"           최초 생성(ver 1.0)
+ * 
+ */
 @Repository
 @Mapper
 public interface AuthGrpInfoDao {
 	
-	//권한목록 조회
 	List<HashMap<Object, Object>> selectAuthGrpList();
-	//권한정보 조회
 	HashMap<String, Object> selectAuthGrpDetail(Map<Object, Object> param);
-	
-	//권한그룹정보 등록
 	int selectAuthGrpInfoCnt(Map<Object, Object> param);
 	int insertAuthGrpInfo(Map<Object, Object> param);
-	
-	//그룹정보 변경
 	int updateAuthGrpInfo(Map<Object, Object> param);
-	//그룹정보 삭제
 	int deleteAuthGrpInfo(Map<Object, Object> param);
 
-	
-	
-
-	//권한그룹 권한목록 조회
 	List<HashMap<Object, Object>> selectGrpAuthList(Map<Object, Object> param);
-	
-	//권한그룹 권한 등록
 	int selectGrpAuthCnt(Map<Object, Object> param);
 	int insertGrpAuth(Map<Object, Object> param);
-	
-	//그룹정보 삭제
 	int deleteGrpAuth(Map<Object, Object> param);
-	
 
-	
-	
-
-	//권한그룹 권한목록 조회
 	List<HashMap<Object, Object>> selectGrpAuthUsrList(Map<Object, Object> param);
-	
-	//권한그룹 권한 등록
 	int updateGrpAuthUsr(Map<Object, Object> param);
 	int insertGrpAuthUsr(Map<Object, Object> param);
-	
-	//그룹정보 삭제
 	int deleteGrpAuthUsr(Map<Object, Object> param);
 	
 }

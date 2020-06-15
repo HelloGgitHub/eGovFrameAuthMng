@@ -1,10 +1,21 @@
 package egovframework.com.auth.dao;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
+/**
+ * @title : 그룹권한 관리 입출력 Vo
+ * @package : egovframework.com.auth.dao
+ * @filename : AuthGrpInputParamVo.java
+ * @author : "egov"
+ * @since : 2020. 6. 15.
+ * @version : 1.0
+ * @desc : 그룹권한관리 입출력 Vo
+ * 
+ *  ======= 변경이력 =======
+ * 
+ * 날자                       변경자                  설명
+ * ----------         -------           ------------------------------------
+ * 2020. 6. 15.         "egov"           최초 생성(ver 1.0)
+ * 
+ */
 public class AuthGrpInputParamVo {
 
 	private int pageSize;

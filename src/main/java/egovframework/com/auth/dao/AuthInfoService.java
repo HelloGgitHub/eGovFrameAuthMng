@@ -8,6 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @title : 권한정보 관리 Service
+ * @package : egovframework.com.auth.dao
+ * @filename : AuthInfoService.java
+ * @author : "egov"
+ * @since : 2020. 6. 15.
+ * @version : 1.0
+ * @desc : 권한정보 관리 Service모음
+ * 
+ *  ======= 변경이력 =======
+ * 
+ * 날자                       변경자                  설명
+ * ----------         -------           ------------------------------------
+ * 2020. 6. 15.         "egov"           최초 생성(ver 1.0)
+ * 
+ */
 @Service
 @Transactional
 public class AuthInfoService {
@@ -15,31 +31,64 @@ public class AuthInfoService {
 	@Autowired
     private AuthInfoDao mapper;
 	
-	//권한목록 조회
+	/**
+	 * @name : selectAuthList(권한목록 조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : List<HashMap<Object,Object>>
+	 */
 	public List<HashMap<Object, Object>> selectAuthList() {
         return mapper.selectAuthList();
     }
-	//권한상세정보 조회
+	
+	/**
+	 * @name : selectAuthDetail(권한상세정보 조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : HashMap<String,Object>
+	 */
 	public HashMap<String, Object> selectAuthDetail(Map<Object, Object> param) {
         return mapper.selectAuthDetail(param);
     }
-	//권한 생성
-	public int insertAuthInfo(Map<Object, Object> param) {
-        return mapper.insertAuthInfo(param);
-    }
-	//그룹정보 변경
-	public int updateAuthInfo(Map<Object, Object> param) {
-        return mapper.updateAuthInfo(param);
-    }
-	//그룹정보 삭제
-	public int deleteAuthInfo(Map<Object, Object> param) {
-        return mapper.deleteAuthInfo(param);
-    }
 
-	//그룹정보 삭제
+	/**
+	 * @name : selectAuthInfoCnt(권한코드 기등록여부 확인)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : int
+	 */
 	public int selectAuthInfoCnt(Map<Object, Object> param) {
         return mapper.selectAuthInfoCnt(param);
     }
-	
+
+	/**
+	 * @name : insertAuthInfo(권한 생성)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : int
+	 */
+	public int insertAuthInfo(Map<Object, Object> param) {
+        return mapper.insertAuthInfo(param);
+    }
+
+	/**
+	 * @name : updateAuthInfo(권한정보 변경)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : int
+	 */
+	public int updateAuthInfo(Map<Object, Object> param) {
+        return mapper.updateAuthInfo(param);
+    }
+
+	/**
+	 * @name : deleteAuthInfo(권한정보 삭제)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : int
+	 */
+	public int deleteAuthInfo(Map<Object, Object> param) {
+        return mapper.deleteAuthInfo(param);
+    }
 
 }

@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.com.auth.dao.AuthInfoDao">
 
-	<!-- Maria -->
     <select id="selectAuthList" resultType="hashMap">
 			SELECT AUTHOR_CODE
 			     , AUTHOR_NM

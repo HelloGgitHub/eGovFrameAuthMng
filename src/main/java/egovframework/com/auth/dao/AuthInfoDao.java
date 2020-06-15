@@ -7,22 +7,31 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @title : 권한코드 정보 관리 Dao 
+ * @package : egovframework.com.auth.dao
+ * @filename : AuthInfoDao.java
+ * @author : "egov"
+ * @since : 2020. 6. 15.
+ * @version : 1.0
+ * @desc : 권한코드 관리 CRUD 모음.
+ * 
+ *  ======= 변경이력 =======
+ * 
+ * 날자                       변경자                  설명
+ * ----------         -------           ------------------------------------
+ * 2020. 6. 15.         "egov"           최초 생성(ver 1.0)
+ * 
+ */
 @Repository
 @Mapper
 public interface AuthInfoDao {
 	
-	//권한목록 조회
 	List<HashMap<Object, Object>> selectAuthList();
-	//권한정보 조회
 	HashMap<String, Object> selectAuthDetail(Map<Object, Object> param);
-	//권한정보 등록
 	int insertAuthInfo(Map<Object, Object> param);
-	//그룹정보 변경
 	int updateAuthInfo(Map<Object, Object> param);
-	//그룹정보 삭제
 	int deleteAuthInfo(Map<Object, Object> param);
-
-	//권한정보 등록
 	int selectAuthInfoCnt(Map<Object, Object> param);
 
 }

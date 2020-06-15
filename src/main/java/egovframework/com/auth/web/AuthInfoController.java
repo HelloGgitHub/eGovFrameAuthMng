@@ -26,9 +26,23 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
+/**
+ * @title : 권한코드 정보 관리 
+ * @package : egovframework.com.auth.web
+ * @filename : AuthInfoController.java
+ * @author : "egov"
+ * @since : 2020. 6. 15.
+ * @version : 1.0
+ * @desc : 권한코드 정보를 등록 수정 삭제 하는 기능 모음.
+ * 
+ *  ======= 변경이력 =======
+ * 
+ * 날자                       변경자                  설명
+ * ----------         -------           ------------------------------------
+ * 2020. 6. 15.         "egov"           최초 생성(ver 1.0)
+ * 
+ */
 @RestController
 @Api(value = "AuthInfoController", description = "권한 정보 관리 REST API")
 @RequestMapping("/auth")
@@ -37,10 +51,16 @@ public class AuthInfoController {
 	@Autowired
 	AuthInfoService authService;
 	
+	/**
+	 * @name : AuthList(권한목록 조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 등록된 권한 목록을 조회한다.
+	 */
 	@ApiOperation(value = "권한목록 조회")
 	@GetMapping(path = "/list")
 	public String AuthList() {
-		
 		String rtn = "";
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 		ObjectMapper om = new ObjectMapper();
@@ -48,9 +68,7 @@ public class AuthInfoController {
 		try {
 			List<HashMap<Object, Object>> lst = new ArrayList<HashMap<Object, Object>>();
 			lst = authService.selectAuthList();
-			System.out.println(lst);
 			rtnMap.put("list", lst);
-			
 			rtnMap.put("RESULTCD", "0");
 			rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
 		}catch (Exception e) {
@@ -58,7 +76,6 @@ public class AuthInfoController {
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
 		}
-		
 		
 		try {
 			rtn = om.writeValueAsString(rtnMap);
@@ -70,6 +87,13 @@ public class AuthInfoController {
 		return rtn;
 	}
 	
+	/**
+	 * @name : AuthDetailInfo(권한코드 정보 조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 권한코드에 대한 내용을 조회한다.
+	 */
 	@ApiOperation(value = "권한코드 정보 조회")
     @ApiImplicitParams({
     	@ApiImplicitParam(name = "authCd", value = "권한코드", required = true, dataType = "string", paramType = "path", defaultValue = "")
@@ -85,7 +109,6 @@ public class AuthInfoController {
 			sqlInpt.put("AUTHCD", URLDecoder.decode(authCd		,"UTF-8"));
 			
 			rtnMap = authService.selectAuthDetail(sqlInpt);
-			System.out.println(rtnMap);
 			rtnMap.put("RESULTCD", "0");
 			rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
 		}catch (Exception e) {
@@ -104,12 +127,14 @@ public class AuthInfoController {
 		return rtn;
 	}
 	
+	/**
+	 * @name : InsertAuthInfo(권한등록)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 신규 권한 코드를 등록한다.
+	 */
 	@ApiOperation(value = "권한 등록", notes = "권한을 등록합니다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK !!"),
-            @ApiResponse(code = 500, message = "Internal Server Error !!"),
-            @ApiResponse(code = 404, message = "Not Found !!")
-    })
 	@PostMapping(path = "/addnew")
 	public String InsertAuthInfo(@RequestBody AuthVo param) throws Exception {
 
@@ -120,14 +145,11 @@ public class AuthInfoController {
 		try {
 			Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
 	
-			//입력값 파라미터 정의
 			sqlInpt.put("AUTHCD"	, param.getAuthCd());
 			sqlInpt.put("AUTHNM"	, param.getAuthNm());
 			sqlInpt.put("AUTHDC"	, param.getAuthDc());
 			
 			int rowCnt = authService.selectAuthInfoCnt(sqlInpt);
-			System.out.println(rowCnt);
-			
 			if(rowCnt == 0) {
 				int inputCnt = authService.insertAuthInfo(sqlInpt);
 				if(inputCnt > 0) {
@@ -147,11 +169,17 @@ public class AuthInfoController {
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
 		}
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtnMap);
 		return rtn;
 	}
 
 	
+	/**
+	 * @name : AuthChangeInfo(권한 정보 수정)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 등록된 권한정보 내용을 수정한다.
+	 */
 	@ApiOperation(value = "권한 정보수정", notes = "권한정보를 수정한다.")
 	@PutMapping(path = "/modifyInfo")
 	public String AuthChangeInfo(@RequestBody AuthVo param) throws Exception {
@@ -179,19 +207,20 @@ public class AuthInfoController {
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
 		}
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtnMap);
 		return rtn;
 	}
 	
 	
+	/**
+	 * @name : AuthDeleteInfo(권한삭제)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 권한코드를 삭제 한다.
+	 */
 	@ApiOperation(value = "권한 삭제", notes = "권한을 삭제한다.")
     @ApiImplicitParams({
     	@ApiImplicitParam(name = "authCd"	, value = "권한코드"	, required = true, dataType = "string", paramType = "query", defaultValue = "")
-    })
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "OK !!"),
-        @ApiResponse(code = 500, message = "Internal Server Error !!"),
-        @ApiResponse(code = 404, message = "Not Found !!")
     })
 	@DeleteMapping(path = "/deleteAuth")
 	public String AuthDeleteInfo(@RequestParam(value = "authCd") String authCd) throws Exception {
@@ -219,7 +248,6 @@ public class AuthInfoController {
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
 		}
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtnMap);
 		return rtn;
 	}
 

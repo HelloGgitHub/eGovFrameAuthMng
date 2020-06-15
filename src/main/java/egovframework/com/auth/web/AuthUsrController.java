@@ -22,6 +22,22 @@ import egovframework.com.cmm.ComUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * @title :권한 사용자 정보관리 
+ * @package : egovframework.com.auth.web
+ * @filename : AuthUsrController.java
+ * @author : "egov"
+ * @since : 2020. 6. 15.
+ * @version : 1.0
+ * @desc : 등록된 권한을 사용자와 매핑 또는 권한과 사용자 정보를 조회하는 작업을 한다.
+ * 
+ *  ======= 변경이력 =======
+ * 
+ * 날자                       변경자                  설명
+ * ----------         -------           ------------------------------------
+ * 2020. 6. 15.         "egov"           최초 생성(ver 1.0)
+ * 
+ */
 @RestController
 @Api(value = "AuthUserController", description = "권한 사용자 정보 관리 REST API")
 @RequestMapping("/auth")
@@ -30,6 +46,13 @@ public class AuthUsrController {
 	@Autowired
 	AuthUsrService authService;
 	
+	/**
+	 * @name : AuthUsrList(권한보유 사용자 목록조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 권한 기준 등록된 사용자 목록을 조회한다.
+	 */
 	@ApiOperation(value = "권한보유 사용자 목록조회")
 	@PostMapping(path = "/authUsrList")
 	public String AuthUsrList(@RequestBody AuthInputParamVo param) throws Exception {
@@ -47,7 +70,6 @@ public class AuthUsrController {
 			
 			lst = authService.selectAuthUsrList(sqlInpt);
 			
-			System.out.println(lst);
 			rtnMap.put("page", param.getPage());
 			rtnMap.put("pageSize", param.getPageSize());
 			rtnMap.put("totalCount", lst.size());
@@ -74,6 +96,13 @@ public class AuthUsrController {
 	}
 
 	
+	/**
+	 * @name : UsrAuthList(사용자 보유권한 목록조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 사용자 기준 보유 권한 목록을 조회한다.
+	 */
 	@ApiOperation(value = "사용자 보유 권한 목록조회")
 	@PostMapping(path = "/usrAuthList")
 	public String UsrAuthList(@RequestBody AuthInputParamVo param) throws Exception {
@@ -90,7 +119,6 @@ public class AuthUsrController {
 			sqlInpt.put("PAGESIZE", 	param.getPageSize());
 			
 			lst = authService.selectUsrAuthList(sqlInpt);
-			System.out.println(lst);
 			rtnMap.put("page", param.getPage());
 			rtnMap.put("pageSize", param.getPageSize());
 			rtnMap.put("totalCount", lst.size());
@@ -117,6 +145,14 @@ public class AuthUsrController {
 		return rtn;
 	}
 
+	
+	/**
+	 * @name : InsertAuthUsr(권한에 사용자 등록)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 권한코드와 사용자를 등록한다.
+	 */
 	@ApiOperation(value = "권한에 사용자 등록", notes = "권한에 사용자를 등록합니다.")
 	@PostMapping(path = "/usrAdd")
 	public String InsertAuthUsr(@RequestBody AuthInputParamVo param) throws Exception {
@@ -132,7 +168,6 @@ public class AuthUsrController {
 			sqlInpt.put("AUTHCD",		URLDecoder.decode(param.getAuthCd(),	"UTF-8"));
 			
 			int rowCnt = authService.selectAuthUsrCnt(sqlInpt);
-			System.out.println(rowCnt);
 
 			if(rowCnt == 0) {
 				int inputCnt = authService.insertAuthUsr(sqlInpt);
@@ -153,11 +188,17 @@ public class AuthUsrController {
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
 		}
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtnMap);
 		return rtn;
 	}
 
 	
+	/**
+	 * @name : DeleteAuthUsr(사용자 권한 삭제)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 권한코드와 사용자가 매핑된 내용을 삭제 한다.
+	 */
 	@ApiOperation(value = "사용자 권한 삭제", notes = "사용자 권한을 삭제한다.")
 	@DeleteMapping(path = "/usrSbt")
 	public String DeleteAuthUsr(@RequestBody AuthInputParamVo param) throws Exception {
@@ -188,7 +229,6 @@ public class AuthUsrController {
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
 		}
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtnMap);
 		return rtn;
 	}
 
