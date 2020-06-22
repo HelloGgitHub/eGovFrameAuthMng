@@ -31,12 +31,12 @@ spring:
   profiles: maria 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://192.168.33.20:3306/EGOVCLDDEV
+    url: jdbc:mariadb://220.73.22.204:9606/EGOVCLDDEV
 #    url: jdbc:mariadb://10.182.164.67:3306/EGOVCLDDEV
     username: egovclddev
     password: Helloegov1!
 server:
-  port: 9087
+  port: 9086
   task:
     fixedDelay: 1000
     name: mariaTask
