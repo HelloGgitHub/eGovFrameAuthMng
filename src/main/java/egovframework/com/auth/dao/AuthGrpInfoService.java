@@ -1,5 +1,6 @@
 package egovframework.com.auth.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import egovframework.com.cmm.ComUtil;
 
 /**
  * @title : 권한그룹 관리 Service
@@ -38,7 +41,21 @@ public class AuthGrpInfoService {
 	 * @return_type : List<HashMap<Object,Object>>
 	 */
 	public List<HashMap<Object, Object>> selectAuthGrpList() {
-        return mapper.selectAuthGrpList();
+		
+		List<HashMap<Object, Object>> rtnLst = new ArrayList<HashMap<Object, Object>> ();
+		List<HashMap<Object, Object>> sqlLst = new ArrayList<HashMap<Object, Object>> ();
+		
+		sqlLst = mapper.selectAuthGrpList();
+		
+		for(int i = 0; sqlLst.size() > i; i++) {
+			HashMap<Object, Object> rtnMap= new HashMap<Object, Object>();
+			rtnMap = sqlLst.get(i);
+			rtnMap.put("change_dt", ComUtil.dbDatetoDataTimeFrm(rtnMap.get("change_dt").toString()));
+			rtnMap.put("author_grp_creat_dt", ComUtil.dbDatetoDataTimeFrm(rtnMap.get("author_grp_creat_dt").toString()));
+			rtnLst.add(rtnMap);
+		}
+		
+        return rtnLst;
     }
 	
 	/**

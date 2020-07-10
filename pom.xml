@@ -84,7 +84,19 @@
 		    <version>2.9.2</version>
 		</dependency>
 		<!-- swagger2 -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <scope>runtime</scope>
+		</dependency>
+
 	</dependencies>
+
+
 
 	<build>
 		<plugins>
@@ -98,4 +110,5 @@
 		</plugins>
 	</build>
 
+	<packaging>war</packaging>
 </project>

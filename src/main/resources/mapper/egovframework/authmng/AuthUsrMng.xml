@@ -33,12 +33,13 @@
 				, USR_ID
 				, AUTHOR_GRP_CODE
 				, ADD_DT
-			) VALUES (
-				  #{AUTHCD}
-				, #{USR_ID}
-				,''
-				, DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
-			)
+			) 
+			SELECT AUTHOR_CODE
+			     , '${USR_ID}'
+			     , ''
+			     , DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+			  FROM COMTNAUTHORINFO
+			 where AUTHOR_CODE = '${AUTHCD}'
     </insert>
 
     <delete id="deleteAuthUsr" parameterType="hashMap">

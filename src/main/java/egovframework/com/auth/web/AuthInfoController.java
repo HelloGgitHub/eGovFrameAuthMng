@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import egovframework.com.auth.dao.AuthInfoService;
 import egovframework.com.auth.dao.AuthVo;
+import egovframework.com.auth.dao.UserVo;
+import egovframework.com.cmm.ComUtil;
+import egovframework.com.cmm.SecuritySha;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -55,12 +57,13 @@ public class AuthInfoController {
 	 * @name : AuthList(권한목록 조회)
 	 * @date : 2020. 6. 15.
 	 * @author : "egov"
+	 * @throws Exception 
 	 * @return_type : String
 	 * @desc : 등록된 권한 목록을 조회한다.
 	 */
 	@ApiOperation(value = "권한목록 조회")
 	@GetMapping(path = "/list")
-	public String AuthList() {
+	public String AuthList() throws Exception {
 		String rtn = "";
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 		ObjectMapper om = new ObjectMapper();
@@ -72,17 +75,12 @@ public class AuthInfoController {
 			rtnMap.put("RESULTCD", "0");
 			rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
 		}catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
 		}
 		
-		try {
-			rtn = om.writeValueAsString(rtnMap);
-		} catch (JsonProcessingException e) {
-			rtn = "json Mapper Error.";
-			e.printStackTrace();
-		}
+		rtn = om.writeValueAsString(rtnMap);
 		
 		return rtn;
 	}
@@ -100,30 +98,29 @@ public class AuthInfoController {
     })
 	@GetMapping(path = "/detailInfo/{authCd}")
 	public String AuthDetailInfo(@PathVariable("authCd") String authCd) throws Exception {
+
 		String rtn = "";
 		ObjectMapper om = new ObjectMapper();
+		List<HashMap<Object, Object>> lst = new ArrayList<HashMap<Object, Object>>();
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
+
 		
 		try {
-			Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
 			sqlInpt.put("AUTHCD", URLDecoder.decode(authCd		,"UTF-8"));
 			
-			rtnMap = authService.selectAuthDetail(sqlInpt);
+			lst = authService.selectAuthDetail(sqlInpt);
+
+			rtnMap.put("list", lst);
 			rtnMap.put("RESULTCD", "0");
 			rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
 		}catch (Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
-		}
-		
-		try {
-			rtn = om.writeValueAsString(rtnMap);
-		} catch (JsonProcessingException e) {
-			rtn = "json Mapper Error.";
 			e.printStackTrace();
 		}
 		
+		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
 	}
 	
@@ -148,6 +145,7 @@ public class AuthInfoController {
 			sqlInpt.put("AUTHCD"	, param.getAuthCd());
 			sqlInpt.put("AUTHNM"	, param.getAuthNm());
 			sqlInpt.put("AUTHDC"	, param.getAuthDc());
+			sqlInpt.put("DT"			, ComUtil.getTime("yyyyMMddHHmmss"));
 			
 			int rowCnt = authService.selectAuthInfoCnt(sqlInpt);
 			if(rowCnt == 0) {
@@ -164,7 +162,7 @@ public class AuthInfoController {
 				rtnMap.put("RESULTMSG", "중복되는 권한코드가 있습니다.");
 			}
 		}catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
 		}
@@ -192,7 +190,8 @@ public class AuthInfoController {
 			sqlInpt.put("AUTHCD"	, param.getAuthCd());
 			sqlInpt.put("AUTHNM"	, param.getAuthNm());
 			sqlInpt.put("AUTHDC"	, param.getAuthDc());
-	
+			sqlInpt.put("DT"			, ComUtil.getTime("yyyyMMddHHmmss"));
+			
 			int inputCnt = authService.updateAuthInfo(sqlInpt);
 			if(inputCnt > 0) {
 				rtnMap.put("RESULTCD", "0");
@@ -202,7 +201,7 @@ public class AuthInfoController {
 				rtnMap.put("RESULTMSG", "등록된 권한코드가 없습니다.");
 			}
 		}catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
 		}
@@ -222,7 +221,7 @@ public class AuthInfoController {
     @ApiImplicitParams({
     	@ApiImplicitParam(name = "authCd"	, value = "권한코드"	, required = true, dataType = "string", paramType = "query", defaultValue = "")
     })
-	@DeleteMapping(path = "/deleteAuth")
+	@DeleteMapping(path = "/delete")
 	public String AuthDeleteInfo(@RequestParam(value = "authCd") String authCd) throws Exception {
 		String rtn = "";
 		ObjectMapper om = new ObjectMapper();
@@ -243,7 +242,7 @@ public class AuthInfoController {
 				rtnMap.put("RESULTMSG", "삭제할 권한이 없습니다.");
 			}
 		}catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
 		}
@@ -251,6 +250,56 @@ public class AuthInfoController {
 		return rtn;
 	}
 
-	
+	/**
+	 * @name : UserLogin(사용자 로그인)
+	 * @date : 2020. 6. 11.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 사용자의 ID/PW input 값으로 로그인 처리를 한다.
+	 *              로그인의 결과값은 사용자 정보를 출력한다.
+	 */
+	@ApiOperation(value = "사용자 로그인", notes = "사용자 ID/PW를 입력받아 사용자 정보를 반환합니다.")
+	@PostMapping(path = "/idpw")
+	public String UserLogin(@RequestBody UserVo usr) throws Exception {
+		
+		String rtn = "";
+		String pUserId 			= URLDecoder.decode(usr.getUsrId()		,"UTF-8");
+		String pPassWord 	= URLDecoder.decode(usr.getPassword()	,"UTF-8");
+		
+		String pw = SecuritySha.SHA256(pPassWord);		//SHA-256 암호화
+		Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		sqlInpt.put("USRID", 		pUserId);
+		sqlInpt.put("USRPW", 	pw);
+		HashMap<String, Object> rtnSqlMap = new HashMap<String, Object>();
+		try {
+			rtnSqlMap = authService.selectUserPwCk(sqlInpt);
+			Map<Object, Object> sqlRtn = new HashMap<Object, Object>();
+			if(rtnSqlMap == null) {
+				rtnMap.put("RESULTCD", "1");
+				rtnMap.put("RESULTMSG", "등록된 사용자가 없습니다.");
+			}else if (!pw.equals(rtnSqlMap.get("password").toString())) {
+				rtnMap.put("RESULTCD", "1");
+				rtnMap.put("RESULTMSG", "패스워드가 올바르지 않습니다.");
+			}else if (pw.equals(rtnSqlMap.get("password").toString())) {
+				sqlRtn = authService.selectUserDetail(sqlInpt);
+				rtnMap.put("list", sqlRtn);
+				rtnMap.put("RESULTCD", "0");
+				rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
+			}else {
+				rtnMap.put("RESULTCD", "1");
+				rtnMap.put("RESULTMSG", "ID/PW가 올바르지 않습니다.");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		ObjectMapper om = new ObjectMapper();
+		rtn = om.writeValueAsString(rtnMap);
+		System.out.println(rtn);
+		
+		return rtn;
+	}
+
 
 }

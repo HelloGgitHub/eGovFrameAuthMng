@@ -260,7 +260,7 @@ public class AuthGrpInfoController {
 				rtnMap.put("RESULTMSG", "삭제할 권한이 없습니다.");
 			}
 		}catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
 		}

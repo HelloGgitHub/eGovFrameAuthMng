@@ -28,10 +28,14 @@ import org.springframework.stereotype.Repository;
 public interface AuthInfoDao {
 	
 	List<HashMap<Object, Object>> selectAuthList();
-	HashMap<String, Object> selectAuthDetail(Map<Object, Object> param);
+	List<HashMap<Object, Object>> selectAuthDetail(Map<Object, Object> param);
 	int insertAuthInfo(Map<Object, Object> param);
 	int updateAuthInfo(Map<Object, Object> param);
 	int deleteAuthInfo(Map<Object, Object> param);
 	int selectAuthInfoCnt(Map<Object, Object> param);
 
+	//로그인관련
+	HashMap<Object, Object> selectUserDetail(Map<Object, Object> param);
+	HashMap<String, Object> selectUserPwCk(Map<Object, Object> param);
+    
 }
