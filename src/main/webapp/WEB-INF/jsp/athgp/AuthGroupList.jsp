@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>권한 목록</title>
+<title>권한 그룹 목록</title>
 <%@ include file="/WEB-INF/jsp/cmm/head.jsp" %>
 
 
@@ -63,15 +63,15 @@ function fn_Select(){
 }
 
 
-function fn_SelectAuth(authId){
+function fn_SelectAuth(authGrpId){
 	var pageType= "r";
-	location.href=baseUrl + "/AuthInfo?callType="+pageType+"&authId="+authId;
+	location.href=baseUrl + "/AuthGrpDetailSet?callType="+pageType+"&authGrpId="+authGrpId;
 }
 
 
-function fn_SelectUserCnt(authId){
+function fn_SelectUserCnt(authGrpId){
 	var pageType= "r";
-	location.href=baseUrl + "/AuthList?callType="+pageType+"&authId="+authId;
+	location.href=baseUrl + "/AuthList?callType="+pageType+"&authId="+authGrpId;
 }
 
 
@@ -131,7 +131,7 @@ function fncCheckAll(){
 <!-- javascript warning tag  -->
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
 <div class="board">
-	<h1>권한 목록</h1>
+	<h1>권한 그룹 목록</h1>
 	<!-- 검색영역 -->
 	<div class="search_box" title="이 레이아웃은 하단 정보를 대한 검색 정보로 구성되어 있습니다.">
 		<ul>

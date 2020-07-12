@@ -64,7 +64,7 @@ public class AuthGrpInfoService {
 	 * @author : "egov"
 	 * @return_type : HashMap<String,Object>
 	 */
-	public HashMap<String, Object> selectAuthGrpDetail(Map<Object, Object> param) {
+	public List<HashMap<Object, Object>> selectAuthGrpDetail(Map<Object, Object> param) {
         return mapper.selectAuthGrpDetail(param);
     }
 	

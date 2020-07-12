@@ -76,10 +76,13 @@
 
 <!-- 권한 그룹 관리(권한)-->
     <select id="selectGrpAuthList"  parameterType="Map" resultType="hashMap">
-			SELECT AUTHOR_GRP_CODE 
-			     , AUTHOR_CODE 
-			     , ADD_DT 
-			  FROM COMTNAUTHORGROUPAUTH
+			SELECT A.AUTHOR_GRP_CODE 
+			     , A.AUTHOR_CODE 
+			     , A.ADD_DT
+			     , B.AUTHOR_NM 
+			  FROM COMTNAUTHORGROUPAUTH A
+			  LEFT OUTER JOIN COMTNAUTHORINFO B
+			    ON (A.AUTHOR_CODE = B.AUTHOR_CODE )
 			 WHERE AUTHOR_GRP_CODE  = '${AUTHGRPCD}'
     </select>
 

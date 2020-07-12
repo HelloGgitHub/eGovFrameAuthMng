@@ -24,7 +24,7 @@
 		} else if(cd == 4){
 			url="AuthGrpList";
 		} else if(cd == 5){
-			url="AuthGrpInfo?callType=c&authGrpId=";
+			url="AuthGrpDetailSet?callType=c&authGrpId=";
 
 
 
@@ -58,6 +58,10 @@
 	<br/>&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(4);" title="목록 조회" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹목록 조회</a></span>
 	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(5);" title="권한그룹 목록관리" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹 목록관리</a></span>
 	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(7);" title="사용자 목록관리" style="font-size: 15px;font-style: inherit;font-weight: bold;">사용자 목록관리</a></span>
+	
+	
+	
+	
 	<!-- 	<input type="text" id="usr" name="usr" value="left" style="text-align-last: end;media-volume-sliderthumb"/> -->
 </body>
 </html>

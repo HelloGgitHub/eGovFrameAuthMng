@@ -57,12 +57,13 @@ public class AuthGrpInfoController {
 	 * @name : AutGrphList(권한그룹목록 조회)
 	 * @date : 2020. 6. 15.
 	 * @author : "egov"
+	 * @throws Exception 
 	 * @return_type : String
 	 * @desc : 권한그룹 목록을 조회한다.
 	 */
 	@ApiOperation(value = "권한그룹목록 조회")
 	@GetMapping(path = "/list")
-	public String AutGrphList() {
+	public String AutGrphList() throws Exception {
 		
 		String rtn 							= "";
 		Map<String, Object> rtnMap 	= new HashMap<String, Object>();
@@ -76,17 +77,12 @@ public class AuthGrpInfoController {
 			rtnMap.put("RESULTCD", "0");
 			rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
 		}catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
 		}
 		
-		try {
-			rtn = om.writeValueAsString(rtnMap);
-		} catch (JsonProcessingException e) {
-			rtn = "json Mapper Error.";
-			e.printStackTrace();
-		}
+		rtn = om.writeValueAsString(rtnMap);
 		
 		return rtn;
 	}
@@ -104,37 +100,35 @@ public class AuthGrpInfoController {
     	@ApiImplicitParam(name = "authGrpCd", value = "권한그룹코드", required = true, dataType = "string", paramType = "path", defaultValue = "")
     })
 	@GetMapping(path = "/detailInfo/{authGrpCd}")
-	public String AuthGrpDetailInfo(@PathVariable("authGrpCd") String authGrpCd) throws Exception {
+	public String AuthGrpDetailInfo(
+			@PathVariable("authGrpCd") String authGrpCd ) throws Exception {
 		
-		String rtn 							= "";
-		ObjectMapper om 				= new ObjectMapper();
-		Map<String, Object> rtnMap 	= new HashMap<String, Object>();
+		String rtn 										= "";
+		ObjectMapper om 							= new ObjectMapper();
+		Map<String, Object> rtnMap 				= new HashMap<String, Object>();
+		List<HashMap<Object, Object>> lst 	= new ArrayList<HashMap<Object, Object>>();
 		
 		try {
 			Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
 			sqlInpt.put("AUTHGRPCD", URLDecoder.decode(authGrpCd		,"UTF-8"));
 			
-			rtnMap = authGrpService.selectAuthGrpDetail(sqlInpt);
-			if(rtnMap==null) {
+			lst = authGrpService.selectAuthGrpDetail(sqlInpt);
+			if(rtnMap==null) { 
 				rtnMap = new HashMap<String, Object>();
-				rtnMap.put("RESULTCD", "0");
+				rtnMap.put("RESULTCD", "1");
 				rtnMap.put("RESULTMSG", "대상건이 없습니다.");
 			}else {
+				rtnMap.put("list", lst);
 				rtnMap.put("RESULTCD", "0");
 				rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
 			}
 		}catch (Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
-		}
-		
-		try {
-			rtn = om.writeValueAsString(rtnMap);
-		} catch (JsonProcessingException e) {
-			rtn = "json Mapper Error.";
 			e.printStackTrace();
 		}
+		
+		rtn = om.writeValueAsString(rtnMap);
 		
 		return rtn;
 	}
@@ -178,9 +172,9 @@ public class AuthGrpInfoController {
 				rtnMap.put("RESULTMSG", "중복되는 권한그룹코드가 있습니다.");
 			}
 		}catch (Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
+			e.printStackTrace();
 		}
 		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
@@ -218,9 +212,9 @@ public class AuthGrpInfoController {
 				rtnMap.put("RESULTMSG", "등록된 권한코드가 없습니다.");
 			}
 		}catch (Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
+			e.printStackTrace();
 		}
 		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
@@ -260,9 +254,9 @@ public class AuthGrpInfoController {
 				rtnMap.put("RESULTMSG", "삭제할 권한이 없습니다.");
 			}
 		}catch (Exception e) {
-			e.printStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
+			e.printStackTrace();
 		}
 		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
@@ -310,9 +304,9 @@ public class AuthGrpInfoController {
 			rtnMap.put("RESULTCD", "0");
 			rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
 		} catch(Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
+			e.printStackTrace();
 		}
 		
 		try {
@@ -361,9 +355,9 @@ public class AuthGrpInfoController {
 				rtnMap.put("RESULTMSG", "해당 권한은 사용자에게 이미 부여 되어있습니다.");
 			}
 		} catch (Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
+			e.printStackTrace();
 		}
 		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
@@ -403,9 +397,9 @@ public class AuthGrpInfoController {
 				rtnMap.put("RESULTMSG", "회수 할 권한이 없습니다.");
 			}
 		}catch(Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
+			e.printStackTrace();
 		}
 		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
@@ -454,15 +448,9 @@ public class AuthGrpInfoController {
 		} catch(Exception e) {
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
-			e.getStackTrace();
 		}
 		
-		try {
-			rtn = om.writeValueAsString(rtnMap);
-		} catch (JsonProcessingException e) {
-			rtn = "json Mapper Error.";
-			e.printStackTrace();
-		}
+		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
 	}
 
@@ -501,7 +489,7 @@ public class AuthGrpInfoController {
 		} catch (Exception e) {
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
-			e.getStackTrace();
+			e.printStackTrace();
 		}
 		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
@@ -540,7 +528,7 @@ public class AuthGrpInfoController {
 		}catch(Exception e) {
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
-			e.getStackTrace();
+			e.printStackTrace();
 		}
 		rtn = om.writeValueAsString(rtnMap);
 		return rtn;

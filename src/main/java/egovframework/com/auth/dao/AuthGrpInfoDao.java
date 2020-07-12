@@ -28,7 +28,7 @@ import org.springframework.stereotype.Repository;
 public interface AuthGrpInfoDao {
 	
 	List<HashMap<Object, Object>> selectAuthGrpList();
-	HashMap<String, Object> selectAuthGrpDetail(Map<Object, Object> param);
+	List<HashMap<Object, Object>> selectAuthGrpDetail(Map<Object, Object> param);
 	int selectAuthGrpInfoCnt(Map<Object, Object> param);
 	int insertAuthGrpInfo(Map<Object, Object> param);
 	int updateAuthGrpInfo(Map<Object, Object> param);

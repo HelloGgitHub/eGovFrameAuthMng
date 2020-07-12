@@ -1,4 +1,4 @@
-package egovframework.web.user;
+package egovframework.web.auth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +68,7 @@ public class AuthPageController {
 		return "/athgp/AuthGroupList"; 
 	} 
 	
-	@RequestMapping("/AuthGrpInfo") 
+	@RequestMapping("/AuthGrpDetailSet") 
 	public String AuthGroupInfo(Model model
 			, @RequestParam(value = "callType") String callType
 			, @RequestParam(value = "authGrpId") String authGrpId) {
@@ -77,7 +77,7 @@ public class AuthPageController {
 		model.addAttribute("authGrpId", 	authGrpId);
 		
 		System.out.println("++++++++++++++++AuthGrpInfo++++++++++++authGrpId::"+ authGrpId + "===callType :: "+callType);
-		return "/athgp/AuthGroupInfo"; 
+		return "/athgp/AuthGrpDetailSet"; 
 	}
 
 	
