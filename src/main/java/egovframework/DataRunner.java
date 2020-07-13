@@ -95,7 +95,7 @@ public class DataRunner implements ApplicationRunner {
         	comtnAuthorUsr.append("\n 	PRIMARY KEY (AUTHOR_CODE,USR_ID)   ");
         	comtnAuthorUsr.append("\n )                                    ");
         	statement.executeUpdate(comtnAuthorUsr.toString());
-        	String comtnAuthorUsrQry = "INSERT INTO COMTNAUTHORUSR (AUTHOR_CODE, USR_ID, AUTHOR_GRP_CODE, ADD_DT) VALUES ('AUTH001', 'TESTUSER', NULL, '"+sstime+"')"; 
+        	String comtnAuthorUsrQry = "INSERT INTO COMTNAUTHORUSR (AUTHOR_CODE, USR_ID, AUTHOR_GRP_CODE, ADD_DT) VALUES ('AUTH001', 'TESTUSER', '', '"+sstime+"')"; 
         	jdbcTemplate.execute(comtnAuthorUsrQry);
         	
         	

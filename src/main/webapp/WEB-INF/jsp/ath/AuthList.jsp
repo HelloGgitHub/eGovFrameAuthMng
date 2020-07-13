@@ -50,7 +50,7 @@ function fn_Select(){
    	 	ihtml = ihtml + '</td>';
    	 	ihtml = ihtml + '<td><a onclick="fn_SelectAuth(\''+arr[i].author_code+'\')">'+arr[i].author_nm+'</a></td>';
    	 	ihtml = ihtml + '<td id="userCnt_'+(i+1)+'" name="userCnt_'+(i+1)+'"><a onclick="fn_SelectUserCnt(\''+arr[i].author_code+'\')">'+arr[i].usrcnt+'</a></td>';
-	 	ihtml = ihtml + '<td id="grpCnt_'+(i+1)+'" name="grpCnt_'+(i+1)+'"><a onclick="fn_SelectGrpCnt(\''+arr[i].author_code+'\')">'+arr[i].grpcnt+'</a></td>';
+	 	ihtml = ihtml + '<td id="grpCnt_'+(i+1)+'" name="grpCnt_'+(i+1)+'">'+arr[i].grpcnt+'</td>';
 // 	 	ihtml = ihtml + '<td id="name_'+(i+1)+'" name="name_'+(i+1)+'">'+arr[i].usrcnt+'</td>';
    	 	ihtml = ihtml + '<td id="creatDt_'+(i+1)+'" name="creatDt_'+(i+1)+'">'+arr[i].author_creat_dt+'</td>';
    	 	ihtml = ihtml + '</tr>';
@@ -64,23 +64,13 @@ function fn_Select(){
 
 
 function fn_SelectAuth(authId){
-	//관리자일 경우 업데이트				//본인확인방법 로직 추가/////////////////////////////////////////////////////////////////
-	//그렇지 않은 경우 로드만
 	var pageType= "r";
-	if(authId == ""){         ////////////////
-		pageType= "u";
-	}
 	location.href=baseUrl + "/AuthInfo?callType="+pageType+"&authId="+authId;
 }
 
 function fn_SelectUserCnt(authId){
-	//관리자일 경우 업데이트				//본인확인방법 로직 추가/////////////////////////////////////////////////////////////////
-	//그렇지 않은 경우 로드만
 	var pageType= "r";
-	if(authId == ""){         ////////////////
-		pageType= "u";
-	}
-	location.href=baseUrl + "/UserGroupSet?callType="+pageType+"&authId="+authId;
+	location.href=baseUrl + "/AuthInfoSetUsr?callType="+pageType+"&authId="+authId;
 }
 
 

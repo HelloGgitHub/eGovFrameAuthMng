@@ -81,17 +81,12 @@ public class AuthUsrController {
 			rtnMap.put("RESULTCD", "0");
 			rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
 		} catch(Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
-		}
-		
-		try {
-			rtn = om.writeValueAsString(rtnMap);
-		} catch (JsonProcessingException e) {
-			rtn = "json Mapper Error.";
 			e.printStackTrace();
 		}
+		
+		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
 	}
 
@@ -130,18 +125,12 @@ public class AuthUsrController {
 			rtnMap.put("RESULTCD", "0");
 			rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
 		} catch(Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
-		}
-		
-		try {
-			rtn = om.writeValueAsString(rtnMap);
-		} catch (JsonProcessingException e) {
-			rtn = "json Mapper Error.";
 			e.printStackTrace();
 		}
 		
+		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
 	}
 
@@ -164,8 +153,9 @@ public class AuthUsrController {
 		try {
 			//입력값 파라미터 정의
 			Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
-			sqlInpt.put("USR_ID", 		URLDecoder.decode(param.getUsrId(),		"UTF-8"));
-			sqlInpt.put("AUTHCD",		URLDecoder.decode(param.getAuthCd(),	"UTF-8"));
+			sqlInpt.put("USR_ID"			, URLDecoder.decode(param.getUsrId()	,"UTF-8"));
+			sqlInpt.put("AUTHCD"		, URLDecoder.decode(param.getAuthCd()	,"UTF-8"));
+			sqlInpt.put("DT"				, ComUtil.getTime("yyyyMMddHHmmss"));
 			
 			int rowCnt = authService.selectAuthUsrCnt(sqlInpt);
 
@@ -183,9 +173,9 @@ public class AuthUsrController {
 				rtnMap.put("RESULTMSG", "해당 권한은 사용자에게 이미 부여 되어있습니다.");
 			}
 		} catch (Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
+			e.printStackTrace();
 		}
 		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
@@ -224,9 +214,9 @@ public class AuthUsrController {
 				rtnMap.put("RESULTMSG", "삭제할 사용자가 없습니다.");
 			}
 		}catch(Exception e) {
-			e.getStackTrace();
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
+			e.printStackTrace();
 		}
 		rtn = om.writeValueAsString(rtnMap);
 		return rtn;

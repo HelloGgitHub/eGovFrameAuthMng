@@ -3,12 +3,15 @@
 <mapper namespace="egovframework.com.auth.dao.AuthUsrDao">
 
     <select id="selectAuthUsrList" parameterType="Map" resultType="hashMap">
-			SELECT AUTHOR_CODE 
-			     , USR_ID 
-			     , AUTHOR_GRP_CODE 
-			     , ADD_DT
-			  FROM COMTNAUTHORUSR
-			 WHERE AUTHOR_CODE           = '${AUTHCD}'
+			SELECT a.AUTHOR_CODE 
+			     , a.USR_ID 
+			     , a.AUTHOR_GRP_CODE 
+			     , a.ADD_DT
+			     , b.USR_NM 
+			  FROM COMTNAUTHORUSR a
+			  LEFT OUTER JOIN COMTNUSERMNG b
+			    on (a.USR_ID = b.USR_ID)
+			 WHERE a.AUTHOR_CODE           = '${AUTHCD}'
     </select>
 
     <select id="selectUsrAuthList" parameterType="Map" resultType="hashMap">
@@ -37,7 +40,7 @@
 			SELECT AUTHOR_CODE
 			     , '${USR_ID}'
 			     , ''
-			     , DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+			     , '${DT}'
 			  FROM COMTNAUTHORINFO
 			 where AUTHOR_CODE = '${AUTHCD}'
     </insert>

@@ -27,35 +27,33 @@
 	function inputCellSet(type) {
 		//호출타입에 따라 입력환경 설정
 		if(type == "c"){ //insert
-			//입력값
 			$("#inAuthId").val("");
-			//버튼
-			$("#btn_Del").attr("disabled",true);
+			$("#btn_Delete").attr("disabled",true);
+			$("#btn_Update").attr("disabled",true);
 			$("#btn_Modify").attr("disabled",true);
-	// 		$("#btn_Modify").css("display","none");
-	// 		$("#btn_Del").css("display","none");
 		}else if(type == "r"){  //readOnly
-			//입력값
-			$("#inAuthId").attr("disabled",true);
-			$("#inCrdt").attr("disabled",true);
-			//버튼
-			$("#btn_Arov").attr("disabled",true);
-			$("#btn_Arov").css("display","none");
-			fn_DetailAuth();
-		}else if(type == "cr"){  //readOnly
-			//입력값
-			$("#inAuthId").attr("disabled",true);
-	
-			//버튼
+			$("#btn_Insert").css("display","none");
+			$("#btn_Update").attr("disabled",true);
+			$("#btn_Delete").attr("disabled",false);
 			$("#btn_Modify").attr("disabled",false);
-			$("#btn_Del").attr("disabled",false);
-			$("#btn_Arov").attr("disabled",true);
-	// 		$("#btn_Modify").css("display","block");
-	// 		$("#btn_Del").css("display","block");
-	// 		$("#btn_Arov").css("display","none");
+			
+			$("#inAuthId").attr("disabled",true);
+			$("#inAuthNm").attr("disabled",true);
+			$("#inAuthDc").attr("disabled",true);
+			$("#inCrdt").attr("disabled",true);
+			
+			fn_DetailAuth();
 		}else if(type == "u"){ //modify
-			$("#btn_Arov").attr("disabled",true);
+			$("#btn_Insert").attr("disabled",true);
+			$("#btn_Update").attr("disabled",false);
+			$("#btn_Delete").attr("disabled",false);
+			$("#btn_Modify").attr("disabled",true);;
+			
 			$("#inAuthId").attr("readonly",true);
+			$("#inAuthNm").attr("disabled",false);
+			$("#inAuthDc").attr("disabled",false);
+		}else if(type == "ur"){ //modify
+			fn_DetailAuth();
 		}
 	}
 
@@ -67,8 +65,8 @@
 			alert("그룹아이디은(는) 필수 입력값입니다.");$("#inAuthId").focus();return;
 		} else if($.trim($("#inAuthNm").val()).length == 0){
 			alert("그룹명은 필수 입력값입니다.");$("#inAuthNm").focus();return;
-		} else if($.trim($("#inAuthdis").val()).length == 0){
-			alert("그룹설명은 필수 입력값입니다.");$("#inAuthdis").focus();return;
+		} else if($.trim($("#inAuthDc").val()).length == 0){
+			alert("그룹설명은 필수 입력값입니다.");$("#inAuthDc").focus();return;
 		}
 	}
 
@@ -80,8 +78,8 @@
 			alert("그룹아이디은(는) 20자 이상 입력할수 없습니다.");$("#inAuthId").focus();return false;
 		} else if($.trim($("#inAuthNm").val()).length >= 50){
 			alert("그룹명은(는) 50자 이상 입력할수 없습니다.");$("#inAuthNm").focus();return;
-		} else if($.trim($("#inAuthdis").val()).length >= 100){
-			alert("그룹설명은(는) 100자 이상 입력할수 없습니다.");$("#inAuthdis").focus();return;
+		} else if($.trim($("#inAuthDc").val()).length >= 100){
+			alert("그룹설명은(는) 100자 이상 입력할수 없습니다.");$("#inAuthDc").focus();return;
 		}
 	}
 	
@@ -108,7 +106,7 @@
 		$("#inAuthId").val(obj2.author_code);
 		$("#inAuthId").attr("disabled",true);
 		$("#inAuthNm").val(obj2.author_nm);
-		$("#inAuthdis").val(obj2.author_dc);
+		$("#inAuthDc").val(obj2.author_dc);
 		$("#inCrdt").val(obj2.author_creat_dt);
 		
 	}
@@ -126,7 +124,7 @@
 		var paramData = new Object();
 		paramData.authCd	=	$("#inAuthId").val();
 		paramData.authNm	=	$("#inAuthNm").val();
-		paramData.authDc	=	$("#inAuthdis").val();
+		paramData.authDc	=	$("#inAuthDc").val();
 		
 		var rtnData = new Object();
 		rtnData = fn_calApi("POST", "/auth/addnew", paramData, false);
@@ -149,13 +147,13 @@
 		var paramData = new Object();
 		paramData.authCd	=	$("#inAuthId").val();
 		paramData.authNm	=	$("#inAuthNm").val();
-		paramData.authDc	=	$("#inAuthdis").val();
+		paramData.authDc	=	$("#inAuthDc").val();
 	
 		var rtnData = new Object();
 		rtnData = fn_calApi("PUT", "/auth/modifyInfo", paramData, false);
 	
 		alert(rtnData.RESULTMSG);
-		inputCellSet("r");
+		inputCellSet("ur");
 	}
 
 /*********************************************************
@@ -185,7 +183,10 @@
 	function fn_moveAuthList(){
 		location.href="/AuthList";
 	}
-	
+
+	function fn_modify(){
+		inputCellSet("u");
+	}	
 </script>
 </head>
 
@@ -219,9 +220,9 @@
 		
 		<!-- 권한 설명 -->
 		<tr>
-			<th><label for="inAuthdis">권한 설명</label></th>
+			<th><label for="inAuthDc">권한 설명</label></th>
 			<td class="left">
-				<textarea id="inAuthdis" name="inAuthdis" title="권한설명 입력" type="" style="resize: none;"></textarea>
+				<textarea id="inAuthDc" name="inAuthDc" title="권한설명 입력" type="" style="resize: none;"></textarea>
 			</td>
 		</tr>
 		
@@ -237,9 +238,9 @@
 	</table>
 	<br>
 	<!-- 하단 버튼 -->
-<!-- 	<button title="뒤로가기" 		id="btn_movBak" 		onclick="fn_movebak();">뒤로가기</button>  -->
-	<button title="등록" 			id="btn_Arov" 			onclick="fn_insert();">등록</button>
-	<button title="수정" 			id="btn_Modify" 		onclick="fn_update();">수정</button>
-	<button title="삭제" 			id="btn_Del" 			onclick="fn_delete();">삭제</button>
+	<button title="등록" 			id="btn_Insert" 		onclick="fn_insert();">등록</button>
+	<button title="수정" 			id="btn_Modify" 		onclick="fn_modify();">수정</button>
+	<button title="저장" 			id="btn_Update" 		onclick="fn_update();">저장</button>
+	<button title="삭제" 			id="btn_Delete" 		onclick="fn_delete();">삭제</button>
 </body>
 </html>

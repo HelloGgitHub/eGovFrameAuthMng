@@ -61,6 +61,18 @@ public class AuthPageController {
 		return "/ath/AuthInfo"; 
 	}
 
+	@RequestMapping("/AuthInfoSetUsr") 
+	public String AuthInfoUsr(Model model
+			, @RequestParam(value = "callType") String callType
+			, @RequestParam(value = "authId") String authId) {
+		model.addAttribute("msg", "jstl");
+		model.addAttribute("callType", 	callType);
+		model.addAttribute("authId", 		authId);
+		
+		System.out.println("++++++++++++++++AuthInfoSetUsr++++++++++++authId::"+ authId + "===callType :: "+callType);
+		return "/ath/AuthInfoSetUsr"; 
+	}
+	
 	@RequestMapping("/AuthGrpList") 
 	public String AuthGroupList(Model model) {
 		model.addAttribute("msg", "jstl");
