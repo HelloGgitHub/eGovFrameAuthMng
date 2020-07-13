@@ -8,14 +8,16 @@
 			     , A.AUTHOR_DC
 			     , A.AUTHOR_CREAT_DT
 			     , A.CHANGE_DT
-			     , ifnull((SELECT COUNT(*) CNT 
-					         FROM COMTNAUTHORUSR 
-					        WHERE AUTHOR_CODE = A.AUTHOR_CODE 
-					        GROUP BY USR_ID),0) AS USRCNT
-			     , ifnull((SELECT COUNT(*) CNT 
-					         FROM COMTNAUTHORGROUPAUTH 
-					        WHERE AUTHOR_CODE = A.AUTHOR_CODE 
-					        GROUP BY AUTHOR_GRP_CODE),0) AS GRPCNT
+			     , IFNULL((SELECT COUNT(*) CNT
+					   	    FROM (SELECT AUTHOR_CODE 
+							        FROM COMTNAUTHORUSR 
+							       GROUP BY AUTHOR_CODE, USR_ID) AA
+						   WHERE AA.AUTHOR_CODE = A.AUTHOR_CODE), 0) AS USRCNT
+			     , IFNULL((SELECT COUNT(*) CNT 
+					         FROM (SELECT AUTHOR_CODE 
+			                         FROM COMTNAUTHORGROUPAUTH 
+			                        GROUP BY AUTHOR_GRP_CODE, AUTHOR_CODE) BB 
+					        WHERE BB.AUTHOR_CODE = A.AUTHOR_CODE),0) AS GRPCNT
 			  FROM COMTNAUTHORINFO A
     </select>
     
