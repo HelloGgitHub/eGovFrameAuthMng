@@ -68,7 +68,31 @@ public class AuthPageController {
 		return "/athgp/AuthGroupList"; 
 	} 
 	
-	@RequestMapping("/AuthGrpDetailSet") 
+	@RequestMapping("/AuthGrpDetailSetAth") 
+	public String AuthGroupInfoAth(Model model
+			, @RequestParam(value = "callType") String callType
+			, @RequestParam(value = "authGrpId") String authGrpId) {
+		model.addAttribute("msg", 			"jstl");
+		model.addAttribute("callType", 	callType);
+		model.addAttribute("authGrpId", 	authGrpId);
+		
+		System.out.println("++++++++++++++++AuthGrpDetailSetAth++++++++++++authGrpId::"+ authGrpId + "===callType :: "+callType);
+		return "/athgp/AuthGrpDetailSetAth"; 
+	}
+
+	@RequestMapping("/AuthGrpDetailSetUsr") 
+	public String AuthGroupInfoUsr(Model model
+			, @RequestParam(value = "callType") String callType
+			, @RequestParam(value = "authGrpId") String authGrpId) {
+		model.addAttribute("msg", 			"jstl");
+		model.addAttribute("callType", 	callType);
+		model.addAttribute("authGrpId", 	authGrpId);
+		
+		System.out.println("++++++++++++++++AuthGrpDetailSetUsr++++++++++++authGrpId::"+ authGrpId + "===callType :: "+callType);
+		return "/athgp/AuthGrpDetailSetUsr"; 
+	}
+
+	@RequestMapping("/AuthGroupInfo") 
 	public String AuthGroupInfo(Model model
 			, @RequestParam(value = "callType") String callType
 			, @RequestParam(value = "authGrpId") String authGrpId) {
@@ -76,25 +100,8 @@ public class AuthPageController {
 		model.addAttribute("callType", 	callType);
 		model.addAttribute("authGrpId", 	authGrpId);
 		
-		System.out.println("++++++++++++++++AuthGrpInfo++++++++++++authGrpId::"+ authGrpId + "===callType :: "+callType);
-		return "/athgp/AuthGrpDetailSet"; 
+		System.out.println("++++++++++++++++AuthGroupInfo++++++++++++authGrpId::"+ authGrpId + "===callType :: "+callType);
+		return "/athgp/AuthGroupInfo"; 
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

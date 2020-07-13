@@ -43,5 +43,7 @@ public interface AuthGrpInfoDao {
 	int updateGrpAuthUsr(Map<Object, Object> param);
 	int insertGrpAuthUsr(Map<Object, Object> param);
 	int deleteGrpAuthUsr(Map<Object, Object> param);
+	List<HashMap<Object, Object>> selectUserList();
+	HashMap<String, Object> selectAuthGrpUsrCnt(Map<Object, Object> param);
 	
 }

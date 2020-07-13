@@ -24,15 +24,11 @@
 		} else if(cd == 4){
 			url="AuthGrpList";
 		} else if(cd == 5){
-			url="AuthGrpDetailSet?callType=c&authGrpId=";
-
-
-
-			
+			url="AuthGrpDetailSetAth?callType=c&authGrpId=";
 		} else if(cd == 6){
-			url="GroupUserSet?callType=c&userId=";
+			url="AuthGrpDetailSetUsr?callType=c&authGrpId=";
 		} else if(cd == 7){
-			url="UserGroupSet?callType=c&groupId=";
+			url="AuthGroupInfo?callType=c&authGrpId=";
 		}
 		
 		parent.body.location.href=url;
@@ -46,22 +42,15 @@
 	<br/><span class="btn_b"><a href="" onClick="fn_leftMenu(1);" title="로그인" style="font-size: 15px;font-style: inherit;font-weight: bold;">- 로그인</a></span>
 	<br/>
 	<br/><span class="btn_b" style="font-size: 15px;font-style: inherit;font-weight: bold;">- 권한 관리</span>
-	<br/>&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(2);" title="권한목록 조회" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한목록 조회</a></span>
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(3);" title="권한정보 조회" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한정보 조회</a></span>
-
-
-
-
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(2);" title="권한목록 조회" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한목록 조회</a></span>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(3);" title="권한등록" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한등록</a></span>
 
 	<br/>
 	<br/><span class="btn_b" style="font-size: 15px;font-style: inherit;font-weight: bold;">- 권한그룹 관리</span>
-	<br/>&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(4);" title="목록 조회" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹목록 조회</a></span>
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(5);" title="권한그룹 목록관리" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹 목록관리</a></span>
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(7);" title="사용자 목록관리" style="font-size: 15px;font-style: inherit;font-weight: bold;">사용자 목록관리</a></span>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(7);" title="권한그룹 등록" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹 등록</a></span>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(4);" title="목록 조회" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹 목록 조회</a></span>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(5);" title="권한그룹 권한 등록" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹 권한 등록</a></span>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(6);" title="권한그룹 사용자 등록" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹 사용자 등록</a></span>
 	
-	
-	
-	
-	<!-- 	<input type="text" id="usr" name="usr" value="left" style="text-align-last: end;media-volume-sliderthumb"/> -->
 </body>
 </html>

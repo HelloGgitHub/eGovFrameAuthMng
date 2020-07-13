@@ -23,6 +23,7 @@ public class AuthGrpInputParamVo {
 	
 	private String grpAuthCd;
 	private String authCd;
+	private String userId;
 
 	
 	public String getAuthCd() {
@@ -49,5 +50,13 @@ public class AuthGrpInputParamVo {
 	public void setPage(int page) {
 		this.page = page;
 	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	
 	
 }

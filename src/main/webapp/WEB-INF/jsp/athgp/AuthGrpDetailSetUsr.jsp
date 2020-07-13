@@ -28,11 +28,16 @@ function inputCellSet(type) {
 		//입력정보
 		$("#inAuthGrpId").attr("readonly",true);
 		$("#inAuthGrpNm").attr("readonly",true);
+
+		$("#btn_Insert").css("display","none");
+		$("#btn_Del").attr("disabled",false);
+		$("#btn_Update").attr("disabled",false);
+		
 	}else if(type == "r"){  //readOnly
 		$("#inAuthGrpId").attr("readonly",true);
 		$("#inAuthGrpNm").attr("readonly",true);
 		$("#inAuthGrpDc").attr("readonly",true);
-		fn_DetailUser();
+		fn_DetailAuthGrp();
 	}else if(type == "u"){ //modify
 		$("#btn_insert").attr("disabled",true);
 		$("#inAuthGrpId").attr("readonly",true);
@@ -43,7 +48,7 @@ function inputCellSet(type) {
 //입력 필수값 체크
 function required() {
 	if($.trim($("#inAuthGrpId").val()).length == 0){
-		alert("권한그룹 아이디은(는) 필수 입력값입니다.");$("#inAuthGrpId").focus();return;
+		alert("권한그룹 아이디은(는) 필수 입력값입니다.");$("#inAuthGrpId").focus();return false;
 	}
 }
 
@@ -60,9 +65,9 @@ function maxlength() {
 
 
 /*********************************************************
- * 권한그룹 정보 조회
+ * 권한그룹 정보 조회 ok
  ******************************************************** */
-function fn_DetailUser(){
+function fn_DetailAuthGrp(){
 	var pAuthGrp="";
 	if(authGrp == null || authGrp == ""){
 		pAuthGrp = $("#inAuthGrpId").val();
@@ -77,7 +82,6 @@ function fn_DetailUser(){
 	arrlist = rtnData.list;
 	const obj2 = arrlist[0]; 
 	
-	console.log(">>>" + obj2.userNm);
 	$("#inAuthGrpId").val(pAuthGrp);
 	$("#inAuthGrpNm").val(obj2.author_grp_nm);
 	$("#inAuthGrpDc").val(obj2.author_grp_dc);
@@ -97,19 +101,18 @@ function fn_Select(){
 	var rtnData = new Object();
 	paramData.grpAuthCd = $("#inAuthGrpId").val();
 	
-	rtnData = fn_calApi("POST", "/authgrp/gAuthList", paramData, false);
+	rtnData = fn_calApi("POST", "/authgrp/uAuthGrpList", paramData, false);
 	var arr = rtnData.list;
 
  	var ihtml = '';
  	ihtml = ihtml + '<table class="board_list" summary="그룹목록을 출력합니다.">';
- 	ihtml = ihtml + '<colgroup><col style="width: 5%;"><col style="width: 3%;"><col style="width: 30%;"><col style="width: ;"></colgroup>'; //<col style="width: 30%;">
+ 	ihtml = ihtml + '<colgroup><col style="width: 5%;"><col style="width: 3%;"><col style="width: 30%;"><col style="width: ;"></colgroup>'; //
  	ihtml = ihtml + '<thead>';
  	ihtml = ihtml + '<tr>';
  	ihtml = ihtml + '<th>번호</th>';
  	ihtml = ihtml + '<th><input type="checkbox" name="checkAll" class="check2" onclick="javascript:fncCheckAll()" title="전체선택체크박스"></th>';
- 	ihtml = ihtml + '<th class="board_th_link">권한명</th>';
- 	ihtml = ihtml + '<th>설명</th>';
-//  	ihtml = ihtml + '<th>등록일</th>';
+ 	ihtml = ihtml + '<th class="board_th_link">사용자ID</th>';
+ 	ihtml = ihtml + '<th>사용자명</th>';
  	ihtml = ihtml + '</tr>';
  	ihtml = ihtml + '</thead>';
  	ihtml = ihtml + '<tbody class="ov">';
@@ -121,19 +124,16 @@ function fn_Select(){
    	 	ihtml = ihtml + '<td>' + lopCnt + '</td>';
    	 	ihtml = ihtml + '<td>';
    	 	ihtml = ihtml + '<input id="checkField" name="checkField" title="checkField" type="checkbox"/>';
-   	 	ihtml = ihtml + '<input id="id_'+(i+1)+'" name="id_'+(i+1)+'" type="hidden" value="'+arr[i].author_code+'">';
+   	 	ihtml = ihtml + '<input id="id_'+(i+1)+'" name="id_'+(i+1)+'" type="hidden" value="'+arr[i].usr_id+'">';
    	 	ihtml = ihtml + '</td>';
-//    	 	ihtml = ihtml + '<td><input type="text" onclick="fn_SelectGrp(\''+arr[i].group_id+'\')" value='+arr[i].group_nm+'></td>';
-//    	 	ihtml = ihtml + '<td id="groupId_'+(i+1)+'" name="groupId_'+(i+1)+'">'+arr[i].group_id+'</td>';
-   	 	ihtml = ihtml + '<td id="groupNm_'+(i+1)+'" name="groupNm_'+(i+1)+'">'+arr[i].group_nm+'</td>';
-	 	ihtml = ihtml + '<td id="groupDc_'+(i+1)+'" name="groupDc_'+(i+1)+'">'+arr[i].group_dc+'</td>';
-//    	 	ihtml = ihtml + '<td id="adres_'+(i+1)+'" name="adres_'+(i+1)+'">'+arr[i].group_creat_de+'</td>';
+   	 	ihtml = ihtml + '<td id="userId_'+(i+1)+'" name="userId_'+(i+1)+'">'+arr[i].usr_id+'</td>';
+	   	ihtml = ihtml + '<td id="userNm_'+(i+1)+'" name="userNm_'+(i+1)+'">'+arr[i].usr_nm+'</td>';
    	 	ihtml = ihtml + '</tr>';
     }
 	grdRowCnt=lopCnt;
  	ihtml = ihtml + '</tbody>';
  	ihtml = ihtml + '</table>';
-
+ 
 	var grd = document.getElementById("grdlist");
 	grd.innerHTML = ihtml;
 }
@@ -145,35 +145,31 @@ function fn_Select(){
 function fn_RowAdd(){
 	grdRowCnt++;	
 	$("#setGroup").empty();
-	//API호출
 	var rtnData = new Object();
-	rtnData = fn_calApi("GET", "/grp/list", null, false);
-	var arr = rtnData.list;
-
  	var ihtml = '';
-
 	var dopDonBox = "";
-	for(var i =0; arr.length > i; i++){
-		dopDonBox = dopDonBox + '<option value="'+arr[i].group_id+'">'+arr[i].group_nm+'</option>'; 
-    }
 
+	rtnData = fn_calApi("GET", "/authgrp/usrList", null, false);
+	var arr = rtnData.list;
+	for(var i =0; arr.length > i; i++){
+		dopDonBox = dopDonBox + '<option value="'+arr[i].userId+'">'+arr[i].userNm+'</option>'; 
+    }
 	
 	ihtml = ihtml + '<table class="board_list" style="border-top: 1px solid #d2d2d2;" summary="그룹목록을 출력합니다.">';
 	ihtml = ihtml + '<tbody class="ov">';
-	ihtml = ihtml + '<colgroup><col style="width: 5%;"><col style="width: 3%;"><col style="width: 30%;"><col style="width: ;"></colgroup>'; //<col style="width: 15%;">
+	ihtml = ihtml + '<colgroup><col style="width: 5%;"><col style="width: 3%;"><col style="width: 30%;"><col style="width: ;"></colgroup>';
  	ihtml = ihtml + '<tr>';
  	ihtml = ihtml + '<td>' + grdRowCnt + '</td>';
  	ihtml = ihtml + '<td>';
  	ihtml = ihtml + '<input id="checkField" name="checkField" title="checkField" type="checkbox"  checked="checked" />';
  	ihtml = ihtml + '<input id="id_'+grdRowCnt+'" name="id_'+grdRowCnt+'" type="hidden" value="'+''+'">';
  	ihtml = ihtml + '</td>';
+ 	ihtml = ihtml + '<td id="usrId_'+grdRowCnt+'" name="usrId_'+grdRowCnt+'">'+''+'</td>';
  	ihtml = ihtml + '<td>';
- 	ihtml = ihtml + '<select id="grpId_'+grdRowCnt+'" name="grpId_'+grdRowCnt+'" title="그룹ID">';
+ 	ihtml = ihtml + '<select id="usrNm_'+grdRowCnt+'" name="usrNm_'+grdRowCnt+'" title="권한코드" onchange="fn_selectSetUsr('+grdRowCnt+')">';
  	ihtml = ihtml + '<option value="" selected="selected">--선택하세요--</option>';
  	ihtml = ihtml + dopDonBox
  	ihtml = ihtml + '</td>';
- 	ihtml = ihtml + '<td id="groupDc'+grdRowCnt+'" name="groupDc'+grdRowCnt+'">'+''+'</td>';
-//  	ihtml = ihtml + '<td id="adres_'+grdRowCnt+'" name="adres_'+grdRowCnt+'">'+''+'</td>';
  	ihtml = ihtml + '</tr>';
  	ihtml = ihtml + '</tbody>';
  	ihtml = ihtml + '</table>';
@@ -183,52 +179,84 @@ function fn_RowAdd(){
 }
 
 
+/******************
+ * 셀렉트 박스 선택시 값 셋팅
+ ******************/
+function fn_selectSetUsr(row){
+	var usrId = $("#usrNm_"+row).val();
+	$("#usrId_"+row).html(usrId);
+}
+
+
+/*****************
+ * 권한 그룹에 권한 추가 ok
+ ******************/
+function fn_insert(){
+	
+	if(caltype == "c"){
+		grpInfoInsert();
+		usrInsert();
+	}else{
+		usrInsert();
+	}
+	fn_Select();
+}
 
 
 /*********************************************************
- * 사용자 그룹등록
+ * 그룹등록 
  ******************************************************** */
-function id_insert(){
+function grpInfoInsert(){
 
 	if(confirm("등록하시겠습니까?")){	
-		required(); //필수값 체크
-		maxlength(); //최대 길이 체크
+		if(required()==false) return false; //필수값 체크
+		if(maxlength()==false) return false; //최대 길이 체크
 	}
 	
-	if(iddbck == false){
-		alert("아이디 중복체크를 해주세요.");
-		return;
-	}
-	
-	var userData = new Object();
-	userData.usrId					=	$("#inAuthGrpId").val();
-	userData.usrNm				=	$("#inAuthGrpNm").val();
-	userData.password			=	$("#inPassword").val();
+	var paramData = new Object();
+	paramData.authGrpCd	=	$("#inAuthGrpId").val();
+	paramData.authGrpNm	=	$("#inAuthGrpNm").val();
+	paramData.authGrpDc	=	$("#inAuthGrpDc").val();
+	rtnData = fn_calApi("POST", "/authgrp/addnew", paramData, false);
 
-	var jsonData = JSON.stringify(userData);
-	console.log(jsonData);
+	alert(rtnData.RESULTMSG);
 	
-	$.ajax({
-		type:"POST",
-		url:"http://localhost:9085/user/arovRequest",
-		contentType: 'application/json; charset=utf-8',
-		dataType:'json',
-		data:jsonData,
-		timeout:(1000*30),
-		success:function(returnData){
-			console.log(returnData);
-			alert(returnData.RESULTMSG);
-			inputCellSet("cr");
-			return;
-		},
-		error:function(){
-			alert("ERROR!");return;
+}
+/*********************************************************
+ * 사용자등록 
+ ******************************************************** */
+function usrInsert(){
+	var insSMsg = "";
+	var insSCnt = 0;
+	var ckId = new Array();
+	ckId = checkFieldck();
+	
+	for(var i=0; ckId.length > i; i++){
+		var ckNum = ckId[i];
+		var rtnData = new Object();
+		var paramData = new Object();
+		paramData.grpAuthCd = $("#inAuthGrpId").val();
+		paramData.userId = $("#usrNm_"+ckNum).val();
+
+		//API호출
+		if($("#usrNm_"+ckNum).val()=="" || $("#usrNm_"+ckNum).val() == null || $("#usrNm_"+ckNum).val() == "undefined"){
+			insSMsg = insSMsg + "번호 " + ckNum + " : 선택된 내용이 없습니다.\n";
+		}else{
+			//API호출
+			rtnData = fn_calApi("POST", "/authgrp/uAuthGrpAdd", paramData, false);
+			insSMsg = insSMsg + "번호 " + ckNum + " : " +rtnData.RESULTMSG + "\n";
 		}
-	});
+		insSCnt++;
+	}
+
+	if(insSCnt > 0){
+		alert("사용자 등록  처리내용\n\n" + insSMsg);
+	}
 }
 
+
 /*****************
- * 사용자 그룹 제거
+ * 사용자 그룹 제거 ok
  ******************/
 function fn_Delete(){
 	var ckId = new Array();
@@ -238,32 +266,10 @@ function fn_Delete(){
 		var ckNum = ckId[i];
 		var rtnData = new Object();
 		var paramData = new Object();
-		paramData.authGrp = $("#inAuthGrpId").val();
-		paramData.groupId = $("#id_"+ckNum).val();
+		paramData.grpAuthCd = $("#inAuthGrpId").val();
 
 		//API호출
-		rtnData = fn_calApi("DELETE", "/grp/usrSbt", paramData, false);
-		alert(rtnData.RESULTMSG);
-	}
-	fn_Select();
-}
-
-/*****************
- * 사용자 그룹 추가
- ******************/
-function fn_insert(){
-	var ckId = new Array();
-	ckId = checkFieldck();
-	
-	for(var i=0; ckId.length > i; i++){
-		var ckNum = ckId[i];
-		var rtnData = new Object();
-		var paramData = new Object();
-		paramData.authGrp = $("#inAuthGrpId").val();
-		paramData.grpId = $("#grpId_"+ckNum).val();
-
-		//API호출
-		rtnData = fn_calApi("POST", "/grp/usrAdd", paramData, false);
+		rtnData = fn_calApi("DELETE", "/authgrp/uAuthGrpSbt", paramData, false);
 		alert(rtnData.RESULTMSG);
 	}
 	fn_Select();
@@ -307,7 +313,6 @@ function fn_movebak(){
 				<tr>
 					<th><label for="inAuthGrpId">권한그룹 아이디</label></th>
 					<td class="left">
-<!-- 						<input id="inUserId" name="inUserId" title="권한그룹아이디" type="text" value="" size="20" maxlength="20" style="width:100%;"/> -->
 						<input id="inAuthGrpId" name="inAuthGrpId" title="권한그룹아이디" type="text" value="" size="20" maxlength="20" style="width:100%;"/>
 					</td>
 				</tr>
@@ -315,7 +320,6 @@ function fn_movebak(){
 				<tr>
 					<th><label for="inAuthGrpNm">권한그룹 명</label></th>
 					<td class="left">
-<!-- 						<input id="inUserNm" name="inUserNm" title="권한그룹 명" type="text" value="" size="50" maxlength="50" style="width:100%;"/> -->
 						<input id="inAuthGrpNm" name="inAuthGrpNm" title="권한그룹 명" type="text" value="" size="50" maxlength="50" style="width:100%;"/>
 					</td>
 				</tr>
@@ -338,7 +342,6 @@ function fn_movebak(){
 	<br>
 	
 	<!-- 하단 버튼 -->
-<!-- 	<button title="뒤로가기" 	id="btn_movBak" onclick="fn_movebak();">뒤로가기</button>  -->
 	<button title="추가" 		id="btn_RowAdd" 		onclick="fn_RowAdd();">Row추가</button>
 	<button title="저장" 		id="btn_insert" 		onclick="fn_insert();">저장</button>
 	<button title="삭제" 		id="btn_Del" 			onclick="fn_Delete();">삭제</button>

@@ -34,8 +34,8 @@ function fn_Select(){
  	ihtml = ihtml + '<th>번호</th>';
  	ihtml = ihtml + '<th><input type="checkbox" name="checkAll" class="check2" onclick="javascript:fncCheckAll()" title="전체선택체크박스"></th>';
  	ihtml = ihtml + '<th class="board_th_link">권한 그룹명</th>';
- 	ihtml = ihtml + '<th>인원 수</th>';
  	ihtml = ihtml + '<th>권한 수</th>';
+ 	ihtml = ihtml + '<th>인원 수</th>';
  	ihtml = ihtml + '<th>등록일</th>';
  	ihtml = ihtml + '</tr>';
  	ihtml = ihtml + '</thead>';
@@ -48,9 +48,9 @@ function fn_Select(){
    	 	ihtml = ihtml + '<input id="checkField" name="checkField" title="checkField" type="checkbox"/>';
    	 	ihtml = ihtml + '<input id="id_'+(i+1)+'" name="id_'+(i+1)+'" type="hidden" value="'+arr[i].author_grp_code+'">';
    	 	ihtml = ihtml + '</td>';
-   	 	ihtml = ihtml + '<td><a onclick="fn_SelectAuth(\''+arr[i].author_grp_code+'\')">'+arr[i].author_grp_nm+'</a></td>';
-   	 	ihtml = ihtml + '<td id="userCnt_'+(i+1)+'" name="userCnt_'+(i+1)+'"><a onclick="fn_SelectUserCnt(\''+arr[i].author_grp_code+'\')">'+arr[i].usrcnt+'</a></td>';
-	 	ihtml = ihtml + '<td id="athCnt_'+(i+1)+'" name="athCnt_'+(i+1)+'"><a onclick="fn_SelectGrpCnt(\''+arr[i].author_grp_code+'\')">'+arr[i].athcnt+'</a></td>';
+   	 	ihtml = ihtml + '<td><a onclick="fn_SelectAuthGrp(\''+arr[i].author_grp_code+'\')">'+arr[i].author_grp_nm+'</a></td>';
+	 	ihtml = ihtml + '<td id="athCnt_'+(i+1)+'" name="athCnt_'+(i+1)+'"><a onclick="fn_SelectAuthCnt(\''+arr[i].author_grp_code+'\')">'+arr[i].athcnt+'</a></td>';
+	 	ihtml = ihtml + '<td id="userCnt_'+(i+1)+'" name="userCnt_'+(i+1)+'"><a onclick="fn_SelectUserCnt(\''+arr[i].author_grp_code+'\')">'+arr[i].usrcnt+'</a></td>';
    	 	ihtml = ihtml + '<td id="creatDt_'+(i+1)+'" name="creatDt_'+(i+1)+'">'+arr[i].author_grp_creat_dt+'</td>';
    	 	ihtml = ihtml + '</tr>';
     }
@@ -63,15 +63,20 @@ function fn_Select(){
 }
 
 
-function fn_SelectAuth(authGrpId){
+function fn_SelectAuthGrp(authGrpId){
 	var pageType= "r";
-	location.href=baseUrl + "/AuthGrpDetailSet?callType="+pageType+"&authGrpId="+authGrpId;
+	location.href=baseUrl + "/AuthGroupInfo?callType="+pageType+"&authGrpId="+authGrpId;
+}
+
+function fn_SelectAuthCnt(authGrpId){
+	var pageType= "r";
+	location.href=baseUrl + "/AuthGrpDetailSetAth?callType="+pageType+"&authGrpId="+authGrpId;
 }
 
 
 function fn_SelectUserCnt(authGrpId){
 	var pageType= "r";
-	location.href=baseUrl + "/AuthList?callType="+pageType+"&authId="+authGrpId;
+	location.href=baseUrl + "/AuthGrpDetailSetUsr?callType="+pageType+"&authGrpId="+authGrpId;
 }
 
 
@@ -113,15 +118,13 @@ function checkFieldck(){
 
 
 function fn_Insert(){
-	location.href=baseUrl+"/AuthGrpInfo?callType=c&authGrpId="
+	location.href=baseUrl+"/AuthGroupInfo?callType=c&authGrpId=";
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////체크박스 전체 선택!!! 더 개발해야함.
 function fncCheckAll(){
 	var rowData = new Array();
 	var checkbox = $("input[name=checkField]:checked");
-	console.log(">>>"+checkbox.parent().parent().eq(1).value);
-// 	checkbox.parent().parent().eq(i)
 }
 
 </script>

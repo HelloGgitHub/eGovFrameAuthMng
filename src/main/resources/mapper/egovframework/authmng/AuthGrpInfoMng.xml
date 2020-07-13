@@ -13,7 +13,7 @@
 					        WHERE AUTHOR_GRP_CODE = A.AUTHOR_GRP_CODE 
 					        GROUP BY USR_ID),0) AS USRCNT
 			     , ifnull((SELECT COUNT(*) CNT 
-					         FROM COMTNAUTHORUSR 
+					         FROM COMTNAUTHORGROUPAUTH 
 					        WHERE AUTHOR_GRP_CODE = A.AUTHOR_GRP_CODE 
 					        GROUP BY AUTHOR_GRP_CODE),0) AS ATHCNT
 			  FROM COMTNAUTHORGROUPINFO A
@@ -48,15 +48,15 @@
 				  #{AUTHGRPCD}
 				, #{AUTHGRPNM}
 				, #{AUTHGRPDC}
-				, DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
-				, DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+				, #{DT}
+				, #{DT}
 			)
     </insert>
 
     
     <update id="updateAuthGrpInfo" parameterType="hashMap">
 			UPDATE COMTNAUTHORGROUPINFO
-			   SET CHANGE_DT = DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+			   SET CHANGE_DT = '${DT}'
 			    <if test='AUTHGRPNM != null'> 	, AUTHOR_GRP_NM	= '${AUTHGRPNM}' 	</if>
 			    <if test='AUTHGRPDC != null'> 	, AUTHOR_GRP_DC	= '${AUTHGRPDC}' 	</if>
 			 WHERE AUTHOR_GRP_CODE           = '${AUTHGRPCD}'
@@ -80,6 +80,7 @@
 			     , A.AUTHOR_CODE 
 			     , A.ADD_DT
 			     , B.AUTHOR_NM 
+			     , B.AUTHOR_DC
 			  FROM COMTNAUTHORGROUPAUTH A
 			  LEFT OUTER JOIN COMTNAUTHORINFO B
 			    ON (A.AUTHOR_CODE = B.AUTHOR_CODE )
@@ -99,9 +100,9 @@
 					, AUTHOR_CODE 
 					, ADD_DT 
 				)
-			SELECT A.AUTHOR_CODE 
-			     , B.AUTHOR_GRP_CODE 
-			     , DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+			SELECT B.AUTHOR_GRP_CODE
+			     , A.AUTHOR_CODE 
+			     , '${DT}'
 			  FROM COMTNAUTHORINFO a 
 			     , COMTNAUTHORGROUPINFO b
 			 WHERE a.AUTHOR_CODE = '${AUTHCD}'
@@ -123,17 +124,27 @@
     
 <!-- 권한 그룹 관리(사용자) -->
     <select id="selectGrpAuthUsrList"  parameterType="Map" resultType="hashMap">
-			 SELECT USR_ID
-			  FROM COMTNAUTHORUSR
-			 WHERE AUTHOR_GRP_CODE =  '${AUTHGRPCD}'
-			 GROUP BY USR_ID
+			 SELECT a.USR_ID
+			      , a.ADD_DT
+			      , b. USR_NM
+			  FROM COMTNAUTHORUSR a
+			  LEFT OUTER JOIN
+			  COMTNUSERMNG b
+			  ON a.USR_ID = b.USR_ID
+			 WHERE a.AUTHOR_GRP_CODE =  '${AUTHGRPCD}'
+			 GROUP BY a.USR_ID
     </select>
 
 
+    <select id="selectAuthGrpUsrCnt"  parameterType="Map" resultType="hashMap">
+			SELECT COUNT(*) CNT
+			  FROM COMTNAUTHORGROUPAUTH
+			 WHERE AUTHOR_GRP_CODE = '${AUTHGRPCD}'
+    </select>
 	<update id="updateGrpAuthUsr" parameterType="hashMap">
 			UPDATE COMTNAUTHORUSR
 			   SET AUTHOR_GRP_CODE = '${AUTHGRPCD}'
-			     , ADD_DT = DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+			     , ADD_DT = '${DT}'
 			 WHERE USR_ID = '${USRID}'
 			   AND AUTHOR_CODE IN (SELECT AUTHOR_CODE 
 			                         FROM COMTNAUTHORGROUPAUTH
@@ -142,10 +153,10 @@
     </update>
     <insert id="insertGrpAuthUsr" parameterType="hashMap">
 			INSERT INTO COMTNAUTHORUSR
-			SELECT '${AUTHGRPCD}'
+			SELECT AUTHOR_CODE
 			     , '${USRID}'
-			     , AUTHOR_CODE
-			     , DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
+			     , '${AUTHGRPCD}'
+			     , '${DT}'
 			  FROM COMTNAUTHORGROUPAUTH
 			 WHERE AUTHOR_CODE NOT IN (SELECT AUTHOR_CODE 
 			                             FROM COMTNAUTHORUSR
@@ -159,5 +170,15 @@
 			DELETE FROM COMTNAUTHORUSR
 			 WHERE AUTHOR_GRP_CODE           = '${AUTHGRPCD}'
     </delete>
+
+    <select id="selectUserList"  parameterType="Map" resultType="hashMap">
+		SELECT 
+		        USR_ID               as "userId",
+		        USR_NM               as "userNm",
+		  FROM COMTNUSERMNG
+    </select>
+    
+	
+    
     
 </mapper> 

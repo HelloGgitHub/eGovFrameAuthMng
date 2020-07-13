@@ -155,6 +155,7 @@ public class AuthGrpInfoController {
 			sqlInpt.put("AUTHGRPCD"	, param.getAuthGrpCd());
 			sqlInpt.put("AUTHGRPNM"	, param.getAuthGrpNm());
 			sqlInpt.put("AUTHGRPDC"	, param.getAuthGrpDc());
+			sqlInpt.put("DT"				, ComUtil.getTime("yyyyMMddHHmmss"));
 			
 			int rowCnt = authGrpService.selectAuthGrpInfoCnt(sqlInpt);
 			
@@ -202,7 +203,8 @@ public class AuthGrpInfoController {
 			sqlInpt.put("AUTHGRPCD"	, param.getAuthGrpCd());
 			sqlInpt.put("AUTHGRPNM"	, param.getAuthGrpNm());
 			sqlInpt.put("AUTHGRPDC"	, param.getAuthGrpDc());
-	
+			sqlInpt.put("DT"				, ComUtil.getTime("yyyyMMddHHmmss"));
+			
 			int inputCnt = authGrpService.updateAuthGrpInfo(sqlInpt);
 			if(inputCnt > 0) {
 				rtnMap.put("RESULTCD", "0");
@@ -266,7 +268,6 @@ public class AuthGrpInfoController {
 	
 	
 	/*권한 그룹 정보 관리*/
-	
 	/**
 	 * @name : GrpAuthList(권한그룹 권한목록 조회)
 	 * @date : 2020. 6. 15.
@@ -337,8 +338,9 @@ public class AuthGrpInfoController {
 		try {
 			//입력값 파라미터 정의
 			Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
-			sqlInpt.put("AUTHGRPCD", 	URLDecoder.decode(param.getGrpAuthCd(),	"UTF-8"));
-			sqlInpt.put("AUTHCD",		URLDecoder.decode(param.getAuthCd(),		"UTF-8"));
+			sqlInpt.put("AUTHGRPCD"	,URLDecoder.decode(param.getGrpAuthCd(),	"UTF-8"));
+			sqlInpt.put("AUTHCD"		,URLDecoder.decode(param.getAuthCd(),		"UTF-8"));
+			sqlInpt.put("DT"				,ComUtil.getTime("yyyyMMddHHmmss"));
 			
 			int rowCnt = authGrpService.selectGrpAuthCnt(sqlInpt);
 			if(rowCnt == 0) {
@@ -464,7 +466,8 @@ public class AuthGrpInfoController {
 	 */
 	@ApiOperation(value = "권한그룹코드 사용자 매핑", notes = "권한그룹 단위로 사용자에게 부여합니다.")
 	@PostMapping(path = "/uAuthGrpAdd")
-	public String InsertGrpAuthUsr(@RequestParam(value = "authGrpCd") String authGrpCd, @RequestParam(value = "usrId") String usrId) throws Exception {
+	public String InsertGrpAuthUsr(@RequestBody AuthGrpInputParamVo param
+			) throws Exception {
  
 		String rtn = "";
 		ObjectMapper om = new ObjectMapper();
@@ -473,18 +476,24 @@ public class AuthGrpInfoController {
 		try {
 			//입력값 파라미터 정의
 			Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
-			sqlInpt.put("AUTHGRPCD"	,URLDecoder.decode(authGrpCd	,"UTF-8"));
-			sqlInpt.put("USRID"			,URLDecoder.decode(usrId			,"UTF-8"));
-			
-			int inputCnt = authGrpService.insertGrpAuthUsr(sqlInpt);
-			int updateCnt = authGrpService.updateGrpAuthUsr(sqlInpt);
-				
-			if((inputCnt +updateCnt )> 0) {
-				rtnMap.put("RESULTCD", "0");
-				rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
-			}else {
+			sqlInpt.put("AUTHGRPCD"	,URLDecoder.decode(param.getGrpAuthCd()	,"UTF-8"));
+			sqlInpt.put("USRID"			,URLDecoder.decode(param.getUserId()		,"UTF-8"));
+			sqlInpt.put("DT"				,ComUtil.getTime("yyyyMMddHHmmss"));
+		
+			Map<String, Object> ck = authGrpService.selectAuthGrpUsrCnt(sqlInpt);
+			if("0".equals(ck.get("cnt").toString())) {
 				rtnMap.put("RESULTCD", "1");
-				rtnMap.put("RESULTMSG", "등록에 실패 하였습니다.");
+				rtnMap.put("RESULTMSG", "해당 권한그룹에 등록된 권한이 없습니다.");
+			}else {
+				int inputCnt = authGrpService.insertGrpAuthUsr(sqlInpt);
+				int updateCnt = authGrpService.updateGrpAuthUsr(sqlInpt);
+				if((inputCnt +updateCnt )> 0) {
+					rtnMap.put("RESULTCD", "0");
+					rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
+				}else {
+					rtnMap.put("RESULTCD", "1");
+					rtnMap.put("RESULTMSG", "등록에 실패 하였습니다.");
+				}
 			}
 		} catch (Exception e) {
 			rtnMap.put("RESULTCD", "1");
@@ -533,5 +542,38 @@ public class AuthGrpInfoController {
 		rtn = om.writeValueAsString(rtnMap);
 		return rtn;
 	}
-	
+
+	/**
+	 * @name : UserList(사용자 목록조회)
+	 * @date : 2020. 6. 11.
+	 * @author : "egov"
+	 * @throws Exception 
+	 * @return_type : String
+	 * @desc : 사용자 목록을 조회한다.
+	 */
+	@ApiOperation(value = "사용자 목록조회")
+	@GetMapping(path = "/usrList")
+	public String UserList() throws Exception {
+		
+		String rtn = "";
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		List<HashMap<Object, Object>> lst = new ArrayList<HashMap<Object, Object>>();
+		ObjectMapper om = new ObjectMapper();
+		
+		try {
+			lst = authGrpService.selectData();
+			rtnMap.put("list", lst);
+			rtnMap.put("RESULTCD", "0");
+			rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
+		}catch (Exception e) {
+			e.getStackTrace();
+			rtnMap.put("RESULTCD", "1");
+			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
+			e.printStackTrace();
+		}
+
+		rtn = om.writeValueAsString(rtnMap);
+		return rtn;
+	}
+
 }

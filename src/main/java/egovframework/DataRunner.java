@@ -66,34 +66,6 @@ public class DataRunner implements ApplicationRunner {
 			jdbcTemplate.execute(comtnUserMngQry);
 			
 			
-            StringBuffer comtnGroupInfo = new StringBuffer();
-            comtnGroupInfo.append("\n CREATE TABLE COMTNGROUPINFO                     ");
-            comtnGroupInfo.append("\n (                                               ");
-            comtnGroupInfo.append("\n 	 GROUP_ID                VARCHAR(20) NOT NULL,   ");
-            comtnGroupInfo.append("\n 	 GROUP_NM               VARCHAR(60),          ");
-            comtnGroupInfo.append("\n 	 GROUP_CREAT_DE     VARCHAR(14),                 ");
-            comtnGroupInfo.append("\n 	 GROUP_DC               VARCHAR(100),         ");
-            comtnGroupInfo.append("\n 	 CHANGE_DT				 VARCHAR(14) ,              ");
-            comtnGroupInfo.append("\n 	 PRIMARY KEY (GROUP_ID)                       ");
-            comtnGroupInfo.append("\n )                                               ");
-            statement.executeUpdate(comtnGroupInfo.toString());
-            String comtnGroupInfoQry = "INSERT INTO COMTNGROUPINFO (GROUP_ID, GROUP_NM, GROUP_CREAT_DE, GROUP_DC, CHANGE_DT) VALUES ('USRGRP001','사용자그룹_001','"+sstime+"','테스트를 위한 기본 사용자 그룹','"+sstime+"')";
-        	jdbcTemplate.execute(comtnGroupInfoQry);
-        	
-            
-            StringBuffer comtnGroupUsr = new StringBuffer();
-            comtnGroupUsr.append("\n CREATE TABLE COMTNGROUPUSR                 ");
-            comtnGroupUsr.append("\n (                                          ");
-            comtnGroupUsr.append("\n 	 GROUP_ID      VARCHAR(20) NOT NULL,         ");
-            comtnGroupUsr.append("\n 	 USR_ID          VARCHAR(20) NOT NULL,    ");
-            comtnGroupUsr.append("\n 	 ADD_DT         VARCHAR(14),                 ");
-            comtnGroupUsr.append("\n 	 PRIMARY KEY (GROUP_ID,USR_ID)            ");
-            comtnGroupUsr.append("\n )                                          ");
-            statement.executeUpdate(comtnGroupUsr.toString());            
-            String comtnGroupUsrQry = "INSERT INTO COMTNGROUPUSR (GROUP_ID, USR_ID, ADD_DT) VALUES ('USRGRP001','TESTUSER','"+sstime+"')";
-        	jdbcTemplate.execute(comtnGroupUsrQry);
-            
-        	
         	StringBuffer comtnAuthorInfo = new StringBuffer();
         	comtnAuthorInfo.append("\n  CREATE TABLE COMTNAUTHORINFO          ");
         	comtnAuthorInfo.append("\n  (                                     ");

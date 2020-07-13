@@ -65,7 +65,20 @@ public class AuthGrpInfoService {
 	 * @return_type : HashMap<String,Object>
 	 */
 	public List<HashMap<Object, Object>> selectAuthGrpDetail(Map<Object, Object> param) {
-        return mapper.selectAuthGrpDetail(param);
+		
+		List<HashMap<Object, Object>> rtnLst = new ArrayList<HashMap<Object, Object>> ();
+		List<HashMap<Object, Object>> sqlLst = new ArrayList<HashMap<Object, Object>> ();
+		
+		sqlLst = mapper.selectAuthGrpDetail(param);
+		
+		for(int i = 0; sqlLst.size() > i; i++) {
+			HashMap<Object, Object> rtnMap= new HashMap<Object, Object>();
+			rtnMap = sqlLst.get(i);
+			rtnMap.put("author_grp_creat_dt", ComUtil.dbDatetoDataTimeFrm(rtnMap.get("author_grp_creat_dt").toString()));
+			rtnLst.add(rtnMap);
+		}
+		
+        return rtnLst;
     }
 	
 	/**
@@ -190,4 +203,24 @@ public class AuthGrpInfoService {
         return mapper.deleteGrpAuthUsr(param);
     }
 
+	/**
+	 * @name : selectDataMaria(사용자목록 조회)
+	 * @date : 2020. 6. 11.
+	 * @author : "egov"
+	 * @return_type : List<HashMap<Object,Object>>
+	 */
+	public List<HashMap<Object, Object>> selectData() {
+        return mapper.selectUserList();
+    }
+
+	/**
+	 * @name : selectAuthGrpUsrCnt(사용자 권한 목록 조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : List<HashMap<Object,Object>>
+	 */
+	public HashMap<String, Object> selectAuthGrpUsrCnt(Map<Object, Object> param) {
+        return mapper.selectAuthGrpUsrCnt(param);
+    }
+	
 }

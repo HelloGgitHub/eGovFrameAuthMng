@@ -24,35 +24,17 @@
 		function inputCellSet(type) {
 			//호출타입에 따라 입력환경 설정
 			if(type == "c"){ //insert
-				//입력값
 				$("#inAuthGrpId").val("");
-				//버튼
+				$("#inCrdt").attr("disabled",true);
 				$("#btn_Del").attr("disabled",true);
-				$("#btn_Modify").attr("disabled",true);
-		// 		$("#btn_Modify").css("display","none");
-		// 		$("#btn_Del").css("display","none");
+				$("#btn_Update").attr("disabled",true);
 			}else if(type == "r"){  //readOnly
-				//입력값
 				$("#inAuthGrpId").attr("disabled",true);
 				$("#inCrdt").attr("disabled",true);
-				//버튼
-				$("#btn_Arov").attr("disabled",true);
-				$("#btn_Arov").css("display","none");
-				fn_DetailAuth();
-			}else if(type == "cr"){  //readOnly
-				//입력값
-				$("#inAuthGrpId").attr("disabled",true);
-		
-				//버튼
-				$("#btn_Modify").attr("disabled",false);
+				$("#btn_Insert").css("display","none");
 				$("#btn_Del").attr("disabled",false);
-				$("#btn_Arov").attr("disabled",true);
-		// 		$("#btn_Modify").css("display","block");
-		// 		$("#btn_Del").css("display","block");
-		// 		$("#btn_Arov").css("display","none");
-			}else if(type == "u"){ //modify
-				$("#btn_Arov").attr("disabled",true);
-				$("#inAuthGrpId").attr("readonly",true);
+				$("#btn_Update").attr("disabled",false);
+				fn_DetailAuthGrp();
 			}
 		}
 
@@ -60,12 +42,7 @@
  * 입력 필수값 체크
  *********************/
 	function required() {
-		if($.trim($("#inAuthGrpId").val()).length == 0){
-			alert("그룹아이디은(는) 필수 입력값입니다.");$("#inAuthGrpId").focus();return;
-		} else if($.trim($("#inAuthGrpNm").val()).length == 0){
-			alert("그룹명은 필수 입력값입니다.");$("#inAuthGrpNm").focus();return;
-		} else if($.trim($("#inAuthGrpdis").val()).length == 0){
-			alert("그룹설명은 필수 입력값입니다.");$("#inAuthGrpdis").focus();return;
+		if($.trim($("#inAuthGrpId").val()).length == 0){alert("그룹아이디은(는) 필수 입력값입니다.");$("#inAuthGrpId").focus();return false;
 		}
 	}
 
@@ -76,9 +53,9 @@
 		if($.trim($("#inAuthGrpId").val()).length >= 20){
 			alert("그룹아이디은(는) 20자 이상 입력할수 없습니다.");$("#inAuthGrpId").focus();return false;
 		} else if($.trim($("#inAuthGrpNm").val()).length >= 50){
-			alert("그룹명은(는) 50자 이상 입력할수 없습니다.");$("#inAuthGrpNm").focus();return;
-		} else if($.trim($("#inAuthGrpdis").val()).length >= 100){
-			alert("그룹설명은(는) 100자 이상 입력할수 없습니다.");$("#inAuthGrpdis").focus();return;
+			alert("그룹명은(는) 50자 이상 입력할수 없습니다.");$("#inAuthGrpNm").focus();return false;
+		} else if($.trim($("#inAuthGrpDc").val()).length >= 100){
+			alert("그룹설명은(는) 100자 이상 입력할수 없습니다.");$("#inAuthGrpDc").focus();return false;
 		}
 	}
 	
@@ -93,46 +70,45 @@
 	function fn_insert(){
 	
 		if(confirm("등록하시겠습니까?")){
-			required(); //필수값 체크
-			maxlength(); //최대 길이 체크
+			if(required()==false) return; //필수값 체크
+			if(maxlength()==false) return; //최대 길이 체크
 		}
-		
+
 		var groupData = new Object();
-		groupData.grpId	=	$("#inAuthGrpId").val();
-		groupData.grpNm	=	$("#inAuthGrpNm").val();
-		groupData.grpDc	=	$("#inAuthGrpdis").val();
+		groupData.authGrpCd	=	$("#inAuthGrpId").val();
+		groupData.authGrpNm	=	$("#inAuthGrpNm").val();
+		groupData.authGrpDc	=	$("#inAuthGrpDc").val();
 		
 		var rtnData = new Object();
 		rtnData = fn_calApi("POST", "/authgrp/addnew", groupData, false);
 	
 		alert(rtnData.RESULTMSG);
 		inputCellSet("r");
-		
 	}
 
 /**************
  * 그룹 정보 조회
  **************/
-	function fn_DetailAuth(){
-		
-		var pauthGrpId="";
-		if(authGrpId == null && authGrpId == ""){
-			pauthGrpId = $("#inAuthGrpId").val();
+	function fn_DetailAuthGrp(){
+
+		var pAuthGrp="";
+		if(authGrpId == null || authGrpId == ""){
+			pAuthGrp = $("#inAuthGrpId").val();
 		}else{
-			pauthGrpId = authGrpId;
+			pAuthGrp = authGrpId;
 		}
 		
-		console.log("detail param:===" + pauthGrpId );
+		console.log("detail param:===" + pAuthGrp );
 		var rtnData = new Object();
 		var arrlist = new Array();
-		rtnData = fn_calApi("GETpath", "/authgrp/detailInfo/"+pauthGrpId, null, false);
+		rtnData = fn_calApi("GET", "/authgrp/detailInfo/"+pAuthGrp, null, false);
 		arrlist = rtnData.list;
 		const obj2 = arrlist[0];
-		$("#inAuthGrpId").val(obj2.author_code);
+		$("#inAuthGrpId").val(obj2.author_grp_code);
 		$("#inAuthGrpId").attr("disabled",true);
-		$("#inAuthGrpNm").val(obj2.author_nm);
-		$("#inAuthGrpdis").val(obj2.author_dc);
-		$("#inCrdt").val(obj2.author_creat_dt);
+		$("#inAuthGrpNm").val(obj2.author_grp_nm);
+		$("#inAuthGrpDc").val(obj2.author_grp_dc);
+		$("#inCrdt").val(obj2.author_grp_creat_dt);
 		
 	}
 
@@ -142,17 +118,17 @@
 	function fn_update(){
 	
 		if(confirm("저장 하시겠습니까?")){
-			required(); //필수값 체크
-			maxlength(); //최대 길이 체크
+			if(required()==false) return; //필수값 체크
+			if(maxlength()==false) return; //최대 길이 체크
 		}
-		
-		var groupData = new Object();
-		groupData.grpId	=	$("#inAuthGrpId").val();
-		groupData.grpNm	=	$("#inAuthGrpNm").val();
-		groupData.grpDc	=	$("#inAuthGrpdis").val();
+
+		var paramData = new Object();
+		paramData.authGrpCd	=	$("#inAuthGrpId").val();
+		paramData.authGrpNm	=	$("#inAuthGrpNm").val();
+		paramData.authGrpDc	=	$("#inAuthGrpDc").val();
 	
 		var rtnData = new Object();
-		rtnData = fn_calApi("PUT", "/authgrp/modifyInfo", groupData, false);
+		rtnData = fn_calApi("PUT", "/authgrp/modifyInfo", paramData, false);
 	
 		alert(rtnData.RESULTMSG);
 		inputCellSet("r");
@@ -165,11 +141,11 @@
 		
 		var rtnData = new Object();
 		var paramData = new Object();
-		paramData.groupId = $("#inAuthGrpId").val();
+		paramData.authGrpCd = $("#inAuthGrpId").val();
 		//API호출
-		rtnData = fn_calApi("DELETE", "/authgrp/deleteGrp", paramData, false);
+		rtnData = fn_calApi("DELETE", "/authgrp/delete", paramData, false);
 		
-		fn_moveGrpList();
+		fn_moveAuthGrpList();
 	}
 
 /*************
@@ -182,17 +158,10 @@
 /******************
  * 목록페이지로 돌아가기
  ******************/
-	function fn_moveGrpList(){
-		location.href="/GroupList";
+	function fn_moveAuthGrpList(){
+		location.href="/AuthGrpList";
 	}
 
-/******************
- * 사용자 목록페이지
- ******************/
-	function fn_userList(){
-		location.href=baseUrl+"/UserGroupSet?callType=c&authGrpId="+$("#inAuthGrpId").val();
-	}
-	
 	
 </script>
 </head>
@@ -211,7 +180,7 @@
 	
 		<!-- 권한 -->
 		<tr>
-			<th><label for="inAuthGrpId">권한아이디</label> <span class="pilsu">*</span></th>
+			<th><label for="inAuthGrpId">권한그룹아이디</label> <span class="pilsu">*</span></th>
 			<td class="left">
 				<input id="inAuthGrpId" name="inAuthGrpId" title="아이디 입력" type="text" value="" size="20" maxlength="20"/>
 			</td>
@@ -219,18 +188,18 @@
 		
 		<!-- 권한명 -->
 		<tr>
-			<th><label for="inAuthGrpNm">권한명</label></th>
+			<th><label for="inAuthGrpNm">권한그룹명</label></th>
 			<td class="left">
-				<input id="inAuthGrpNm" name="inAuthGrpNm" title="권한이름 입력" type="text" value="" size="50" maxlength="50"/>
+				<input id="inAuthGrpNm" name="inAuthGrpNm" title="권한그룹이름 입력" type="text" value="" size="50" maxlength="50"/>
 			</td>
 		</tr>
 		
 		<!-- 권한 설명 -->
 		<tr>
-			<th><label for="inAuthGrpdis">권한 설명</label></th>
+			<th><label for="inAuthGrpDc">권한그룹 설명</label></th>
 			<td class="left">
 <!-- 				<input id="grpdis" name="grpdis" title="비밀번호 입력" type=" value="" size="50" maxlength="20"/> -->
-				<textarea id="inAuthGrpdis" name="inAuthGrpdis" title="권한설명 입력" type="" style="resize: none;"></textarea>
+				<textarea id="inAuthGrpDc" name="inAuthGrpDc" title="권한그룹 설명 입력" type="" style="resize: none;"></textarea>
 			</td>
 		</tr>
 		<!-- 권한명 -->
@@ -245,11 +214,9 @@
 	</table>
 	<br>
 	<!-- 하단 버튼 -->
-	<button title="뒤로가기" 		id="btn_movBak" 		onclick="fn_movebak();">뒤로가기</button> 
-	<button title="등록" 			id="btn_Arov" 			onclick="fn_insert();">등록</button>
-	<button title="수정" 			id="btn_Modify" 		onclick="fn_update();">수정</button>
+	<button title="등록" 			id="btn_Insert" 		onclick="fn_insert();">등록</button>
+	<button title="수정" 			id="btn_Update" 		onclick="fn_update();">수정</button>
 	<button title="삭제" 			id="btn_Del" 			onclick="fn_delete();">삭제</button>
-<!-- 	<button title="사용자 목록" 	id="btn_UserList" 	onclick="fn_userList();">사용자 목록 관리</button> -->
 	<br>
 
 </body>
