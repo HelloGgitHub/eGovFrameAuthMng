@@ -73,7 +73,6 @@ function fn_DetailAuth(){
 	}else{
 		pAuth = auth;
 	}
-	console.log("detail param:===" + pAuth );
 
 	var rtnData = new Object();
 	rtnData = fn_calApi("GET", "/auth/detailInfo/"+pAuth, null, false);

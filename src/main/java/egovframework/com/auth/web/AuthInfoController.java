@@ -296,7 +296,6 @@ public class AuthInfoController {
 		
 		ObjectMapper om = new ObjectMapper();
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtn);
 		
 		return rtn;
 	}

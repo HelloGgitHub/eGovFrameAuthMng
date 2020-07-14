@@ -63,10 +63,6 @@
 	function required() {
 		if($.trim($("#inAuthId").val()).length == 0){
 			alert("그룹아이디은(는) 필수 입력값입니다.");$("#inAuthId").focus();return;
-		} else if($.trim($("#inAuthNm").val()).length == 0){
-			alert("그룹명은 필수 입력값입니다.");$("#inAuthNm").focus();return;
-		} else if($.trim($("#inAuthDc").val()).length == 0){
-			alert("그룹설명은 필수 입력값입니다.");$("#inAuthDc").focus();return;
 		}
 	}
 
@@ -97,7 +93,6 @@
 			pAuthId = authId;
 		}
 		
-		console.log("detail param:===" + pAuthId );
 		var rtnData = new Object();
 		var arrlist = new Array();
 		rtnData = fn_calApi("GETpath", "/auth/detailInfo/"+pAuthId, null, false);
@@ -117,8 +112,8 @@
 	function fn_insert(){ //ok
 	
 		if(confirm("등록하시겠습니까?")){
-			required(); //필수값 체크
-			maxlength(); //최대 길이 체크
+			if(required()==false) return; //필수값 체크
+			if(maxlength()==false) return; //최대 길이 체크
 		}
 		
 		var paramData = new Object();
@@ -140,8 +135,8 @@
 	function fn_update(){  //ok
 	
 		if(confirm("저장 하시겠습니까?")){
-			required(); //필수값 체크
-			maxlength(); //최대 길이 체크
+			if(required()==false) return; //필수값 체크
+			if(maxlength()==false) return; //최대 길이 체크
 		}
 		
 		var paramData = new Object();
@@ -157,15 +152,15 @@
 	}
 
 /*********************************************************
- * 그룹정보 삭제
+ * 권한정보 삭제
  ******************************************************** */
-	function fn_delete(){ //ok
-		
+	function fn_delete(){
 		var rtnData = new Object();
 		var paramData = new Object();
 		paramData.authCd = $("#inAuthId").val();
 		//API호출
 		rtnData = fn_calApi("DELETE", "/auth/delete", paramData, false);
+		alert(rtnData.RESULTMSG);
 		
 		fn_moveAuthList();
 	}

@@ -68,7 +68,6 @@ function fn_DetailAuthGrp(){
 	}else{
 		pAuthGrp = authGrp;
 	}
-	console.log("detail param:===" + pAuthGrp );
 
 	var rtnData = new Object();
 	rtnData = fn_calApi("GET", "/authgrp/detailInfo/"+pAuthGrp, null, false);
@@ -226,7 +225,7 @@ function fn_movebak(){
 	<br>
 	
 	<!-- 하단 버튼 -->
-	<button title="추가" 		id="btn_RowAdd" 		onclick="fn_RowAdd();">Row추가</button>
+	<button title="추가" 		id="btn_RowAdd" 		onclick="fn_RowAdd();">추가</button>
 	<button title="저장" 		id="btn_insert" 		onclick="fn_insert();">저장</button>
 	<button title="삭제" 		id="btn_Del" 			onclick="fn_Delete();">삭제</button>
 	<br>

@@ -98,7 +98,6 @@
 			pAuthGrp = authGrpId;
 		}
 		
-		console.log("detail param:===" + pAuthGrp );
 		var rtnData = new Object();
 		var arrlist = new Array();
 		rtnData = fn_calApi("GET", "/authgrp/detailInfo/"+pAuthGrp, null, false);

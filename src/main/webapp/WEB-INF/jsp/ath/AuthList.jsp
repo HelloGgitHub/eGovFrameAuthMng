@@ -32,7 +32,7 @@ function fn_Select(){
  	ihtml = ihtml + '<thead>';
  	ihtml = ihtml + '<tr>';
  	ihtml = ihtml + '<th>번호</th>';
- 	ihtml = ihtml + '<th><input type="checkbox" name="checkAll" class="check2" onclick="javascript:fncCheckAll()" title="전체선택체크박스"></th>';
+ 	ihtml = ihtml + '<th><input type="checkbox" id="checkAll" name="checkAll" class="check2" onclick="javascript:fncCheckAll()" title="전체선택체크박스"></th>';
  	ihtml = ihtml + '<th class="board_th_link">권한명</th>';
  	ihtml = ihtml + '<th>보유인원 건수</th>';
  	ihtml = ihtml + '<th>권한그룹 등록건수</th>';
@@ -80,7 +80,6 @@ function fn_Delete(){  //ok
 	
 	for(var i=0; ckId.length > i; i++){
 		var ckNum = ckId[i];
-		console.log(ckId.length + "===" +ckId[i] );
 		
 		var rtnData = new Object();
 		var paramData = new Object();
@@ -104,7 +103,6 @@ function checkFieldck(){
 		var id = td.eq(0).text();
 		rowData.push(id);
 	});
-	console.log("rowData : " + rowData);
 	
 	return rowData;
 }
@@ -114,12 +112,12 @@ function fn_Insert(){
 	location.href=baseUrl+"/AuthInfo?callType=c&authId=";
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////체크박스 전체 선택!!! 더 개발해야함.
 function fncCheckAll(){
-	var rowData = new Array();
-	var checkbox = $("input[name=checkField]:checked");
-	console.log(">>>"+checkbox.parent().parent().eq(1).value);
-// 	checkbox.parent().parent().eq(i)
+	if($("#checkAll").prop("checked")){
+        $("input[name=checkField]").prop("checked",true);
+    }else{
+        $("input[name=checkField]").prop("checked",false);
+    }
 }
 
 </script>

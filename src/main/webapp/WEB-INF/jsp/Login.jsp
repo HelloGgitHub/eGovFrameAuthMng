@@ -62,27 +62,7 @@
 		
 
 		function fn_test(){
-			
 			window.parent.parent.frames["topFrame"].changePw();
-
-// 			parent.parent.topFrame.document.all.lgnUserId.value= "userid";
-			
-// 			var userData = new Object();
-// 			userData.usrId				=	$("#userId").val();
-// 			userData.password		=	$("#password").val();
-
-// 			var p="";
-// 			var tUrl="";
-// 			$.each(userData, function(key, value){
-// 			    p = p + key + "=" + value+"&";
-// 			});
-// 			tUrl = "?"+p.substring(0,(p.length-1))
-// 			alert(tUrl);
-			
-// 			for (const key in userData) {
-// 				 console.log(key);
-// 				 console.log(userData.key);
-// 			}
 		}
 
 	</script>

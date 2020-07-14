@@ -38,14 +38,12 @@ public class AuthPageController {
 	@RequestMapping("/Login") //ok
 	public String Login(Model model) {
 		model.addAttribute("msg", "jstl");
-		System.out.println("++++++++++++++++Login++++++++++++");
 		return "Login"; 
 	}
 
 	@RequestMapping("/AuthList") 
 	public String AuthList(Model model) {
 		model.addAttribute("msg", "jstl");
-		System.out.println("++++++++++++++++AuthList++++++++++++");
 		return "/ath/AuthList"; 
 	} 
 	
@@ -56,8 +54,6 @@ public class AuthPageController {
 		model.addAttribute("msg", "jstl");
 		model.addAttribute("callType", 	callType);
 		model.addAttribute("authId", 		authId);
-		
-		System.out.println("++++++++++++++++AuthInfo++++++++++++authId::"+ authId + "===callType :: "+callType);
 		return "/ath/AuthInfo"; 
 	}
 
@@ -68,15 +64,12 @@ public class AuthPageController {
 		model.addAttribute("msg", "jstl");
 		model.addAttribute("callType", 	callType);
 		model.addAttribute("authId", 		authId);
-		
-		System.out.println("++++++++++++++++AuthInfoSetUsr++++++++++++authId::"+ authId + "===callType :: "+callType);
 		return "/ath/AuthInfoSetUsr"; 
 	}
 	
 	@RequestMapping("/AuthGrpList") 
 	public String AuthGroupList(Model model) {
 		model.addAttribute("msg", "jstl");
-		System.out.println("++++++++++++++++AuthGrpList++++++++++++");
 		return "/athgp/AuthGroupList"; 
 	} 
 	
@@ -87,8 +80,6 @@ public class AuthPageController {
 		model.addAttribute("msg", 			"jstl");
 		model.addAttribute("callType", 	callType);
 		model.addAttribute("authGrpId", 	authGrpId);
-		
-		System.out.println("++++++++++++++++AuthGrpDetailSetAth++++++++++++authGrpId::"+ authGrpId + "===callType :: "+callType);
 		return "/athgp/AuthGrpDetailSetAth"; 
 	}
 
@@ -99,8 +90,6 @@ public class AuthPageController {
 		model.addAttribute("msg", 			"jstl");
 		model.addAttribute("callType", 	callType);
 		model.addAttribute("authGrpId", 	authGrpId);
-		
-		System.out.println("++++++++++++++++AuthGrpDetailSetUsr++++++++++++authGrpId::"+ authGrpId + "===callType :: "+callType);
 		return "/athgp/AuthGrpDetailSetUsr"; 
 	}
 
@@ -111,8 +100,6 @@ public class AuthPageController {
 		model.addAttribute("msg", 			"jstl");
 		model.addAttribute("callType", 	callType);
 		model.addAttribute("authGrpId", 	authGrpId);
-		
-		System.out.println("++++++++++++++++AuthGroupInfo++++++++++++authGrpId::"+ authGrpId + "===callType :: "+callType);
 		return "/athgp/AuthGroupInfo"; 
 	}
 

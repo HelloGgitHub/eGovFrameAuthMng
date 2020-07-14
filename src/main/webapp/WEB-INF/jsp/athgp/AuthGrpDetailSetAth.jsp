@@ -72,7 +72,6 @@ function fn_DetailAuthGrp(){
 	}else{
 		pAuthGrp = authGrp;
 	}
-	console.log("detail param:===" + pAuthGrp );
 
 	var rtnData = new Object();
 	rtnData = fn_calApi("GET", "/authgrp/detailInfo/"+pAuthGrp, null, false);
@@ -101,7 +100,7 @@ function fn_Select(){
 	var arr = rtnData.list;
 
  	var ihtml = '';
- 	ihtml = ihtml + '<table class="board_list" summary="그룹목록을 출력합니다.">';
+ 	ihtml = ihtml + '<table class="board_list" summary="권한목록을 출력합니다.">';
  	ihtml = ihtml + '<colgroup><col style="width: 5%;"><col style="width: 3%;"><col style="width: 30%;"><col style="width: ;"></colgroup>'; //<col style="width: 30%;">
  	ihtml = ihtml + '<thead>';
  	ihtml = ihtml + '<tr>';
@@ -344,7 +343,7 @@ function fn_movebak(){
 	<br>
 	
 	<!-- 하단 버튼 -->
-	<button title="추가" 		id="btn_RowAdd" 		onclick="fn_RowAdd();">Row추가</button>
+	<button title="추가" 		id="btn_RowAdd" 		onclick="fn_RowAdd();">추가</button>
 	<button title="저장" 		id="btn_insert" 		onclick="fn_insert();">저장</button>
 	<button title="삭제" 		id="btn_Del" 			onclick="fn_Delete();">삭제</button>
 	<br>
