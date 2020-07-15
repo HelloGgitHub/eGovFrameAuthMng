@@ -302,7 +302,7 @@ function fn_movebak(){
 <body>
 	<div class="wTableFrm">
 		<h2 >권한</h2>
-		<table class="wTable" summary="권한그룹">
+		<table class="wTable" summary="권한">
 			<caption>권한</caption>
 			<colgroup>
 				<col style="width: 22%;"><col style="width: ;">
@@ -333,7 +333,7 @@ function fn_movebak(){
 	<br/>
 	
 	<div class="wTableFrm">
-		<h2>권한</h2>
+		<h2>사용자</h2>
 		<div id="grdlist"></div>
 	</div>
 	
