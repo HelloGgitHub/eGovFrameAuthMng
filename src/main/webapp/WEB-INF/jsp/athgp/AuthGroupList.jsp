@@ -40,7 +40,8 @@ function fn_Select(){
  	ihtml = ihtml + '</tr>';
  	ihtml = ihtml + '</thead>';
  	ihtml = ihtml + '<tbody class="ov">';
-	
+
+	var cnt = 0;
 	for(var i =0; arr.length > i; i++){
    	 	ihtml = ihtml + '<tr>';
    	 	ihtml = ihtml + '<td>' + (i+1) + '</td>';
@@ -53,8 +54,13 @@ function fn_Select(){
 	 	ihtml = ihtml + '<td id="userCnt_'+(i+1)+'" name="userCnt_'+(i+1)+'"><a onclick="fn_SelectUserCnt(\''+arr[i].author_grp_code+'\')">'+arr[i].usrcnt+'</a></td>';
    	 	ihtml = ihtml + '<td id="creatDt_'+(i+1)+'" name="creatDt_'+(i+1)+'">'+arr[i].author_grp_creat_dt+'</td>';
    	 	ihtml = ihtml + '</tr>';
+   	 	cnt++;
     }
-
+	if(cnt == 0){
+    	ihtml = ihtml + '<tr>';
+	 	ihtml = ihtml + '<td colspan=6> 조회 결과가 없습니다</td>';
+	 	ihtml = ihtml + '</tr>';
+    }
  	ihtml = ihtml + '</tbody>';
  	ihtml = ihtml + '</table>';
  	
@@ -65,18 +71,18 @@ function fn_Select(){
 
 function fn_SelectAuthGrp(authGrpId){
 	var pageType= "r";
-	location.href=baseUrl + "/AuthGroupInfo?callType="+pageType+"&authGrpId="+authGrpId;
+	location.href="/AuthGroupInfo?callType="+pageType+"&authGrpId="+authGrpId;
 }
 
 function fn_SelectAuthCnt(authGrpId){
 	var pageType= "r";
-	location.href=baseUrl + "/AuthGrpDetailSetAth?callType="+pageType+"&authGrpId="+authGrpId;
+	location.href="/AuthGrpDetailSetAth?callType="+pageType+"&authGrpId="+authGrpId;
 }
 
 
 function fn_SelectUserCnt(authGrpId){
 	var pageType= "r";
-	location.href=baseUrl + "/AuthGrpDetailSetUsr?callType="+pageType+"&authGrpId="+authGrpId;
+	location.href="/AuthGrpDetailSetUsr?callType="+pageType+"&authGrpId="+authGrpId;
 }
 
 
@@ -115,7 +121,7 @@ function checkFieldck(){
 
 
 function fn_Insert(){
-	location.href=baseUrl+"/AuthGroupInfo?callType=c&authGrpId=";
+	location.href="/AuthGroupInfo?callType=c&authGrpId=";
 }
 
 function fncCheckAll(){

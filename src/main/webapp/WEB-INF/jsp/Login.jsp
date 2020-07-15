@@ -44,11 +44,11 @@
 		}
 	
 		function fn_movelogin(){
-			location.href=baseUrl+"/AuthList";
+			location.href="/AuthList";
 		}
 
 		function fn_arovRequest(){
-			location.href=baseUrl+"/AuthInfo?callType=c&authId=";
+			location.href="/AuthInfo?callType=c&authId=";
 		}
 
 

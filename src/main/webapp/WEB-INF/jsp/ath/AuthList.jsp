@@ -40,7 +40,8 @@ function fn_Select(){
  	ihtml = ihtml + '</tr>';
  	ihtml = ihtml + '</thead>';
  	ihtml = ihtml + '<tbody class="ov">';
-	
+
+	var cnt = 0;
 	for(var i =0; arr.length > i; i++){
    	 	ihtml = ihtml + '<tr>';
    	 	ihtml = ihtml + '<td>' + (i+1) + '</td>';
@@ -51,10 +52,17 @@ function fn_Select(){
    	 	ihtml = ihtml + '<td><a onclick="fn_SelectAuth(\''+arr[i].author_code+'\')">'+arr[i].author_nm+'</a></td>';
    	 	ihtml = ihtml + '<td id="userCnt_'+(i+1)+'" name="userCnt_'+(i+1)+'"><a onclick="fn_SelectUserCnt(\''+arr[i].author_code+'\')">'+arr[i].usrcnt+'</a></td>';
 	 	ihtml = ihtml + '<td id="grpCnt_'+(i+1)+'" name="grpCnt_'+(i+1)+'">'+arr[i].grpcnt+'</td>';
-// 	 	ihtml = ihtml + '<td id="name_'+(i+1)+'" name="name_'+(i+1)+'">'+arr[i].usrcnt+'</td>';
    	 	ihtml = ihtml + '<td id="creatDt_'+(i+1)+'" name="creatDt_'+(i+1)+'">'+arr[i].author_creat_dt+'</td>';
    	 	ihtml = ihtml + '</tr>';
+   	 	cnt++;
     }
+
+	if(cnt == 0){
+    	ihtml = ihtml + '<tr>';
+	 	ihtml = ihtml + '<td colspan=6> 조회 결과가 없습니다</td>';
+	 	ihtml = ihtml + '</tr>';
+    }
+    
  	ihtml = ihtml + '</tbody>';
  	ihtml = ihtml + '</table>';
  	
@@ -65,12 +73,12 @@ function fn_Select(){
 
 function fn_SelectAuth(authId){
 	var pageType= "r";
-	location.href=baseUrl + "/AuthInfo?callType="+pageType+"&authId="+authId;
+	location.href="/AuthInfo?callType="+pageType+"&authId="+authId;
 }
 
 function fn_SelectUserCnt(authId){
 	var pageType= "r";
-	location.href=baseUrl + "/AuthInfoSetUsr?callType="+pageType+"&authId="+authId;
+	location.href="/AuthInfoSetUsr?callType="+pageType+"&authId="+authId;
 }
 
 
@@ -109,7 +117,7 @@ function checkFieldck(){
 
 
 function fn_Insert(){
-	location.href=baseUrl+"/AuthInfo?callType=c&authId=";
+	location.href="/AuthInfo?callType=c&authId=";
 }
 
 function fncCheckAll(){
