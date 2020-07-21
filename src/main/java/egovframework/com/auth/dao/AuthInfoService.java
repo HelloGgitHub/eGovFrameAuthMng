@@ -118,7 +118,10 @@ public class AuthInfoService {
 	 * @return_type : int
 	 */
 	public int deleteAuthInfo(Map<Object, Object> param) {
-        return mapper.deleteAuthInfo(param);
+		int delCnt = 0;
+		delCnt = mapper.deleteAuthInfo(param);
+		delCnt = delCnt + mapper.deleteAuthGrp(param);
+        return delCnt;
     }
 
 	

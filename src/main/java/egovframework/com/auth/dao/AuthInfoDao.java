@@ -32,6 +32,7 @@ public interface AuthInfoDao {
 	int insertAuthInfo(Map<Object, Object> param);
 	int updateAuthInfo(Map<Object, Object> param);
 	int deleteAuthInfo(Map<Object, Object> param);
+	int deleteAuthGrp(Map<Object, Object> param);
 	int selectAuthInfoCnt(Map<Object, Object> param);
 
 	//로그인관련

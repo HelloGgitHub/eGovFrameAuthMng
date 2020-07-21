@@ -17,17 +17,15 @@
 // 		alert(window.parent.frames[top].document.all.usr.value);
 	}
 </script>
-<body>
-<!-- 	<button title="test" onclick="aa()">test</button> -->
+<body style="overflow-y: hidden; margin: 0;">
 	<input type="hidden" id="lgnUserId" name="lgnUserId" value="hidden" />
 	<table width=100%>
-		<tr height=900px>
-			<td style="vertical-align:top;width:20%;border-right:ridge">
-	<!-- 		<input type="button" onclick="aa()">dddddd</input> -->
-				<iframe id="left" name="left" style="height:900px;width:100%" src="FrameLeft"></iframe>
+		<tr style="height:98vh">
+			<td style="vertical-align:top;width:20%;border-right:groove">
+				<iframe id="left" name="left" style="height:100vh;width:100%" src="FrameLeft"></iframe>
 			</td>
 			<td style="vertical-align:top;width:80%">
-				<iframe id="body" name="body" style="height:900px;width:100%;" src="Login"></iframe>
+				<iframe id="body" name="body" style="height:100vh;width:100%;" src="Login"></iframe>
 			</td>
 		</tr>
 	</table>

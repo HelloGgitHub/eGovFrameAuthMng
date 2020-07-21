@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -191,13 +192,14 @@ public class AuthUsrController {
 	 */
 	@ApiOperation(value = "사용자 권한 삭제", notes = "사용자 권한을 삭제한다.")
 	@DeleteMapping(path = "/usrSbt")
-	public String DeleteAuthUsr(@RequestBody AuthInputParamVo param) throws Exception {
+	public String DeleteAuthUsr(@RequestParam(value = "authCd") String authCd, 
+			@RequestParam(value = "usrId") String usrId ) throws Exception {
 		String rtn = "";
 		ObjectMapper om = new ObjectMapper();
 		Map<Object, Object> rtnMap = new HashMap<Object, Object>();
 		
-		String pAuthCd 	= URLDecoder.decode(param.getAuthCd(),"UTF-8");
-		String pUsrId 		= URLDecoder.decode(param.getUsrId(),"UTF-8");
+		String pAuthCd 	= URLDecoder.decode(authCd,"UTF-8");
+		String pUsrId 		= URLDecoder.decode(usrId,"UTF-8");
 		
 		try {
 			//입력값 파라미터 정의

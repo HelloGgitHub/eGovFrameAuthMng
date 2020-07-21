@@ -13,9 +13,11 @@
 		/*********************************************************
 		 * 초기화
 		 ******************************************************** */
-		function fn_egov_init(){
-			
-		}
+		$(document).ready(function(){
+			parent.parent.topFrame.document.all.infoImg.style.display = "none";
+			parent.parent.topFrame.document.all.lgnUserId.value= "";
+			parent.parent.topFrame.document.all.lgnMnt.value= "";
+		});
 		
 		/*********************************************************
 		 * 로그인
@@ -31,11 +33,10 @@
 			rtnData = fn_calApi("POST", "/auth/idpw", userData, false);
 			
 			if(rtnData.RESULTCD == 0){
-// 				alert(rtnData.list.userNm);
-// 				document.getElementById(tgtEl).style.visibility = "visible";
-				parent.parent.topFrame.document.all.infoImg.style.display = "block";
+// 				parent.parent.topFrame.document.all.infoImg.style.display = "block";
 				parent.parent.topFrame.document.all.lgnUserId.value= rtnData.list.userId;
 				parent.parent.topFrame.document.all.lgnMnt.value= rtnData.list.userNm+" 님 환영합니다.";
+				alert(rtnData.list.userNm+" 님 환영합니다.");
 				fn_movelogin();
 			}else{
 				alert(rtnData.RESULTMSG);
@@ -50,16 +51,6 @@
 		function fn_arovRequest(){
 			location.href="/AuthInfo?callType=c&authId=";
 		}
-
-
-
-
-
-
-
-
-
-		
 
 		function fn_test(){
 			window.parent.parent.frames["topFrame"].changePw();
@@ -78,15 +69,6 @@
 	<input type="hidden" id="message" name="message" value="">
 	
 	<fieldset>
-<!-- 		<img src="/images/title.jpg" style="margin:30px 0 0px 60px" alt="login title image"  title="login title image"> -->
-		<div class="login_type">
-			<ul id="ulLoginType">
-<!-- 				<li><a href="javascript:fnLoginTypeSelect('typeGnr');" id="typeGnr" title="">일반</a></li> 일반 -->
-<!--  				<li><a href="javascript:fnLoginTypeSelect('typeEnt');" id="typeEnt" title="">기업</a></li> 기업  -->
-<!-- 				<li><a href="javascript:fnLoginTypeSelect('typeUsr');" id="typeUsr" title="">업무</a></li> 업무 -->
-			</ul>
-		</div>
-	
 		<div class="login_input">
 			<ul>
 				<!-- 아이디 -->

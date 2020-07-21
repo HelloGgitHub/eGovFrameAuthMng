@@ -138,7 +138,7 @@ function fn_Select(){
 
 
 /********
- * 그룹 추가
+ * 사용자 추가
  ********/
 function fn_RowAdd(){
 	grdRowCnt++;	
@@ -162,9 +162,9 @@ function fn_RowAdd(){
  	ihtml = ihtml + '<input id="checkField" name="checkField" title="checkField" type="checkbox"  checked="checked" />';
  	ihtml = ihtml + '<input id="id_'+grdRowCnt+'" name="id_'+grdRowCnt+'" type="hidden" value="'+''+'">';
  	ihtml = ihtml + '</td>';
- 	ihtml = ihtml + '<td id="usrId_'+grdRowCnt+'" name="usrId_'+grdRowCnt+'">'+''+'</td>';
+ 	ihtml = ihtml + '<td id="usrId_'+grdRowCnt+'" name="usrId_'+grdRowCnt+'"></td>';
  	ihtml = ihtml + '<td>';
- 	ihtml = ihtml + '<select id="usrNm_'+grdRowCnt+'" name="usrNm_'+grdRowCnt+'" title="권한코드" onchange="fn_selectSetUsr('+grdRowCnt+')">';
+ 	ihtml = ihtml + '<select id="usrNm_'+grdRowCnt+'" name="usrNm_'+grdRowCnt+'" title="사용자명" onchange="fn_selectSetUsr('+grdRowCnt+')">';
  	ihtml = ihtml + '<option value="" selected="selected">--선택하세요--</option>';
  	ihtml = ihtml + dopDonBox
  	ihtml = ihtml + '</td>';
@@ -264,8 +264,7 @@ function fn_Delete(){
 		var rtnData = new Object();
 		var paramData = new Object();
 		paramData.authCd 	= $("#inAuthId").val();
-		paramData.usrId 		= $("#inAuthId").val();
-		
+		paramData.usrId 		= $("#id_"+ckNum).val();
 		//API호출
 		rtnData = fn_calApi("DELETE", "/auth/usrSbt", paramData, false);
 		alert(rtnData.RESULTMSG);

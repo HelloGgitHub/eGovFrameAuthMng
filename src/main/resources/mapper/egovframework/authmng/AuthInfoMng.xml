@@ -61,6 +61,11 @@
 			 WHERE AUTHOR_CODE           = '${AUTHCD}'
     </delete>
     
+    <delete id="deleteAuthGrp" parameterType="hashMap">
+			DELETE FROM COMTNAUTHORGROUPAUTH 
+			 WHERE AUTHOR_CODE           = '${AUTHCD}'
+    </delete>
+    
     <select id="selectAuthInfoCnt" parameterType="Map" resultType="int">
 			SELECT COUNT(*) CNT
 			  FROM COMTNAUTHORINFO
