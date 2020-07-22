@@ -28,13 +28,27 @@
 				$("#inCrdt").attr("disabled",true);
 				$("#btn_Del").attr("disabled",true);
 				$("#btn_Update").attr("disabled",true);
+				$("#btn_Modify").attr("disabled",true);
 			}else if(type == "r"){  //readOnly
-				$("#inAuthGrpId").attr("disabled",true);
-				$("#inCrdt").attr("disabled",true);
 				$("#btn_Insert").css("display","none");
 				$("#btn_Del").attr("disabled",false);
-				$("#btn_Update").attr("disabled",false);
+				$("#btn_Update").attr("disabled",true);
+				$("#btn_Modify").attr("disabled",false);
+
+				$("#inAuthGrpId").attr("disabled",true);
+				$("#inAuthGrpNm").attr("disabled",true);
+				$("#inAuthGrpDc").attr("disabled",true);
+				$("#inCrdt").attr("disabled",true);
 				fn_DetailAuthGrp();
+			}else if(type == "u"){ //modify
+				$("#btn_Insert").attr("disabled",true);
+				$("#btn_Modify").attr("disabled",true);
+				$("#btn_Update").attr("disabled",false);
+				$("#btn_Delete").attr("disabled",false);
+				
+				$("#inAuthGrpId").attr("readonly",true);
+				$("#inAuthGrpNm").attr("disabled",false);
+				$("#inAuthGrpDc").attr("disabled",false);
 			}
 		}
 
@@ -143,7 +157,7 @@
 		paramData.authGrpCd = $("#inAuthGrpId").val();
 		//API호출
 		rtnData = fn_calApi("DELETE", "/authgrp/delete", paramData, false);
-		
+		alert(rtnData.RESULTMSG);
 		fn_moveAuthGrpList();
 	}
 
@@ -161,6 +175,10 @@
 		location.href="/AuthGrpList";
 	}
 
+
+	function fn_modify(){
+		inputCellSet("u");
+	}	
 	
 </script>
 </head>
@@ -214,7 +232,8 @@
 	<br>
 	<!-- 하단 버튼 -->
 	<button title="등록" 			id="btn_Insert" 		onclick="fn_insert();">등록</button>
-	<button title="수정" 			id="btn_Update" 		onclick="fn_update();">수정</button>
+	<button title="수정" 			id="btn_Modify" 		onclick="fn_modify();">수정</button>
+	<button title="저장" 			id="btn_Update" 		onclick="fn_update();">저장</button>
 	<button title="삭제" 			id="btn_Del" 			onclick="fn_delete();">삭제</button>
 	<br>
 
