@@ -23,7 +23,7 @@
 	<table style="min-width: -webkit-fill-available;">
 		<tr>
 			<td style="width:10%">
-				<img src="/images/title.jpg" border='0' align='absbottom' alt='' />
+				<img src="/images/egplogo.png" border='0' align='absbottom' alt='' />
 			</td>
 			<td style="width:70%">
 				<h2>&nbsp;&nbsp;&nbsp; 전자정부 클라우드 플랫폼 </h2>

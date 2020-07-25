@@ -38,7 +38,6 @@ public class DataRunner implements ApplicationRunner {
             comtnUserMng.append("\n 	PASSWORD              VARCHAR(200) NOT NULL,  ");
             comtnUserMng.append("\n 	PASSWORD_HINT      VARCHAR(100) ,             ");
             comtnUserMng.append("\n 	PASSWORD_CNSR     VARCHAR(100) ,              ");
-            comtnUserMng.append("\n 	IHIDNUM               	VARCHAR(200) ,        ");
             comtnUserMng.append("\n 	USR_NM               	VARCHAR(50) ,           ");
             comtnUserMng.append("\n 	ZIP                   		VARCHAR(6) ,        ");
             comtnUserMng.append("\n 	ADRES                 	VARCHAR(100) ,        ");
@@ -60,9 +59,9 @@ public class DataRunner implements ApplicationRunner {
             comtnUserMng.append("\n 	 PRIMARY KEY (USR_ID)                         ");
             comtnUserMng.append("\n )                                               ");
             statement.executeUpdate(comtnUserMng.toString());
-    		String comtnUserMngQry = "INSERT INTO COMTNUSERMNG ( USR_ID , PASSWORD , PASSWORD_HINT , PASSWORD_CNSR , IHIDNUM , USR_NM , ZIP , ADRES , AREA_NO , USR_STTUS , DETAIL_ADRES , END_TELNO , MBTLNUM , USR_FXNUM , USR_EMAIL_ADRES , MIDDLE_TELNO , SBSCRB_DE , SEXDSTN_CODE , ESNTL_ID , LOCK_AT , LOCK_CNT , CHANGE_DT )";  
-    		comtnUserMngQry = comtnUserMngQry +" VALUES ( 'TESTUSER' , '473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8' , 'P02' , 'P0002' , null , '홍길동' , '23121' , 'adres' , '112' , 'A' , '111-335' , '6432' , '010-0000-3333' , '02-332-3332' , 'test@egov.go.kr' , '2332' , null , 'M' , null , 'N' , 0 , '"+sstime+"' ) ";
-			jdbcTemplate.execute("INSERT INTO COMTNUSERMNG (USR_ID,PASSWORD,PASSWORD_HINT,PASSWORD_CNSR,IHIDNUM,USR_NM,ZIP,ADRES,AREA_NO,USR_STTUS,DETAIL_ADRES,END_TELNO,MBTLNUM,USR_FXNUM,USR_EMAIL_ADRES,MIDDLE_TELNO,SBSCRB_DE,SEXDSTN_CODE,ESNTL_ID, CHANGE_DT) values ('USER','473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8','P01','전자정부표준프레임워크센터',null,'일반회원','100775','서울 중구 무교동 한국정보화진흥원','02','P','전자정부표준프레임워크센터','2059','1566-2059','1566-2059','egovframesupport@gmail.com','1566',SYSDATE(),'F','USRCNFRM_00000000001', '"+sstime+"');");
+    		String comtnUserMngQry = "INSERT INTO COMTNUSERMNG ( USR_ID , PASSWORD , PASSWORD_HINT , PASSWORD_CNSR , USR_NM , ZIP , ADRES , AREA_NO , USR_STTUS , DETAIL_ADRES , END_TELNO , MBTLNUM , USR_FXNUM , USR_EMAIL_ADRES , MIDDLE_TELNO , SBSCRB_DE , SEXDSTN_CODE , ESNTL_ID , LOCK_AT , LOCK_CNT , CHANGE_DT )";  
+    		comtnUserMngQry = comtnUserMngQry +" VALUES ( 'TESTUSER' , '473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8' , 'P02' , 'P0002' , '홍길동' , '23121' , 'adres' , '112' , 'A' , '111-335' , '6432' , '010-0000-3333' , '02-332-3332' , 'test@egov.go.kr' , '2332' , null , 'M' , null , 'N' , 0 , '"+sstime+"' ) ";
+			jdbcTemplate.execute("INSERT INTO COMTNUSERMNG (USR_ID,PASSWORD,PASSWORD_HINT,PASSWORD_CNSR,USR_NM,ZIP,ADRES,AREA_NO,USR_STTUS,DETAIL_ADRES,END_TELNO,MBTLNUM,USR_FXNUM,USR_EMAIL_ADRES,MIDDLE_TELNO,SBSCRB_DE,SEXDSTN_CODE,ESNTL_ID, CHANGE_DT) values ('USER','473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8','P01','전자정부표준프레임워크센터','일반회원','100775','서울 중구 무교동 한국정보화진흥원','02','P','전자정부표준프레임워크센터','2059','1566-2059','1566-2059','egovframesupport@gmail.com','1566',SYSDATE(),'F','USRCNFRM_00000000001', '"+sstime+"');");
 			jdbcTemplate.execute(comtnUserMngQry);
 			
 			
@@ -77,10 +76,10 @@ public class DataRunner implements ApplicationRunner {
         	comtnAuthorInfo.append("\n  	PRIMARY KEY (AUTHOR_CODE)            ");
         	comtnAuthorInfo.append("\n  )                                     ");
         	statement.executeUpdate(comtnAuthorInfo.toString());
-        	String comtnAuthorInfoQry = "INSERT INTO COMTNAUTHORINFO (AUTHOR_CODE, AUTHOR_NM, AUTHOR_DC, AUTHOR_CREAT_DT, CHANGE_DT) VALUES('AUTH001', '기본권한', '시스템 기본 권한', '"+sstime+"', '"+sstime+"')"; 
+        	String comtnAuthorInfoQry1 = "INSERT INTO COMTNAUTHORINFO (AUTHOR_CODE, AUTHOR_NM, AUTHOR_DC, AUTHOR_CREAT_DT, CHANGE_DT) VALUES('AUTH001', '기본권한', '시스템 기본 권한', '"+sstime+"', '"+sstime+"')"; 
         	String comtnAuthorInfoQry2 = "INSERT INTO COMTNAUTHORINFO (AUTHOR_CODE, AUTHOR_NM, AUTHOR_DC, AUTHOR_CREAT_DT, CHANGE_DT) VALUES('AUTH002', '권한관리', '권한관리 화면 편집 권한', '"+sstime+"', '"+sstime+"')"; 
         	String comtnAuthorInfoQry3 = "INSERT INTO COMTNAUTHORINFO (AUTHOR_CODE, AUTHOR_NM, AUTHOR_DC, AUTHOR_CREAT_DT, CHANGE_DT) VALUES('AUTH003', '권한그룹관리', '권한그룹관리 화면 편집 권한', '"+sstime+"', '"+sstime+"')"; 
-        	jdbcTemplate.execute(comtnAuthorInfoQry);
+        	jdbcTemplate.execute(comtnAuthorInfoQry1);
         	jdbcTemplate.execute(comtnAuthorInfoQry2);
         	jdbcTemplate.execute(comtnAuthorInfoQry3);
         	
@@ -95,7 +94,7 @@ public class DataRunner implements ApplicationRunner {
         	comtnAuthorUsr.append("\n 	PRIMARY KEY (AUTHOR_CODE,USR_ID)   ");
         	comtnAuthorUsr.append("\n )                                    ");
         	statement.executeUpdate(comtnAuthorUsr.toString());
-        	String comtnAuthorUsrQry = "INSERT INTO COMTNAUTHORUSR (AUTHOR_CODE, USR_ID, AUTHOR_GRP_CODE, ADD_DT) VALUES ('AUTH001', 'TESTUSER', '', '"+sstime+"')"; 
+        	String comtnAuthorUsrQry = "INSERT INTO COMTNAUTHORUSR (AUTHOR_CODE, USR_ID, AUTHOR_GRP_CODE, ADD_DT) VALUES ('AUTH001', 'TESTUSER', '', '"+sstime+"')";
         	jdbcTemplate.execute(comtnAuthorUsrQry);
         	
         	

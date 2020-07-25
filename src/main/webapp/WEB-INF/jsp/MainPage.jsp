@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 <head>
 <meta charset="UTF-8">
 <title>Egov Framework</title>
