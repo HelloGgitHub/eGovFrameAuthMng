@@ -49,12 +49,12 @@ public class DataRunner implements ApplicationRunner {
             comtnUserMng.append("\n 	USR_FXNUM           	VARCHAR(20) ,           ");
             comtnUserMng.append("\n 	USR_EMAIL_ADRES  	VARCHAR(50) ,               ");
             comtnUserMng.append("\n 	MIDDLE_TELNO         VARCHAR(4) ,             ");
-            comtnUserMng.append("\n 	SBSCRB_DE             	DATETIME ,            ");
+            comtnUserMng.append("\n 	SBSCRB_DE             	VARCHAR(14) ,            ");
             comtnUserMng.append("\n 	SEXDSTN_CODE      	VARCHAR(1) ,                 ");
             comtnUserMng.append("\n 	ESNTL_ID              	VARCHAR(20) ,            ");
             comtnUserMng.append("\n 	LOCK_AT               	VARCHAR(1) ,             ");
             comtnUserMng.append("\n 	LOCK_CNT              	NUMERIC(3) ,          ");
-            comtnUserMng.append("\n 	LOCK_LAST_PNTTM   DATETIME ,                  ");
+            comtnUserMng.append("\n 	LOCK_LAST_PNTTM   VARCHAR(14) ,                  ");
             comtnUserMng.append("\n 	CHANGE_DT					VARCHAR(14) ,               ");
             comtnUserMng.append("\n 	 PRIMARY KEY (USR_ID)                         ");
             comtnUserMng.append("\n )                                               ");

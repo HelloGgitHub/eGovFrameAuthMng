@@ -41,7 +41,7 @@
 <body>
 	<input type="hidden" id="" name="lngCk" value="9"/>
 	
-	<br/><span class="btn_b"><a href="" onClick="fn_leftMenu(1);" title="로그인" style="font-size: 15px;font-style: inherit;font-weight: bold;">- 로그인</a></span>
+	<br/><span class="btn_b"><a href="" onClick="fn_leftMenu(1);" title="로그인" style="font-size: 15px;font-style: inherit;font-weight: bold;">로그인</a></span>
 	<br/>
 	<br/><span class="btn_b" style="font-size: 15px;font-style: inherit;font-weight: bold;">- 권한 관리</span>
 	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(3);" title="권한등록" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한 등록</a></span>
