@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.com.mnu.dao.MenuDao">
+
+    <select id="selectMakeMenuList" resultType="hashMap">
+			SELECT CONCAT(MENU_NO
+			     , '|',UPPER_MENU_NO
+			     , '|',MENU_NM
+			     , '|',PROGRM_FILE_NM
+			     , '|',MENU_NO
+			     , '|',MENU_ORDR
+			     , '|',MENU_NM
+			     , '|',UPPER_MENU_NO
+			     , '|',MENU_DC 
+			     , '|',RELATE_IMAGE_PATH
+			     , '|',RELATE_IMAGE_NM
+			     , '|',PROGRM_FILE_NM,'|')  AS menu
+			  FROM COMTNMENUINFO
+			 WHERE MENU_NO <![CDATA[ <> ]]>0
+    </select>
+    
+    <select id="selectMenuCnt" parameterType="Map" resultType="int">
+			SELECT COUNT(*) CNT
+			  FROM COMTNMENUINFO
+			 WHERE MENU_NO = ${MENU_NO}
+    </select>
+    
+    <insert id="insertMenu" parameterType="hashMap">
+			INSERT INTO COMTNMENUINFO (
+				  MENU_NO
+				, MENU_NM
+				, PROGRM_FILE_NM
+				, UPPER_MENU_NO
+				, MENU_ORDR
+				, MENU_DC
+				, RELATE_IMAGE_PATH
+				, RELATE_IMAGE_NM
+			) VALUES (
+				 #{MENU_NO}
+				, #{MENU_NM}
+				, #{PROGRM_FILE_NM}
+				, #{UPPER_MENU_NO}
+				, #{MENU_ORDR}
+				, #{MENU_DC}
+				, #{RELATE_IMAGE_PATH}
+				, #{RELATE_IMAGE_NM}
+			)
+    </insert>
+
+    <update id="updateMenu" parameterType="hashMap">
+			UPDATE COMTNMENUINFO
+			   SET MENU_NO = ${MENU_NO}
+			    <if test='MENU_NM != null'> 	, MENU_NM	= #{MENU_NM} 	</if>
+			    <if test='PROGRM_FILE_NM != null'> 	, PROGRM_FILE_NM	= #{PROGRM_FILE_NM} 	</if>
+			    <if test='UPPER_MENU_NO != null'> 	, UPPER_MENU_NO	= #{UPPER_MENU_NO} 	</if>
+			    <if test='MENU_ORDR != null'> 	, MENU_ORDR	= #{MENU_ORDR} 	</if>
+			    <if test='MENU_DC != null'> 	, MENU_DC	= #{MENU_DC} 	</if>
+			    <if test='RELATE_IMAGE_PATH != null'> 	, RELATE_IMAGE_PATH	= #{RELATE_IMAGE_PATH} 	</if>
+			    <if test='RELATE_IMAGE_NM != null'> 	, RELATE_IMAGE_NM	= #{RELATE_IMAGE_NM} 	</if>
+			 WHERE MENU_NO = ${MENU_NO}
+    </update>
+    
+    <delete id="deleteMenu" parameterType="hashMap">
+			DELETE FROM COMTNMENUINFO
+			 WHERE MENU_NO = ${MENU_NO}
+    </delete>
+
+</mapper> 

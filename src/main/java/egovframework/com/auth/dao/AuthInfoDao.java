@@ -29,11 +29,11 @@ public interface AuthInfoDao {
 	
 	List<HashMap<Object, Object>> selectAuthList();
 	List<HashMap<Object, Object>> selectAuthDetail(Map<Object, Object> param);
+	int selectAuthInfoCnt(Map<Object, Object> param);
 	int insertAuthInfo(Map<Object, Object> param);
 	int updateAuthInfo(Map<Object, Object> param);
 	int deleteAuthInfo(Map<Object, Object> param);
 	int deleteAuthGrp(Map<Object, Object> param);
-	int selectAuthInfoCnt(Map<Object, Object> param);
 
 	//로그인관련
 	HashMap<Object, Object> selectUserDetail(Map<Object, Object> param);

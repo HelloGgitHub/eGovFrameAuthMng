@@ -41,6 +41,9 @@ function preloadIcons() {
 * 트리생성함수
 */
 function createTree(arrName, vYeobu) {
+	alert("/js/egovframework/com/sym/mnu/mpm/EgovMenuList.js");
+	console.log("/js/egovframework/com/sym/mnu/mpm/EgovMenuList.js");
+	
    var startNode, openNode;
 	treeNodes = arrName;
 	treeYeobu = vYeobu;

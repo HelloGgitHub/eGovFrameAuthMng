@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +11,7 @@
 
 <script type="text/javascript">
 	function fn_leftMenu(cd){
+		alert("leftMenu");
 		var url="";
 		if(cd == 1){
 			url="Login";
@@ -31,6 +31,8 @@
 			url="AuthGroupInfo?callType=c&authGrpId=";
 		} else if(cd == 8){
 			url="AuthInfoSetUsr?callType=c&authId=";
+		} else if(cd == 9){
+			url="MenuInfo";
 		}
 		
 		parent.body.location.href=url;
@@ -54,6 +56,10 @@
 	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(4);" title="권한그룹 목록 조회" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹 목록 조회</a></span>
 	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(5);" title="권한그룹 권한 등록" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹 권한 등록</a></span>
 	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(6);" title="권한그룹 사용자 등록" style="font-size: 15px;font-style: inherit;font-weight: bold;">권한그룹 사용자 등록</a></span>
+	
+	<br/>
+	<br/><span class="btn_b" style="font-size: 15px;font-style: inherit;font-weight: bold;">- 메뉴 관리</span>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(9);" title="메뉴 등록" style="font-size: 15px;font-style: inherit;font-weight: bold;">메뉴 등록</a></span>
 	
 </body>
 </html>

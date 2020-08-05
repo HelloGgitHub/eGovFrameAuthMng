@@ -102,5 +102,12 @@ public class AuthPageController {
 		model.addAttribute("authGrpId", 	authGrpId);
 		return "/athgp/AuthGroupInfo"; 
 	}
+	
+	@RequestMapping("/MenuInfo") 
+	public String MenuInfo(Model model
+			) {
+		model.addAttribute("msg", 			"jstl");
+		return "/mnu/MenuInfo"; 
+	}
 
 }

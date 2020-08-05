@@ -40,6 +40,9 @@ function preloadIcons() {
 * 트리생성함수
 */
 function createTree(arrName ) {
+alert("EgovMenuCreat.js");
+alert("/js/egovframework/com/sym/mnu/mpm/EgovMenuList.js");
+console.log("/js/egovframework/com/sym/mnu/mpm/EgovMenuList.js");
    var startNode, openNode;
 	treeNodes = arrName;
 	if (treeNodes.length > 0) {

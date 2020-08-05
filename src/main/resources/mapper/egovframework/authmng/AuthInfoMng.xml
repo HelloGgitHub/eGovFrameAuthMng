@@ -32,6 +32,11 @@
     </select>
 
 
+    <select id="selectAuthInfoCnt" parameterType="Map" resultType="int">
+			SELECT COUNT(*) CNT
+			  FROM COMTNAUTHORINFO
+			 WHERE AUTHOR_CODE = '${AUTHCD}'
+    </select>
     <insert id="insertAuthInfo" parameterType="hashMap">
 			INSERT INTO COMTNAUTHORINFO (
 			  AUTHOR_CODE
@@ -65,14 +70,6 @@
 			DELETE FROM COMTNAUTHORGROUPAUTH 
 			 WHERE AUTHOR_CODE           = '${AUTHCD}'
     </delete>
-    
-    <select id="selectAuthInfoCnt" parameterType="Map" resultType="int">
-			SELECT COUNT(*) CNT
-			  FROM COMTNAUTHORINFO
-			 WHERE AUTHOR_CODE = '${AUTHCD}'
-    </select>
-    
-    
     
     
 <!-- 로그인관련     -->
