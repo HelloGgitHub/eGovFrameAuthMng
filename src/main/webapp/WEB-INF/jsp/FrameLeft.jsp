@@ -51,9 +51,6 @@
 	}
 
 
-	var authgrpcode	= "<%=request.getParameter("code") %>";
-
-
 	/* ********************************************************
 	 * 조회 함수
 	 ******************************************************** */
@@ -84,11 +81,12 @@
 	* 메뉴 호출 함수
 	******************************************************** */
 	function fCallUrl(url) {
-		window.open(url,'dokdo','width=800,height=600,menubar=no,toolbar=no,location=no,resizable=no,status=no,scrollbars=no,top=300,left=700');
+// 		window.open(url,'dokdo','width=800,height=600,menubar=no,toolbar=no,location=no,resizable=no,status=no,scrollbars=no,top=300,left=700');
+		parent.body.location.href=url;
 	}
 
 	function loginMenu(){
-		alert("left menu alert!!!" + parent.parent.topFrame.document.all.lgnUserId.value);
+// 		alert("left menu alert!!!" + parent.parent.topFrame.document.all.lgnUserId.value);
 		
 		location.reload();
 	}
@@ -96,40 +94,45 @@
 
 <body>
 	<input type="hidden" id="" name="lngCk" value="9"/>
-<noscript class="noScriptTitle">메뉴</noscript>
-<form name="menuCreatManageSiteMapForm" action ="/egovframework-all-in-one/sym/mnu/mcm/EgovMenuCreatSiteMapSelect.do" method="post">
-<input name="valueHtml"      type="hidden" />
-<input name="creatPersonId"  type="hidden" value ="USER" />
-<input name="bndeFileNm"     type="hidden" />
-<input name="bndeFilePath"   type="hidden" />
-<input name="mapCreatId"     type="hidden" />
-<input name="tmp_rootPath"   type="hidden" />
+	<noscript class="noScriptTitle">메뉴</noscript>
+	<form name="menuCreatManageSiteMapForm" action ="/egovframework-all-in-one/sym/mnu/mcm/EgovMenuCreatSiteMapSelect.do" method="post">
+	<input name="valueHtml"      type="hidden" />
+	<input name="creatPersonId"  type="hidden" value ="USER" />
+	<input name="bndeFileNm"     type="hidden" />
+	<input name="bndeFilePath"   type="hidden" />
+	<input name="mapCreatId"     type="hidden" />
+	<input name="tmp_rootPath"   type="hidden" />
 
-<div class="board" style="width:530px">
-	<div class="tree" style="width:480px;" id="treeSiteMap">
-		<script language="javascript" type="text/javaScript">
-			var Tree = new Array;
-			var baseObj = document.getElementById("treeSiteMap");
+	<div class="board" style="width:530px">
+		<div class="tree" style="width:480px;" id="treeSiteMap">
+			<script language="javascript" type="text/javaScript">
+				var Tree = new Array;
+				var baseObj = document.getElementById("treeSiteMap");
 
-			var rtnData = new Object();
-			rtnData = fn_calApi("GET", "/menu/list/"+authgrpcode, null, false);
-			var arr = rtnData.list;
-			
-			var ihtml = '';
+				if(parent.parent.topFrame.document.all.authorGrpCode.value != ""){
+					authgrpcode = parent.parent.topFrame.document.all.authorGrpCode.value;
+				}
+				
+				var rtnData = new Object();
+				rtnData = fn_calApi("GET", "/menu/list/"+authgrpcode, null, false);
+				var arr = rtnData.list;
+				
+				var ihtml = '';
+				var lgnUserId = parent.parent.topFrame.document.all.lgnUserId.value;
 
-			var userid = parent.parent.topFrame.document.all.lgnUserId.value;
-
-			for(var i =0; arr.length > i; i++){
- 				if(arr[i].yn == "1" && userid != ""){  //로그인 상태 일때
-					Tree[i] = arr[i].menu_no+'|'+arr[i].upper_menu_no+'|'+arr[i].menu_nm+'|'+arr[i].menu_ordr+'|'+arr[i].progrm_file_nm+'|';
- 				}else{ //초기화면
- 					Tree[i] = arr[i].menu_no+'|'+arr[i].upper_menu_no+'|'+arr[i].menu_nm+'|'+arr[i].menu_ordr+'|'+arr[i].progrm_file_nm+'|';
- 	 			}
-			}
-			createTree(baseObj, Tree);
-		</script>
+				for(var i =0; arr.length > i; i++){
+	 				if(lgnUserId != ""){  //로그인 상태 일때
+		 				if(arr[i].yn == "1"){
+							Tree[i] = arr[i].menu_no+'|'+arr[i].upper_menu_no+'|'+arr[i].menu_nm+'|'+arr[i].menu_ordr+'|'+arr[i].progrm_file_nm+'|';
+	 					}
+	 				}else{ //초기화면
+	 					Tree[i] = arr[i].menu_no+'|'+arr[i].upper_menu_no+'|'+arr[i].menu_nm+'|'+arr[i].menu_ordr+'|'+arr[i].progrm_file_nm+'|';
+	 	 			}
+				}
+				createTree(baseObj, Tree);
+			</script>
+		</div>
 	</div>
-</div>
 
 </form>	
 </body>

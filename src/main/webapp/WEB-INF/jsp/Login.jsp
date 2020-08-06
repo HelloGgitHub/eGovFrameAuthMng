@@ -39,6 +39,7 @@
 				parent.parent.topFrame.document.all.authorGrpCode.value= rtnData.list.authorGrpCode;
 				
 				alert(rtnData.list.userNm+" 님 환영합니다.");
+				window.parent.frames["left"].loginMenu();
 				fn_movelogin();
 			}else{
 				alert(rtnData.RESULTMSG);
