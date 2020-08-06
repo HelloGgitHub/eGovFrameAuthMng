@@ -19,6 +19,30 @@
 			 WHERE MENU_NO <![CDATA[ <> ]]>0
     </select>
     
+    <select id="selectMenuList" resultType="hashMap">
+			SELECT A.MENU_NO
+			     , A.UPPER_MENU_NO
+			     , A.MENU_NM
+			     , A.PROGRM_FILE_NM
+			     , A.MENU_NO
+			     , A.MENU_ORDR
+			     , A.MENU_NM
+			     , A.UPPER_MENU_NO
+			     , A.MENU_DC 
+			     , A.RELATE_IMAGE_PATH
+			     , A.RELATE_IMAGE_NM
+			     , A.PROGRM_FILE_NM
+			     , CASE WHEN B.MENU_NO > 0 THEN '1'
+			            ELSE '0'
+			        END AS YN
+			  FROM COMTNMENUINFO A
+			  LEFT OUTER JOIN (SELECT MENU_NO, AUTHOR_GRP_CODE 
+			                     FROM COMTNMENUCREATDTLS 
+			                    WHERE AUTHOR_GRP_CODE  = #{AUTHGRPCD}) B
+			    ON (A.MENU_NO  = B.MENU_NO)
+			 WHERE A.MENU_NO <![CDATA[ <> ]]> 0
+    </select>
+    
     <select id="selectMenuCnt" parameterType="Map" resultType="int">
 			SELECT COUNT(*) CNT
 			  FROM COMTNMENUINFO
@@ -64,5 +88,31 @@
 			DELETE FROM COMTNMENUINFO
 			 WHERE MENU_NO = ${MENU_NO}
     </delete>
+
+
+    <delete id="deleteAuthMenu" parameterType="hashMap">
+			DELETE FROM COMTNMENUCREATDTLS 
+			 WHERE AUTHOR_GRP_CODE = #{AUTHGRPCD}
+    </delete>
+    <insert id="insertAuthMenu" parameterType="hashMap">
+			INSERT INTO COMTNMENUCREATDTLS (
+				  MENU_NO
+				, AUTHOR_GRP_CODE
+			) VALUES (
+				 #{MENUNO}
+				, #{AUTHGRPCD}
+			)
+    </insert>
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper> 

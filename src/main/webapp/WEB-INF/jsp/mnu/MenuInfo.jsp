@@ -406,7 +406,7 @@
 		  <tr>
 		    <th>파일명 <span class="pilsu">*</span></th><!-- 파일명 -->
 		    <td class="left">
-	        <input name="progrmFileNm" id="progrmFileNm" type="text" size="30" value=""  maxlength="60" title="파일명" style="width:190px"/>
+	        <input name="progrmFileNm" id="progrmFileNm" type="text" size="30" value=""  maxlength="60" title="권한" style="width:190px"/>
 <!-- 	        <a id="popupProgrmFileNm" href="/sym/prm/EgovProgramListSearch.do" target="_blank" title="파일명" style="selector-dummy:expression(this.hideFocus=false);"> -->
 <!-- 	        	<img src="/images/egovframework/com/cmm/icon/search2.gif" alt='' width="15" height="15" />(프로그램파일명 검색) -->
 <!-- 	        </a> -->

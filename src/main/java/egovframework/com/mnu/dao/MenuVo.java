@@ -27,7 +27,29 @@ public class MenuVo {
 	private String relateImagePath;
 	private String relateImageNm;
 	
+	private int menuMakeCnt;
+	private String menuMakeNo;
+	private String authGrpCd;
 	
+	
+	public int getMenuMakeCnt() {
+		return menuMakeCnt;
+	}
+	public void setMenuMakeCnt(int menuMakeCnt) {
+		this.menuMakeCnt = menuMakeCnt;
+	}
+	public String getMenuMakeNo() {
+		return menuMakeNo;
+	}
+	public void setMenuMakeNo(String menuMakeNo) {
+		this.menuMakeNo = menuMakeNo;
+	}
+	public String getAuthGrpCd() {
+		return authGrpCd;
+	}
+	public void setAuthGrpCd(String authGrpCd) {
+		this.authGrpCd = authGrpCd;
+	}
 	public String getMenuNm() {
 		return menuNm;
 	}

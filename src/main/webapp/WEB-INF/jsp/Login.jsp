@@ -36,6 +36,8 @@
 // 				parent.parent.topFrame.document.all.infoImg.style.display = "block";
 				parent.parent.topFrame.document.all.lgnUserId.value= rtnData.list.userId;
 				parent.parent.topFrame.document.all.lgnMnt.value= rtnData.list.userNm+" 님 환영합니다.";
+				parent.parent.topFrame.document.all.authorGrpCode.value= rtnData.list.authorGrpCode;
+				
 				alert(rtnData.list.userNm+" 님 환영합니다.");
 				fn_movelogin();
 			}else{
@@ -56,6 +58,9 @@
 			window.parent.parent.frames["topFrame"].changePw();
 		}
 
+		function fn_test(){
+			window.parent.frames["left"].loginMenu();
+		}
 	</script>
 	</head>
 <body style="/* display: table-row; *//* max-width: min-content; */inline-size: max-content;">
@@ -85,6 +90,9 @@
 
 				<li>
 					<input type="button" class="btn_login" value="로그인" onclick="fn_login()"> <!-- 로그인  -->
+				</li>
+				<li>
+					<input type="button" class="btn_login" value="TEST" onclick="fn_test()">
 				</li>
 <!-- 				<li> -->
 <!-- 					<ul class="btn_idpw" > -->

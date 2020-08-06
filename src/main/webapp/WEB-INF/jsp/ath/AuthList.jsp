@@ -128,6 +128,9 @@ function fncCheckAll(){
     }
 }
 
+function fn_Test(){
+	window.parent.frames["left"].loginMenu();
+}
 </script>
 </head>
 
@@ -140,6 +143,7 @@ function fncCheckAll(){
 	<div class="search_box" title="이 레이아웃은 하단 정보를 대한 검색 정보로 구성되어 있습니다.">
 		<ul>
 			<li>
+			<input type="button" class="s_btn" onClick="fn_Test();" 	value="TEST" title="TEST" />
 				<input type="button" class="s_btn" onClick="fn_Select();" 	value="조회" title="조회 버튼" />
 				<input type="button" class="s_btn" onClick="fn_Delete();" 	value="삭제" title="삭제 버튼" />
 				<input type="button" class="s_btn" onClick="fn_Insert();" 	value="등록" title="등록 버튼" />

@@ -37,9 +37,6 @@ function preloadIcons() {
 }
 // Create the tree
 function createTree(arrName ) {
-	alert("EgovMenuGov.js");
-	alert("/js/egovframework/com/sym/mnu/mpm/EgovMenuList.js");
-	console.log("/js/egovframework/com/sym/mnu/mpm/EgovMenuList.js");
    var startNode, openNode;
 	nodes = arrName;
 	if (nodes.length > 0) {

@@ -104,10 +104,34 @@ public class AuthPageController {
 	}
 	
 	@RequestMapping("/MenuInfo") 
-	public String MenuInfo(Model model
-			) {
+	public String MenuInfo(Model model) {
 		model.addAttribute("msg", 			"jstl");
 		return "/mnu/MenuInfo"; 
 	}
 
+	@RequestMapping("/AuthListSetMenu") 
+	public String AuthListSetMenu(Model model) {
+		model.addAttribute("msg", 			"jstl");
+		return "/mnu/AuthListSetMenu"; 
+	}
+
+	@RequestMapping("/AuthGroupSetMenu") 
+	public String AuthGroupSetMenu(Model model) {
+		model.addAttribute("msg", 			"jstl");
+		return "/mnu/AuthGroupSetMenu"; 
+	}
+
+	@RequestMapping("/MakeMenu") 
+	public String MakeMenu(Model model
+			, @RequestParam(value = "code") String code
+			, @RequestParam(value = "name") String name) {
+		model.addAttribute("msg", 			"jstl");
+		return "/mnu/MakeMenu"; 
+	}
+	
+	@RequestMapping("/MakeMenuPop") 
+	public String MakeMenuPop(Model model) {
+		model.addAttribute("msg", 			"jstl");
+		return "/mnu/MakeMenuPop"; 
+	}
 }

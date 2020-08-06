@@ -41,6 +41,16 @@ public class MenuService {
         return mapper.selectMakeMenuList();
     }
 
+	/**
+	 * @name : selectMenuList(메뉴 목록 조회)
+	 * @date : 2020. 8. 5.
+	 * @author : "egov"
+	 * @return_type : List<HashMap<Object,Object>>
+	 */
+	public List<HashMap<Object, Object>> selectMenuList(Map<Object, Object> param) {
+        return mapper.selectMenuList(param);
+    }
+
 
 	/**
 	 * @name : selectMenuCnt(메뉴번호 기등록여부 확인)
@@ -80,6 +90,35 @@ public class MenuService {
 	 */
 	public int deleteMenu(Map<Object, Object> param) {
         return mapper.deleteMenu(param);
+    }
+
+	/**
+	 * @name : deleteMenu(권한 메뉴 등록)
+	 * @date : 2020. 8. 5.
+	 * @author : "egov"
+	 * @return_type : int
+	 */
+	public int insertAuthMenu(Map<Object, Object> param) {
+		int insertCnt = 0;
+
+		String authGrpCd = param.get("AUTHGRPCD").toString();
+		String menuNoList = param.get("MENU_NO").toString();
+		int menuNoListCnt = (int)param.get("MENU_CNT");
+		
+		/*권한으로 들어간 메뉴 전부 삭제*/
+		mapper.deleteAuthMenu(param);
+		
+		/*권한으로 들어온 메뉴 반복하며 등록*/
+    	String[] menuno = menuNoList.split(",");
+		for(int i=0; menuNoListCnt > i; i++) {
+			Map<Object, Object> sqlParam = new HashMap<Object, Object>();
+			sqlParam.put("AUTHGRPCD", authGrpCd);
+			sqlParam.put("MENUNO", menuno[i]);
+			mapper.insertAuthMenu(sqlParam);
+			insertCnt++;
+		}
+		
+        return insertCnt;
     }
 
 	

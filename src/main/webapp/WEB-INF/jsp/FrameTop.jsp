@@ -10,7 +10,7 @@
 <script src="/js/egovframework/com/cmm/jquery-ui_1.12.1.js"></script>
 <script type="text/javascript">
 	var lngCk = "5";
-	function changePw(){
+	function changePw(){  //
 // 		alert("chang PW");
 		window.parent.frames["downFrame"].body.fn_testhd();
 		window.parent.frames["downFrame"].body.layUserId.value=$("#lgnUserId").val();
@@ -32,6 +32,7 @@
 				<input type="text" id="lgnMnt" name="lgnMnt" value="" style="border: none;"/>
 				<img id="infoImg" name="infoImg" src="/images/egovframework/com/cmm/utl/menu_question.gif" onclick="changePw()" style="display: none;" />
 				<input type="hidden" id="lgnUserId" name="lgnUserId" value="" />
+				<input type="text" id="authorGrpCode" name="authorGrpCode" value="" />
 			</td>
 <!-- 			<input type="text" id="lngCk" name="lngCk" value="5" /> -->
 		</tr>

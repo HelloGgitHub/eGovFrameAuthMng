@@ -1,6 +1,5 @@
 package egovframework.com.mnu.web;
 
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import egovframework.com.auth.dao.AuthVo;
-import egovframework.com.cmm.ComUtil;
 import egovframework.com.mnu.dao.MenuService;
 import egovframework.com.mnu.dao.MenuVo;
 import io.swagger.annotations.Api;
@@ -60,8 +58,47 @@ public class MenuController {
 	 * @desc : 메뉴 목록을 조회한다.
 	 */
 	@ApiOperation(value = "메뉴 트리 생성을 위한 메뉴목록 조회")
+	@ApiImplicitParams({
+    	@ApiImplicitParam(name = "authGrpCd", value = "권한그룹코드", required = true, dataType = "string", paramType = "path", defaultValue = "")
+    })
+	@GetMapping(path = "/list/{authGrpCd}")
+	public String MenuList(@PathVariable("authGrpCd") String authGrpCd) throws Exception {
+		String rtn = "";
+		Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
+		Map<String, Object> rtnMap = new HashMap<String, Object>();
+		ObjectMapper om = new ObjectMapper();
+
+		try {
+			List<HashMap<Object, Object>> lst = new ArrayList<HashMap<Object, Object>>();
+			sqlInpt.put("AUTHGRPCD", authGrpCd);
+			
+			lst = menuService.selectMenuList(sqlInpt);
+			rtnMap.put("list", lst);
+			rtnMap.put("RESULTCD", "0");
+			rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
+		}catch (Exception e) {
+			e.printStackTrace();
+			rtnMap.put("RESULTCD", "1");
+			rtnMap.put("RESULTMSG", "조회에 실패하였습니다.");
+		}
+		
+		rtn = om.writeValueAsString(rtnMap);
+		
+		return rtn;
+	}
+
+	
+	/**
+	 * @name : AuthList(메뉴목록 조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @throws Exception 
+	 * @return_type : String
+	 * @desc : 메뉴 목록을 조회한다.
+	 */
+	@ApiOperation(value = "메뉴 트리 생성을 위한 메뉴목록 조회")
 	@GetMapping(path = "/makelist")
-	public String MenuList() throws Exception {
+	public String MenuMakeList() throws Exception {
 		String rtn = "";
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 		ObjectMapper om = new ObjectMapper();
@@ -217,4 +254,44 @@ public class MenuController {
 		return rtn;
 	}
 
+	
+	/**
+	 * @name : InsertAuthSetMenuInfo(메뉴등록)
+	 * @date : 2020. 8. 5.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 권한에 메뉴를 등록한다.
+	 */
+	@ApiOperation(value = "권한 메뉴등록", notes = "권한에 메뉴을 등록합니다.")
+	@PostMapping(path = "/authSetMenu")
+	public String InsertAuthSetMenuInfo(@RequestBody MenuVo param) throws Exception {
+
+		String rtn = "";
+		ObjectMapper om = new ObjectMapper();
+		Map<Object, Object> rtnMap = new HashMap<Object, Object>();
+		
+		try {
+			Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
+	
+			sqlInpt.put("MENU_NO"		, param.getMenuMakeNo() );
+			sqlInpt.put("MENU_CNT"	, param.getMenuMakeCnt() );
+			sqlInpt.put("AUTHGRPCD"	, param.getAuthGrpCd());
+			
+			int inputCnt = menuService.insertAuthMenu(sqlInpt);
+			if(inputCnt > 0) {
+				rtnMap.put("RESULTCD", "0");
+				rtnMap.put("RESULTMSG", "정상 처리 되었습니다.");
+			}else {
+				rtnMap.put("RESULTCD", "1");
+				rtnMap.put("RESULTMSG", "등록에 실패 하였습니다.");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			rtnMap.put("RESULTCD", "1");
+			rtnMap.put("RESULTMSG", "처리중 오류가 발생하였습니다.");
+		}
+		rtn = om.writeValueAsString(rtnMap);
+		return rtn;
+	}
+	
 }

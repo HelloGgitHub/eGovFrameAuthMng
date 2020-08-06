@@ -80,19 +80,23 @@
 			 WHERE USR_ID = '${USRID}'
     </select>
     <select id="selectUserDetail"  parameterType="Map" resultType="hashMap">
-		SELECT 
-		        ESNTL_ID               as "uniqId",
-		        'USR01'               as "userTy",
-		        USR_ID               as "userId",
-		        USR_NM               as "userNm",
-		        USR_EMAIL_ADRES      as "emailAdres",
-		        AREA_NO               as "areaNo",
-		        MIDDLE_TELNO          as "middleTelno",
-		        END_TELNO             as "endTelno",
-		        MBTLNUM           as "moblphonNo",
-		        USR_STTUS            as "sttus",
-		        SBSCRB_DE             as "sbscrbDe"
-		  FROM COMTNUSERMNG
+		SELECT A.ESNTL_ID               as "uniqId",
+		       'USR01'               as "userTy",
+		       A.USR_ID               as "userId",
+		       A.USR_NM               as "userNm",
+		       A.USR_EMAIL_ADRES      as "emailAdres",
+		       A.AREA_NO               as "areaNo",
+		       A.MIDDLE_TELNO          as "middleTelno",
+		       A.END_TELNO             as "endTelno",
+		       A.MBTLNUM           as "moblphonNo",
+		       A.USR_STTUS            as "sttus",
+		       A.SBSCRB_DE             as "sbscrbDe",
+		       B.AUTHOR_GRP_CODE   as "authorGrpCode" 
+		  FROM COMTNUSERMNG A
+		  LEFT OUTER JOIN (SELECT USR_ID
+                                , MAX(AUTHOR_GRP_CODE) AS AUTHOR_GRP_CODE 
+                             FROM COMTNAUTHORUSR) B
+		  ON A.USR_ID  = B.USR_ID
 		 WHERE USR_ID = '${USRID}'
     </select>
     

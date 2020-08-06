@@ -28,11 +28,16 @@ import org.springframework.stereotype.Repository;
 public interface MenuDao {
 	
 	List<HashMap<Object, Object>> selectMakeMenuList();
+	List<HashMap<Object, Object>> selectMenuList(Map<Object, Object> param);
 	
 	int selectMenuCnt(Map<Object, Object> param);
 	int insertMenu(Map<Object, Object> param);
 	
 	int updateMenu(Map<Object, Object> param);
 	int deleteMenu(Map<Object, Object> param);
-    
+
+	
+	int deleteAuthMenu(Map<Object, Object> param);
+    int insertAuthMenu(Map<Object, Object> param);
+	
 }
