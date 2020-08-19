@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller 
 public class AuthPageController {
 	
-
 	/***********************
 	 * 기본
 	 ***********************/
@@ -52,8 +51,8 @@ public class AuthPageController {
 			, @RequestParam(value = "callType") String callType
 			, @RequestParam(value = "authId") String authId) {
 		model.addAttribute("msg", "jstl");
-		model.addAttribute("callType", 	callType);
-		model.addAttribute("authId", 		authId);
+		model.addAttribute("callType", callType);
+		model.addAttribute("authId", authId);
 		return "/ath/AuthInfo"; 
 	}
 
@@ -62,8 +61,8 @@ public class AuthPageController {
 			, @RequestParam(value = "callType") String callType
 			, @RequestParam(value = "authId") String authId) {
 		model.addAttribute("msg", "jstl");
-		model.addAttribute("callType", 	callType);
-		model.addAttribute("authId", 		authId);
+		model.addAttribute("callType", callType);
+		model.addAttribute("authId", authId);
 		return "/ath/AuthInfoSetUsr"; 
 	}
 	
@@ -77,7 +76,7 @@ public class AuthPageController {
 	public String AuthGroupInfoAth(Model model
 			, @RequestParam(value = "callType") String callType
 			, @RequestParam(value = "authGrpId") String authGrpId) {
-		model.addAttribute("msg", 			"jstl");
+		model.addAttribute("msg", "jstl");
 		model.addAttribute("callType", 	callType);
 		model.addAttribute("authGrpId", 	authGrpId);
 		return "/athgp/AuthGrpDetailSetAth"; 
@@ -87,7 +86,7 @@ public class AuthPageController {
 	public String AuthGroupInfoUsr(Model model
 			, @RequestParam(value = "callType") String callType
 			, @RequestParam(value = "authGrpId") String authGrpId) {
-		model.addAttribute("msg", 			"jstl");
+		model.addAttribute("msg", "jstl");
 		model.addAttribute("callType", 	callType);
 		model.addAttribute("authGrpId", 	authGrpId);
 		return "/athgp/AuthGrpDetailSetUsr"; 
@@ -97,7 +96,7 @@ public class AuthPageController {
 	public String AuthGroupInfo(Model model
 			, @RequestParam(value = "callType") String callType
 			, @RequestParam(value = "authGrpId") String authGrpId) {
-		model.addAttribute("msg", 			"jstl");
+		model.addAttribute("msg", "jstl");
 		model.addAttribute("callType", 	callType);
 		model.addAttribute("authGrpId", 	authGrpId);
 		return "/athgp/AuthGroupInfo"; 
@@ -105,19 +104,19 @@ public class AuthPageController {
 	
 	@RequestMapping("/MenuInfo") 
 	public String MenuInfo(Model model) {
-		model.addAttribute("msg", 			"jstl");
+		model.addAttribute("msg", "jstl");
 		return "/mnu/MenuInfo"; 
 	}
 
 	@RequestMapping("/AuthListSetMenu") 
 	public String AuthListSetMenu(Model model) {
-		model.addAttribute("msg", 			"jstl");
+		model.addAttribute("msg", "jstl");
 		return "/mnu/AuthListSetMenu"; 
 	}
 
 	@RequestMapping("/AuthGroupSetMenu") 
 	public String AuthGroupSetMenu(Model model) {
-		model.addAttribute("msg", 			"jstl");
+		model.addAttribute("msg", "jstl");
 		return "/mnu/AuthGroupSetMenu"; 
 	}
 
@@ -125,13 +124,14 @@ public class AuthPageController {
 	public String MakeMenu(Model model
 			, @RequestParam(value = "code") String code
 			, @RequestParam(value = "name") String name) {
-		model.addAttribute("msg", 			"jstl");
+		model.addAttribute("msg", "jstl");
 		return "/mnu/MakeMenu"; 
 	}
 	
 	@RequestMapping("/MakeMenuPop") 
 	public String MakeMenuPop(Model model) {
-		model.addAttribute("msg", 			"jstl");
+		model.addAttribute("msg", "jstl");
 		return "/mnu/MakeMenuPop"; 
 	}
+	
 }

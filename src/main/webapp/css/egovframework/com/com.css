@@ -1,14 +1,14 @@
 /*
   Css Name :com.css
-  Description :�⑤벏�꽰 CSS
+  Description :공통 CSS
   Modification Information
 
-      占쎈땾占쎌젟占쎌뵬                 占쎈땾占쎌젟占쎌쁽          占쎈땾占쎌젟占쎄땀占쎌뒠
+      수정일                 수정자          수정내용
    ----------    --------  ---------------------------
-   2016.06.08    占쎄퐣沃섏눘�겫          筌ㅼ뮇�겧 占쎄문占쎄쉐
-   2018.06.01    占쎌�占쎌겱占쎌뒭          �⑤벏�꽰�뚮똾猷뤄옙瑗놂옙�뱜 3.8 揶쏆뮇苑�
+   2016.06.08    서민영          최초 생성
+   2018.06.01    유현우          공통컴포넌트 3.8 개선
 
-    author   :�⑤벏�꽰�뚮똾猷뤄옙瑗놂옙�뱜 揶쏆뮆而삼옙占� 占쎄퐣沃섏눘�겫
+    author   :공통컴포넌트 개발팀 서민영
     since    :2016.06.08
 */
 @charset "utf-8";
@@ -19,15 +19,16 @@
 body{ 
 	/*margin-top:20px;*/ 
 	margin-left:10px;
+	margin-right:10px;
 	padding-top:0px;
 	padding-left:0px;
 	margin-bottom:0;
-	font-family:'占쎈즻占쏙옙', '�뤃���뵝', 'Arial', 'AppleGothic', 'sans-serif'; 
+	font-family:'돋움', '굴림', 'Arial', 'AppleGothic', 'sans-serif';  
 	font-size:12px;
 }
 
 div,table,em,h1,h2,h3,h4,h5,h6,form,fieldset,p,th,td,input,textarea,select,button { 
-	font-family:'占쎈즻占쏙옙', '�뤃���뵝', 'Arial', 'AppleGothic', 'sans-serif'; font-size:12px; color:#666; }
+	font-family:'돋움', '굴림', 'Arial', 'AppleGothic', 'sans-serif'; font-size:12px; color:#666; }
 
 fieldset, img { border:0; }
 textarea { width:100%; resize:none; }
@@ -175,7 +176,7 @@ input[type="radio"] { vertical-align:text-bottom; }
 .popwTable tbody td select { padding:2px 0 3px 2px; border:1px solid #dedede; }
 .popwTable tbody td img { margin-left:7px; }
 
-.board {position:relative; width:730px; padding-top:20px; }
+.board {position:relative; width:100%; padding-top:20px; padding-right:5px;}
 .board h1, 
 .board h2 {/*float:left;*/ color:#333; font-size:16px; font-weight:600; }
 .board h1 {margin-bottom:7px; padding:0 0 1px 25px; background:url(../../../images/egovframework/com/cmm/icon/tit_icon.png) no-repeat left 0px; }
@@ -214,7 +215,7 @@ input[type="radio"] { vertical-align:text-bottom; }
 font-size :17px;
 color :blue;
 text-align :center;
-font-family:'占쎈즻占쏙옙', '�뤃���뵝', 'Arial', 'AppleGothic', 'sans-serif'; 
+font-family:'돋움', '굴림', 'Arial', 'AppleGothic', 'sans-serif';  
 font-weight :bold;
 padding-bottom :12px;
 }
@@ -406,13 +407,13 @@ span.btn_s2 {display:inline-block !important; height:21px !important; margin-top
 span.btn_s2:hover { background:#7dabdf;}
 span.btn_s2 a {display:block !important; height:21px !important; color:#fff !important; line-height:21px !important; vertical-align:top !important; }
 
-/* 2018.01.25 EgovQustnrItemManageListPopup.jsp �꽴占쏙옙�졃 �빊遺쏙옙 */
+/* 2018.01.25 EgovQustnrItemManageListPopup.jsp 관련 추가 */
 span.btn_r { vertical-align:middle; padding:5px 1px 5px 1px; height:13px; margin:0px 0px 1px 0px; display:inline-block; background:#3d70b6; border-radius:0px; cursor:pointer; }
 span.btn_r:hover { background:#7dabdf;}
 span.btn_r a { vertical-align:text-top; color:#fff; display:block; line-height:16px; padding:0px 10px 0px 10px;}
 
 .btn { float:right; margin-top:18px; margin-bottom:15px; font-size:11px; }
-.btn input.s_submit {height:21px; padding:0 10px; border:0 !important; color:#fff; font-family:'占쎈즻占쏙옙', '�뤃���뵝', 'Arial', 'AppleGothic', 'sans-serif'; font-size:11px; font-weight:200; background:#4688d2; vertical-align:top; cursor:pointer; }
+.btn input.s_submit {height:21px; padding:0 10px; border:0 !important; color:#fff; font-family:'돋움', '굴림', 'Arial', 'AppleGothic', 'sans-serif'; font-size:11px; font-weight:200; background:#4688d2; vertical-align:top; cursor:pointer; }
 .btn input.s_submit:hover { background:#7dabdf; }
 
 .blog_title { border-bottom:1px solid #e3e3e3; padding-bottom:10px; }
@@ -450,7 +451,7 @@ cursor :pointer;
   border-radius:.15em;
 }
 
-.egov_file_box input[type="file"] {  /* 占쎈솁占쎌뵬 占쎈툡占쎈굡 占쎈떜疫꿸퀗由� */
+.egov_file_box input[type="file"] {  /* 파일 필드 숨기기 */
   position:absolute;
   width:1px;
   height:1px;
@@ -500,7 +501,7 @@ cursor :pointer;
 .tab01 ul li a {display:block; position:relative; top:-1px; height:14px; padding-top:14px; color:#393939; font-weight:bold; }
 .tab01 ul li a.on {background:url(../../../images/egovframework/com/cmm/bg_tab01_on.gif) no-repeat center top; }
 
-/* �뵳�딅뮞占쎈뱜 占쎈�믭옙�뵠�뇡占� */
+/* 리스트 테이블 */
 .table-line{table-layout:fixed; border-collapse:collapse; width:100%; }
 .table-line th{border-top:2px solid #d9d9d9; border-right:1px solid #a3a3a3; border-bottom:1px solid #a3a3a3; background:#e4eaf8; height:20px; padding:0; }
 .table-line td{padding:0; border-right:#d9d9d9 1px solid; border-bottom:#d9d9d9 1px solid; background:#f7f7f7; }

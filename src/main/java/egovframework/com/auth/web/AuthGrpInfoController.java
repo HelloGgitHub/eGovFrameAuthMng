@@ -111,9 +111,8 @@ public class AuthGrpInfoController {
 		try {
 			Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
 			sqlInpt.put("AUTHGRPCD", URLDecoder.decode(authGrpCd		,"UTF-8"));
-			
 			lst = authGrpService.selectAuthGrpDetail(sqlInpt);
-			if(rtnMap==null) {
+			if(lst.size() == 0) {
 				rtnMap = new HashMap<String, Object>();
 				rtnMap.put("RESULTCD", "1");
 				rtnMap.put("RESULTMSG", "대상건이 없습니다.");

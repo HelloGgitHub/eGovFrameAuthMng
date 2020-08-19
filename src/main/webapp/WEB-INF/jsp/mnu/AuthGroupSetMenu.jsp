@@ -35,7 +35,7 @@ function fn_Select(){
  	ihtml = ihtml + '<th class="board_th_link">권한 그룹명</th>';
  	ihtml = ihtml + '<th>권한 수</th>';
  	ihtml = ihtml + '<th>인원 수</th>';
- 	ihtml = ihtml + '<th>등록일</th>';
+ 	ihtml = ihtml + '<th>등록일시</th>';
  	ihtml = ihtml + '<th>메뉴등록</th>';
  	ihtml = ihtml + '</tr>';
  	ihtml = ihtml + '</thead>';

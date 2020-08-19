@@ -108,7 +108,6 @@
 	
 			var ihtml = '';
 			for(var i =0; arr.length > i; i++){	
-				console.log(arr[i].menu);
 				Tree[i] = arr[i].menu;
 			}
 			var mk = createTree(Tree);
@@ -300,8 +299,6 @@
 				<input class="s_btn" type="button" value='저장' 	title='저장' 	onclick="insertMenuList();" />
 				<input class="s_btn" type="button" value='수정' 	title='수정' 	onclick="updateMenuList();" />
 				<input class="s_btn" type="button" value='삭제' 	title='삭제' 	onclick="deleteMenuList();" />
-<!-- 				<span class="btn_b"><a href="#LINK" onclick="updateMenuList(); return false;" title='수정'>수정</a></span> -->
-<!-- 				<span class="btn_b"><a href="#LINK" onclick="deleteMenuList(); return false;" title='삭제'>삭제</a></span> -->
 			</li>
 		</ul>
 	</div>
@@ -353,15 +350,9 @@
 	
 			var ihtml = '';
 			for(var i =0; arr.length > i; i++){	
-				console.log(arr[i].menu);
 				Tree[i] = arr[i].menu;
 			}
 			var mk = createTree(Tree);
-// 			alert(mk);
-// 			var tree = document.getElementById("mkTree");
-// 	    	tree.insertAdjacentHTML = mk;
-// 	    	tree.insertAdjacentHTML('beforeend', mk);
-
 		}else{
 			alert("메뉴가 존재하지 않습니다. 메뉴 등록 후 사용하세요."); //메뉴가 존재하지 않습니다. 메뉴 등록 후 사용하세요.
 		}

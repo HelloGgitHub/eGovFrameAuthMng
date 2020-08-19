@@ -94,7 +94,7 @@ public class DataRunner implements ApplicationRunner {
         	comtnAuthorUsr.append("\n 	PRIMARY KEY (AUTHOR_CODE,USR_ID)   ");
         	comtnAuthorUsr.append("\n )                                    ");
         	statement.executeUpdate(comtnAuthorUsr.toString());
-        	String comtnAuthorUsrQry = "INSERT INTO COMTNAUTHORUSR (AUTHOR_CODE, USR_ID, AUTHOR_GRP_CODE, ADD_DT) VALUES ('AUTH001', 'TESTUSER', '', '"+sstime+"')";
+        	String comtnAuthorUsrQry = "INSERT INTO COMTNAUTHORUSR (AUTHOR_CODE, USR_ID, AUTHOR_GRP_CODE, ADD_DT) VALUES ('AUTH001', 'TESTUSER', 'AUTHGRP001', '"+sstime+"')";
         	jdbcTemplate.execute(comtnAuthorUsrQry);
         	
         	
@@ -127,7 +127,7 @@ public class DataRunner implements ApplicationRunner {
         	String comtnAuthorGroupAuthQry = "INSERT INTO COMTNAUTHORGROUPAUTH (AUTHOR_GRP_CODE, AUTHOR_CODE, ADD_DT) VALUES('AUTHGRP001', 'AUTH001', '"+sstime+"')"; 
         	jdbcTemplate.execute(comtnAuthorGroupAuthQry);
         	
-        	
+
         	StringBuffer comtnmenuinfo = new StringBuffer();
         	comtnmenuinfo.append("\n CREATE TABLE COMTNMENUINFO (                                        ");
         	comtnmenuinfo.append("\n   `MENU_NO` DECIMAL(20,0) NOT NULL COMMENT '메뉴번호',              ");
@@ -141,19 +141,17 @@ public class DataRunner implements ApplicationRunner {
         	comtnmenuinfo.append("\n   PRIMARY KEY (`MENU_NO`)                                           ");
         	comtnmenuinfo.append("\n )                                                                   ");
         	statement.executeUpdate(comtnmenuinfo.toString());
-        	
-        	
         	String comtnmenuinfo1  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('root', 'dir', 0, 0, 1, 'root', '/', '/')                                                  ";
         	String comtnmenuinfo2  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('로그인', 'Login', 1000000, 0, 1, '로그인', '/', '/')                                      ";
         	String comtnmenuinfo3  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한 관리', 'dir', 2000000, 0, 2, '권한 관리', '/', '/')                                  ";
-        	String comtnmenuinfo4  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한 등록', 'AuthInfo', 2010000, 2000000, 1, '권한 등록', '/', '/')                       ";
+        	String comtnmenuinfo4  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한 등록', 'AuthInfo?callType=c&authId=', 2010000, 2000000, 1, '권한 등록', '/', '/')                       ";
         	String comtnmenuinfo5  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한 목록 조회', 'AuthList', 2020000, 2000000, 2, '권한 목록 조회', '/', '/')             ";
-        	String comtnmenuinfo6  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한 사용자 등록', 'AuthInfoSetUsr', 2030000, 2000000, 3, '권한 사용자 등록', '/', '/')   ";
+        	String comtnmenuinfo6  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한 사용자 등록', 'AuthInfoSetUsr?callType=c&authId=', 2030000, 2000000, 3, '권한 사용자 등록', '/', '/')   ";
         	String comtnmenuinfo7  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한그룹 관리', 'dir', 3000000, 0, 3, '권한그룹 관리', '/', '/')                          ";
-        	String comtnmenuinfo8  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한그룹 등록', 'AuthGroupInfo', 3010000, 3000000, 1, '권한그룹 등록', '/', '/')               ";
+        	String comtnmenuinfo8  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한그룹 등록', 'AuthGroupInfo?callType=c&authGrpId=', 3010000, 3000000, 1, '권한그룹 등록', '/', '/')               ";
         	String comtnmenuinfo9  = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한그룹 목록 조회', 'AuthGrpList', 3020000, 3000000, 2, '권한그룹 목록 조회', '/', '/')     ";
-        	String comtnmenuinfo10 = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한그룹 권한 등록', 'AuthGrpDetailSetAth', 3030000, 3000000, 3, '권한그룹 권한 등록', '/', '/')     ";
-        	String comtnmenuinfo11 = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한그룹 사용자 등록', 'AuthGrpDetailSetUsr', 3040000, 3000000, 4, '권한그룹 사용자 등록', '/', '/') ";
+        	String comtnmenuinfo10 = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한그룹 권한 등록', 'AuthGrpDetailSetAth?callType=c&authGrpId=', 3030000, 3000000, 3, '권한그룹 권한 등록', '/', '/')     ";
+        	String comtnmenuinfo11 = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한그룹 사용자 등록', 'AuthGrpDetailSetUsr?callType=c&authGrpId=', 3040000, 3000000, 4, '권한그룹 사용자 등록', '/', '/') ";
         	String comtnmenuinfo12 = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한 메뉴 관리', 'dir', 4000000, 0, 4, '권한 메뉴 관리', '/', '/')                          ";
         	String comtnmenuinfo13 = "INSERT INTO COMTNMENUINFO (MENU_NM, PROGRM_FILE_NM, MENU_NO, UPPER_MENU_NO, MENU_ORDR, MENU_DC, RELATE_IMAGE_PATH, RELATE_IMAGE_NM) VALUES ('권한그룹 메뉴 등록', 'AuthGroupSetMenu', 4010000, 4000000, 1, '권한그룹 메뉴 등록', '/', '/')                                  ";
         	jdbcTemplate.execute(comtnmenuinfo1  );
@@ -183,8 +181,14 @@ public class DataRunner implements ApplicationRunner {
         	statement.executeUpdate(comtnmenucreatdtls.toString());
         	String comtnmenucreatdtls1  = "INSERT INTO COMTNMENUCREATDTLS (MENU_NO, AUTHOR_GRP_CODE) VALUES (1000000, 'AUTHGRP001')";
         	String comtnmenucreatdtls2  = "INSERT INTO COMTNMENUCREATDTLS (MENU_NO, AUTHOR_GRP_CODE) VALUES (2000000, 'AUTHGRP001')";
+        	String comtnmenucreatdtls3  = "INSERT INTO COMTNMENUCREATDTLS (MENU_NO, AUTHOR_GRP_CODE) VALUES (2020000, 'AUTHGRP001')";
+        	String comtnmenucreatdtls4  = "INSERT INTO COMTNMENUCREATDTLS (MENU_NO, AUTHOR_GRP_CODE) VALUES (4000000, 'AUTHGRP001')";
+        	String comtnmenucreatdtls5  = "INSERT INTO COMTNMENUCREATDTLS (MENU_NO, AUTHOR_GRP_CODE) VALUES (4010000, 'AUTHGRP001')";
         	jdbcTemplate.execute(comtnmenucreatdtls1);
         	jdbcTemplate.execute(comtnmenucreatdtls2);
+        	jdbcTemplate.execute(comtnmenucreatdtls3);
+        	jdbcTemplate.execute(comtnmenucreatdtls4);
+        	jdbcTemplate.execute(comtnmenucreatdtls5);
         	
         	
         	

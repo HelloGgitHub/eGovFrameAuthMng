@@ -13,7 +13,7 @@ spring:
   h2:
     console:
       enabled: true
-      path: /database
+      path: /db-console
 server:
   port: 9086
   task:

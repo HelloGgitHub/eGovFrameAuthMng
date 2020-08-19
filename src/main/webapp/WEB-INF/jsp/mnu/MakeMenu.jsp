@@ -105,8 +105,8 @@ function fMenuCreatSiteMap() {
 				<label for="">권한코드 : </label><!-- 권한코드 -->
 				<input class="s_input2 vat" name="authorCode" id="authorCode" type="hidden" value="" maxlength="30" title="권한코드" readonly="readonly" style="width:250px" /><!-- 권한코드 -->
 				<input class="s_input2 vat" name="authorNm" id="authorNm" type="text" value="" maxlength="30" title="권한명" readonly="readonly" style="width:250px" /><!-- 권한코드 -->
-				<span class="btn_b"><a href="#LINK" onclick="fInsertMenuCreat(); return false;" title="메뉴생성">메뉴생성</a></span><!-- 메뉴생성 -->
-				<input class="s_btn" type="button" value="사이트맵생성" title="사이트맵생성" onclick="fMenuCreatSiteMap(); return false;" />
+				<span class="btn_b"><a href="#LINK" onclick="fInsertMenuCreat(); return false;" title="메뉴등록">메뉴등록</a></span><!-- 메뉴등록 -->
+<!-- 				<input class="s_btn" type="button" value="사이트맵생성" title="사이트맵생성" onclick="fMenuCreatSiteMap(); return false;" /> -->
 			</li>
 		</ul>
 	</div>
@@ -152,7 +152,6 @@ function fMenuCreatSiteMap() {
 	
 </div>
 
-<!-- 개발로직 최종 테스트 후 아래 소스를 삭제해주세요 -->
 <div id="border" style="width:730px">
 <table border="0">
 	<tr>

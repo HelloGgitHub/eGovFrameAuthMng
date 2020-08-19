@@ -21,7 +21,7 @@ public class SwaggerConfiguration {
 	@Bean
     public Docket api() {
 	    version = "V1";
-	    title = "전자정부 클라우드 플랫폼 공통 API " + version;
+	    title = "권한관리 API 목록 " + version;
 		
         return new Docket(DocumentationType.SWAGGER_2)
         		.useDefaultResponseMessages(false)
@@ -38,7 +38,7 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo(String title, String version) {
         return new ApiInfo(
                 title,
-                "전자정보 클라우드 개발 환경[권한관리] API 테스트",
+                "권한관리 API 목록",
                 version,
                 null,
                 null,

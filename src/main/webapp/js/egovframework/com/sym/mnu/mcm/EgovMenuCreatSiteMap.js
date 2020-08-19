@@ -122,11 +122,11 @@ function addTreeNode(parentNode, recursedNodes) {
 			else recursedNodes.push(1);
 			vHtmlCode +="<img src='"+imgpath+"menu_empty.gif' border='0' align='absbottom' alt='' >";
 			if (hasChildNode){
-			    vHtmlCode +="+<img src='"+imgpath+"menu_empty.gif' border='0' align='absbottom' alt='' >";
+//			    vHtmlCode +="+<img src='"+imgpath+"menu_empty.gif' border='0' align='absbottom' alt='' >";
 			    vHtmlCode +="<font size=2><b>▶ "+nodeValues[2]+"</b></font><br> \n";
 
             }else{
-				vHtmlCode +="<img src='"+imgpath+"menu_empty.gif' border='0' align='absbottom' alt='' >";
+//				vHtmlCode +="<img src='"+imgpath+"menu_empty.gif' border='0' align='absbottom' alt='' >";
 				vHtmlCode +="<font size=2 class='.location'><a href=javascript:fCallUrl('" + getContextPath + nodeValues[4] + "');>― "+nodeValues[2]+"</a></font><br> \n";
             }
 			if (hasChildNode) {
@@ -138,7 +138,6 @@ function addTreeNode(parentNode, recursedNodes) {
 			   vHtmlCode +="<br> \n";
 		    }
 			recursedNodes.pop();
-
 		}
 	}
 }

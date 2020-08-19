@@ -1,70 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-	<title>로그인</title>
-	<%@ include file="/WEB-INF/jsp/cmm/head.jsp" %>
-	
-	<link type="text/css" rel="stylesheet" href="/css/egovframework/com/com.css">
-	<link type="text/css" rel="stylesheet" href="/css/egovframework/com/uat/uia/login.css">
+<head>
+<title>로그인</title>
+<%@ include file="/WEB-INF/jsp/cmm/head.jsp" %>
+
+<link type="text/css" rel="stylesheet" href="/css/egovframework/com/com.css">
+<link type="text/css" rel="stylesheet" href="/css/egovframework/com/uat/uia/login.css">
 
 
-	<script type="text/javaScript" language="javascript" defer="defer">
-		/*********************************************************
-		 * 초기화
-		 ******************************************************** */
-		$(document).ready(function(){
-			parent.parent.topFrame.document.all.infoImg.style.display = "none";
-			parent.parent.topFrame.document.all.lgnUserId.value= "";
-			parent.parent.topFrame.document.all.lgnMnt.value= "";
-		});
+<script type="text/javaScript" language="javascript" defer="defer">
+	/*********************************************************
+	 * 초기화
+	 ******************************************************** */
+	$(document).ready(function(){
+		parent.parent.topFrame.document.all.infoImg.style.display = "none";
+		parent.parent.topFrame.document.all.lgnUserId.value= "";
+		parent.parent.topFrame.document.all.lgnMnt.value= "";
+		parent.parent.topFrame.document.all.authorGrpCode.value= "";
+	});
 		
-		/*********************************************************
-		 * 로그인
-		 ******************************************************** */
-		function fn_login(){
-			var rtnData = new Object();
-			var userData = new Object();
-			
-			userData.usrId				=	$("#userId").val();
-			userData.password		=	$("#password").val();
+	/*********************************************************
+	 * 로그인
+	 *********************************************************/
+	function fn_login(){
+		var rtnData = new Object();
+		var userData = new Object();
+		
+		userData.usrId				=	$("#userId").val();
+		userData.password		=	$("#password").val();
 
-			//API호출
-			rtnData = fn_calApi("POST", "/auth/idpw", userData, false);
-			
-			if(rtnData.RESULTCD == 0){
+		//API호출
+		rtnData = fn_calApi("POST", "/auth/idpw", userData, false);
+		
+		if(rtnData.RESULTCD == 0){
 // 				parent.parent.topFrame.document.all.infoImg.style.display = "block";
-				parent.parent.topFrame.document.all.lgnUserId.value= rtnData.list.userId;
-				parent.parent.topFrame.document.all.lgnMnt.value= rtnData.list.userNm+" 님 환영합니다.";
-				parent.parent.topFrame.document.all.authorGrpCode.value= rtnData.list.authorGrpCode;
-				
-				alert(rtnData.list.userNm+" 님 환영합니다.");
-				window.parent.frames["left"].loginMenu();
-				fn_movelogin();
-			}else{
-				alert(rtnData.RESULTMSG);
-				return;
-			}
-		}
-	
-		function fn_movelogin(){
-			location.href="/AuthList";
-		}
-
-		function fn_arovRequest(){
-			location.href="/AuthInfo?callType=c&authId=";
-		}
-
-		function fn_test(){
-			window.parent.parent.frames["topFrame"].changePw();
-		}
-
-		function fn_test(){
+			parent.parent.topFrame.document.all.lgnUserId.value= rtnData.list.userId;
+			parent.parent.topFrame.document.all.lgnMnt.value= rtnData.list.userNm+" 님 환영합니다.";
+			parent.parent.topFrame.document.all.authorGrpCode.value= rtnData.list.authorGrpCode;
+			
+			alert(rtnData.list.userNm+" 님 환영합니다.");
 			window.parent.frames["left"].loginMenu();
+			fn_movelogin();
+		}else{
+			alert(rtnData.RESULTMSG);
+			return;
 		}
-	</script>
-	</head>
-<body style="/* display: table-row; *//* max-width: min-content; */inline-size: max-content;">
+	}
+
+	function fn_movelogin(){
+		location.href="/AuthList";
+	}
+
+</script>
+</head>
+<body style="inline-size: max-content;">
 
 <!-- javascript warning tag  -->
 <noscript class="noScriptTitle">자바스크립트를 지원하지 않는 브라우저에서는 일부 기능을 사용하실 수 없습니다.</noscript>
@@ -92,15 +82,6 @@
 				<li>
 					<input type="button" class="btn_login" value="로그인" onclick="fn_login()"> <!-- 로그인  -->
 				</li>
-				<li>
-					<input type="button" class="btn_login" value="TEST" onclick="fn_test()">
-				</li>
-<!-- 				<li> -->
-<!-- 					<ul class="btn_idpw" > -->
-<!-- 						<li><a href="#" onclick="fn_arovRequest()">회원가입</a></li> 회원가입  -->
-<!-- 						<li><a href="#" onclick="goFindId(); return false;">아이디/비밀번호 찾기</a></li> 아이디/비밀번호 찾기 -->
-<!-- 					</ul> -->
-<!-- 				</li> -->
 			</ul>
 		</div>
 	</fieldset>

@@ -36,7 +36,7 @@ function fn_Select(){
  	ihtml = ihtml + '<th class="board_th_link">권한명</th>';
  	ihtml = ihtml + '<th>보유인원 건수</th>';
  	ihtml = ihtml + '<th>권한그룹 등록건수</th>';
- 	ihtml = ihtml + '<th>등록일</th>';
+ 	ihtml = ihtml + '<th>등록일시</th>';
  	ihtml = ihtml + '</tr>';
  	ihtml = ihtml + '</thead>';
  	ihtml = ihtml + '<tbody class="ov">';
