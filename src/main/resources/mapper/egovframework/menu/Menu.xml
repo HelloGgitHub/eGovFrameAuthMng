@@ -14,27 +14,27 @@
 			     , '|',MENU_DC 
 			     , '|',RELATE_IMAGE_PATH
 			     , '|',RELATE_IMAGE_NM
-			     , '|',PROGRM_FILE_NM,'|')  AS menu
+			     , '|',PROGRM_FILE_NM,'|')  AS "menu"
 			  FROM COMTNMENUINFO
 			 WHERE MENU_NO <![CDATA[ <> ]]>0
     </select>
     
     <select id="selectMenuList" resultType="hashMap">
-			SELECT A.MENU_NO
-			     , A.UPPER_MENU_NO
-			     , A.MENU_NM
-			     , A.PROGRM_FILE_NM
-			     , A.MENU_NO
-			     , A.MENU_ORDR
-			     , A.MENU_NM
-			     , A.UPPER_MENU_NO
-			     , A.MENU_DC 
-			     , A.RELATE_IMAGE_PATH
-			     , A.RELATE_IMAGE_NM
-			     , A.PROGRM_FILE_NM
+			SELECT A.MENU_NO as "MENU_NO"
+			     , A.UPPER_MENU_NO as "upper_menu_no"
+			     , A.MENU_NM as "menu_nm"
+			     , A.PROGRM_FILE_NM as "progrm_file_nm"
+			     , A.MENU_NO as "menu_no"
+			     , A.MENU_ORDR as "menu_ordr"
+			     , A.MENU_NM as "menu_nm"
+			     , A.UPPER_MENU_NO as "upper_menu_no"
+			     , A.MENU_DC  as "menu_dc"
+			     , A.RELATE_IMAGE_PATH as "relate_image_path"
+			     , A.RELATE_IMAGE_NM as "relate_image_nm"
+			     , A.PROGRM_FILE_NM as "progrm_file_nm"
 			     , CASE WHEN B.MENU_NO > 0 THEN '1'
 			            ELSE '0'
-			        END AS YN
+			        END AS "yn"
 			  FROM COMTNMENUINFO A
 			  LEFT OUTER JOIN (SELECT MENU_NO, AUTHOR_GRP_CODE 
 			                     FROM COMTNMENUCREATDTLS 
@@ -44,7 +44,7 @@
     </select>
     
     <select id="selectMenuCnt" parameterType="Map" resultType="int">
-			SELECT COUNT(*) CNT
+			SELECT COUNT(*) as "cnt"
 			  FROM COMTNMENUINFO
 			 WHERE MENU_NO = ${MENU_NO}
     </select>

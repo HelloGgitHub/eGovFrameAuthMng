@@ -34,6 +34,8 @@
 			url="/swagger-ui.html#/";
 		} else if(cd == 99){
 			url="/db-console";
+		} else if(cd == 00){
+			url="/download/eGovFrameAuthMng.zip";
 		}
 		parent.body.location.href=url;
 	}
@@ -83,10 +85,10 @@
 		</div>
 	</div>
 	<br><br>
-	<br><span class="btn_b" style="font-size: 15px;font-style: inherit;font-weight: bold;">- API명세 및 DB콘솔</span>
+	<br><span class="btn_b" style="font-size: 15px;font-style: inherit;font-weight: bold;">- API명세 및 DB스키마</span>
 	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(88);" title="권한관리 API명세" style="font-size: 15px;font-style: inherit;font-weight: bold;">API 명세</a></span>
-	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(99);" title="권한관리 DB콘솔" style="font-size: 15px;font-style: inherit;font-weight: bold;">DB 콘솔</a></span>
-	
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(99);" title="권한관리 DB스키마" style="font-size: 15px;font-style: inherit;font-weight: bold;">DB 스키마</a></span>
+	<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn_b"><a href="" onClick="fn_leftMenu(00);" title="소스 다운로드" style="font-size: 15px;font-style: inherit;font-weight: bold;">소스 다운로드</a></span>
 </form>	
 </body>
 </html>

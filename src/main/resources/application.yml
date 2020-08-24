@@ -19,7 +19,9 @@ server:
   task:
     fixedDelay: 1000
     name: mariaTask
+
 ---
+
 logging:
   file: /home/vagrant/memberMng/log/egovGrpMng.log
 #    path: /home/vagrant/memberMng/log/egovGrpMng.log  # 로그 메세지가 저장되는 로그 디렉터리
@@ -28,25 +30,44 @@ logging:
   size: max-10MB
   level:
     egovframework: DEBUG
+
 ---
+
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   configuration:
     lazyLoadingEnabled: true
     aggressiveLazyLoading: false
     mapUnderscoreToCamelCase: true
+
 ---
+
 spring:
   profiles: h2 
   datasource:
     driver-class-name: org.h2.Driver  #h2 드라이버 설정
     url: jdbc:h2:mem:testdb;MODE=MySQL;DATABASE_TO_LOWER=TRUE
     username: SA
-#spring:
-#  profiles: maria 
-#  datasource:
-#    driver-class-name: org.mariadb.jdbc.Driver
-#    url: jdbc:mariadb://220.73.22.204:9606/EGOVCLDDEV
-#    url: jdbc:mariadb://10.182.164.67:3306/EGOVCLDDEV
-#    username: egovclddev
-#    password: Helloegov1!
+
+---
+
+spring:
+  profiles: maria 
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://192.168.33.20:3306/EGOVCLDDEV #local Vm
+    url: jdbc:mariadb://10.182.164.67:3306/EGOVCLDDEV  #개발
+#    url: jdbc:mariadb://220.73.22.204:9606/EGOVCLDDEV #개발(bastion) 
+    username: egovclddev
+    password: Helloegov1!
+  jpa:
+    hibernate:
+      ddl-auto: update
+      ddl: true
+      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+    show-sql: true
+---
+security:
+  user: admin
+  password: cb!234
+

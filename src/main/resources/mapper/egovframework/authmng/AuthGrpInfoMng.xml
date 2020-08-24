@@ -3,38 +3,38 @@
 <mapper namespace="egovframework.com.auth.dao.AuthGrpInfoDao">
 
     <select id="selectAuthGrpList" resultType="hashMap">
-			SELECT A.AUTHOR_GRP_CODE
-				 , A.AUTHOR_GRP_NM
-				 , A.AUTHOR_GRP_DC
-				 , A.AUTHOR_GRP_CREAT_DT
-				 , A.CHANGE_DT
+			SELECT A.AUTHOR_GRP_CODE as "author_grp_code"
+				 , A.AUTHOR_GRP_NM as "author_grp_nm"
+				 , A.AUTHOR_GRP_DC as "author_grp_dc"
+				 , A.AUTHOR_GRP_CREAT_DT as "author_grp_creat_dt"
+				 , A.CHANGE_DT as "change_dt"
 			     , ifnull((SELECT COUNT(*) CNT 
 					         FROM (SELECT AUTHOR_GRP_CODE 
                                      FROM COMTNAUTHORUSR 
                                     GROUP BY AUTHOR_GRP_CODE, USR_ID) AA 
-					        WHERE AA.AUTHOR_GRP_CODE = A.AUTHOR_GRP_CODE),0) AS USRCNT
+					        WHERE AA.AUTHOR_GRP_CODE = A.AUTHOR_GRP_CODE),0) as "usrcnt"
 			     , ifnull((SELECT COUNT(*) CNT 
 					         FROM (SELECT AUTHOR_GRP_CODE 
                                      FROM COMTNAUTHORGROUPAUTH 
                                     GROUP BY AUTHOR_GRP_CODE, AUTHOR_CODE) BB 
-					        WHERE BB.AUTHOR_GRP_CODE = A.AUTHOR_GRP_CODE),0) AS ATHCNT
+					        WHERE BB.AUTHOR_GRP_CODE = A.AUTHOR_GRP_CODE),0) as "athcnt"
 			  FROM COMTNAUTHORGROUPINFO A
     </select>
 
     
     <select id="selectAuthGrpDetail"  parameterType="Map" resultType="hashMap">
-			SELECT AUTHOR_GRP_CODE
-				, AUTHOR_GRP_NM
-				, AUTHOR_GRP_DC
-				, AUTHOR_GRP_CREAT_DT
-				, CHANGE_DT
+			SELECT AUTHOR_GRP_CODE as "author_grp_code"
+				, AUTHOR_GRP_NM as "author_grp_nm"
+				, AUTHOR_GRP_DC as "author_grp_dc"
+				, AUTHOR_GRP_CREAT_DT as "author_grp_creat_dt"
+				, CHANGE_DT as "change_dt"
 			  FROM COMTNAUTHORGROUPINFO
 			 WHERE AUTHOR_GRP_CODE = '${AUTHGRPCD}'
     </select>
 
 
     <select id="selectAuthGrpInfoCnt" parameterType="Map" resultType="int">
-			SELECT COUNT(*) CNT
+			SELECT COUNT(*) as "cnt"
 			  FROM COMTNAUTHORGROUPINFO
 			 WHERE AUTHOR_GRP_CODE = '${AUTHGRPCD}'
     </select>
@@ -78,11 +78,11 @@
 
 <!-- 권한 그룹 관리(권한)-->
     <select id="selectGrpAuthList"  parameterType="Map" resultType="hashMap">
-			SELECT A.AUTHOR_GRP_CODE 
-			     , A.AUTHOR_CODE 
-			     , A.ADD_DT
-			     , B.AUTHOR_NM 
-			     , B.AUTHOR_DC
+			SELECT A.AUTHOR_GRP_CODE as "author_grp_code"
+			     , A.AUTHOR_CODE as "author_code"
+			     , A.ADD_DT as "add_dt"
+			     , B.AUTHOR_NM as "author_nm"
+			     , B.AUTHOR_DC as "author_dc"
 			  FROM COMTNAUTHORGROUPAUTH A
 			  LEFT OUTER JOIN COMTNAUTHORINFO B
 			    ON (A.AUTHOR_CODE = B.AUTHOR_CODE )
@@ -91,7 +91,7 @@
 
 
 	<select id="selectGrpAuthCnt" parameterType="Map" resultType="int">
-			SELECT COUNT(*) CNT
+			SELECT COUNT(*) as "cnt"
 			  FROM COMTNAUTHORGROUPAUTH
 			 WHERE AUTHOR_GRP_CODE  = '${AUTHGRPCD}'
 			     AND AUTHOR_CODE  = '${AUTHCD}'
@@ -126,9 +126,9 @@
     
 <!-- 권한 그룹 관리(사용자) -->
     <select id="selectGrpAuthUsrList"  parameterType="Map" resultType="hashMap">
-			 SELECT a.USR_ID
-			      , a.ADD_DT
-			      , b. USR_NM
+			 SELECT a.USR_ID as "usr_id"
+			      , a.ADD_DT as "add_dt"
+			      , b. USR_NM as "usr_nm"
 			  FROM COMTNAUTHORUSR a
 			  LEFT OUTER JOIN
 			  COMTNUSERMNG b
@@ -139,7 +139,7 @@
 
 
     <select id="selectAuthGrpUsrCnt"  parameterType="Map" resultType="hashMap">
-			SELECT COUNT(*) CNT
+			SELECT COUNT(*) as "cnt"
 			  FROM COMTNAUTHORGROUPAUTH
 			 WHERE AUTHOR_GRP_CODE = '${AUTHGRPCD}'
     </select>

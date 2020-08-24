@@ -3,37 +3,37 @@
 <mapper namespace="egovframework.com.auth.dao.AuthInfoDao">
 
     <select id="selectAuthList" resultType="hashMap">
-			SELECT A.AUTHOR_CODE
-			     , A.AUTHOR_NM
-			     , A.AUTHOR_DC
-			     , A.AUTHOR_CREAT_DT
-			     , A.CHANGE_DT
+			SELECT A.AUTHOR_CODE as "author_code"
+			     , A.AUTHOR_NM as "author_nm"
+			     , A.AUTHOR_DC as "author_dc"
+			     , A.AUTHOR_CREAT_DT as "author_creat_dt"
+			     , A.CHANGE_DT as "change_dt"
 			     , IFNULL((SELECT COUNT(*) CNT
 					   	    FROM (SELECT AUTHOR_CODE 
 							        FROM COMTNAUTHORUSR 
 							       GROUP BY AUTHOR_CODE, USR_ID) AA
-						   WHERE AA.AUTHOR_CODE = A.AUTHOR_CODE), 0) AS USRCNT
+						   WHERE AA.AUTHOR_CODE = A.AUTHOR_CODE), 0) AS "usrcnt"
 			     , IFNULL((SELECT COUNT(*) CNT 
 					         FROM (SELECT AUTHOR_CODE 
 			                         FROM COMTNAUTHORGROUPAUTH 
 			                        GROUP BY AUTHOR_GRP_CODE, AUTHOR_CODE) BB 
-					        WHERE BB.AUTHOR_CODE = A.AUTHOR_CODE),0) AS GRPCNT
+					        WHERE BB.AUTHOR_CODE = A.AUTHOR_CODE),0) AS "grpcnt"
 			  FROM COMTNAUTHORINFO A
     </select>
     
     <select id="selectAuthDetail"  parameterType="Map" resultType="hashMap">
-			SELECT AUTHOR_CODE
-			     , AUTHOR_NM
-			     , AUTHOR_DC
-			     , AUTHOR_CREAT_DT
-			     , CHANGE_DT
+			SELECT AUTHOR_CODE as "author_code"
+			     , AUTHOR_NM as "author_nm"
+			     , AUTHOR_DC as "author_dc"
+			     , AUTHOR_CREAT_DT as "author_creat_dt"
+			     , CHANGE_DT as "change_dt"
 			  FROM COMTNAUTHORINFO
 			 WHERE AUTHOR_CODE = '${AUTHCD}'
     </select>
 
 
     <select id="selectAuthInfoCnt" parameterType="Map" resultType="int">
-			SELECT COUNT(*) CNT
+			SELECT COUNT(*) as "cnt"
 			  FROM COMTNAUTHORINFO
 			 WHERE AUTHOR_CODE = '${AUTHCD}'
     </select>
@@ -74,8 +74,8 @@
     
 <!-- 로그인관련     -->
     <select id="selectUserPwCk"  parameterType="Map" resultType="hashMap">
-			SELECT PASSWORD
-			     , USR_ID
+			SELECT PASSWORD as "password"
+			     , USR_ID as "usr_id"
 			  FROM COMTNUSERMNG
 			 WHERE USR_ID = '${USRID}'
     </select>

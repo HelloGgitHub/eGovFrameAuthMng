@@ -3,11 +3,11 @@
 <mapper namespace="egovframework.com.auth.dao.AuthUsrDao">
 
     <select id="selectAuthUsrList" parameterType="Map" resultType="hashMap">
-			SELECT a.AUTHOR_CODE 
-			     , a.USR_ID 
-			     , a.AUTHOR_GRP_CODE 
-			     , a.ADD_DT
-			     , b.USR_NM 
+			SELECT a.AUTHOR_CODE as "author_code"
+			     , a.USR_ID  as "usr_id"
+			     , a.AUTHOR_GRP_CODE  as "author_grp_code"
+			     , a.ADD_DT as "add_dt"
+			     , b.USR_NM  as "usr_nm"
 			  FROM COMTNAUTHORUSR a
 			  LEFT OUTER JOIN COMTNUSERMNG b
 			    on (a.USR_ID = b.USR_ID)
@@ -15,16 +15,16 @@
     </select>
 
     <select id="selectUsrAuthList" parameterType="Map" resultType="hashMap">
-			SELECT AUTHOR_CODE 
-			     , USR_ID 
-			     , AUTHOR_GRP_CODE 
-			     , ADD_DT
+			SELECT AUTHOR_CODE  as "author_code"
+			     , USR_ID  as "usr_id"
+			     , AUTHOR_GRP_CODE  as "author_grp_code"
+			     , ADD_DT as "add_dt"
 			  FROM COMTNAUTHORUSR
 			 WHERE USR_ID           = '${USR_ID}'
     </select>
     
     <select id="selectAuthUsrCnt" parameterType="Map" resultType="int">
-			SELECT COUNT(*) CNT
+			SELECT COUNT(*) as "cnt"
 			  FROM COMTNAUTHORUSR
 			 WHERE AUTHOR_CODE = '${AUTHCD}'
 			   AND USR_ID = '${USR_ID}'
